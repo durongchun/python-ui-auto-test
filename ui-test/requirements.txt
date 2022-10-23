@@ -1,0 +1,10 @@
+BeautifulReport==0.1.2
+ParamUnittest==0.2
+PyMySQL==0.9.3
+futures==3.1.1
+pip==10.0.1
+redis==3.3.11
+selenium==3.141.0
+setuptools==39.1.0
+tomorrow==0.2.4
+urllib3==1.25.7
