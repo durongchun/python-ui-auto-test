@@ -70,10 +70,5 @@ Scratches and Consoles
 8. 配置文件中可添加浏览器版本信息，目前是没有这项参数的。若添加了，之后再在 assembler 装载器中补全代码即可
 9. 其他......
 
-# 5.其他
-搭建过程中非常感谢李鹏飞大侠的技术支持！后续有问题请在如下途径私聊联系！
-- 框架作者：**abcnull**
-- csdn 博客：**https://blog.csdn.net/abcnull**
-- github：**https://github.com/abcnull**
-- e-mail：**abcnull@qq.com**
+
 

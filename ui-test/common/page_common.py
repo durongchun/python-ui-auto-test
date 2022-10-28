@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Author : abcnull
-# @Time : 2019/12/2 17:37
-# @E-Mail : abcnull@qq.com
-# @CSDN : abcnull
-# @GitHub : abcnull
+
 from telnetlib import EC
 
 from selenium.webdriver import ActionChains
@@ -196,11 +192,10 @@ class PageCommon(BrowserCommon):
 
     def page_has_loaded(self):
         # self.log.info("Checking if {} page is loaded.".format(self.driver.current_url))
-        page_state = self.driver.execute_script('return document.readyState;')
-        return page_state == 'complete'
-
-
-
+        for index in range(100):
+            page_state = self.driver.execute_script('return document.readyState;')
+            if page_state == 'complete':
+                break
 
     # # 鼠标移动点击机制
     def move_action(self, type, value):
@@ -229,3 +224,5 @@ class PageCommon(BrowserCommon):
             self.driver.find_element_by_name(value).is_selected()
         elif type == "link_text":
             self.driver.find_element_by_link_text(value).is_selected()
+
+    ############################## common method ##############################

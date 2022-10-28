@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Author : abcnull
-# @Time : 2019/12/2 17:37
-# @E-Mail : abcnull@qq.com
-# @CSDN : abcnull
-# @GitHub : abcnull
+
 
 import configparser
 import os

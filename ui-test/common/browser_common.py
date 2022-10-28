@@ -1,10 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# @Author : abcnull
-# @Time : 2019/12/2 17:37
-# @E-Mail : abcnull@qq.com
-# @CSDN : abcnull
-# @GitHub : abcnull
+
 
 import time
 
@@ -98,3 +93,10 @@ class BrowserCommon(object):
     # 执行 JS
     def execute_script(self, js, *args):
         self.driver.execute_script(js, *args)
+
+    def jump_to(self, url):
+        self.driver.get(url)
+        self.driver.implicitly_wait(100)
+
+
+

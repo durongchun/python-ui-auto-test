@@ -1,41 +1,30 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Author : abcnull
-# @Time : 2019/12/2 17:37
-# @E-Mail : abcnull@qq.com
-# @CSDN : abcnull
-# @GitHub : abcnull
 from aifc import Error
-from datetime import datetime
-
 import psycopg2 as psycopg2
-import pymysql as pymysql
-
-from util.config_reader import ConfigReader
 
 
 # PostgreSQL 连接工具
 class PostgreSQLTool:
-    # 初始化 postgresql 连接
+    # 初始化 postgresql 连接    
     def __init__(self):
         self.summary_date = None
         self.vars = {}
-        self.db_url = '38.88.127.10:43819'
-        self.db_port = 5432
-        self.db_name = 'ods'
-        self.db_user = 'ods'
-        self.db_passwd = 'zzz@1234'
+        # self.db_url = '127.0.0.1'
+        # self.db_port = 5432
+        # self.db_name = 'ods'
+        # self.db_user = 'ods'
+        # self.db_passwd = 'ods'
         self.connection = None
 
-        try:
-            self.connection = psycopg2.connect(user=self.db_user,
-                                               password=self.db_passwd,
-                                               host=self.db_url,
-                                               port=self.db_port,
-                                               database=self.db_name)
-
-        except (Exception, Error) as error:
-            print("Error while connecting to PostgreSQL", error)
+    # connect to db
+    def get_connection(self):
+        self.connection = psycopg2.connect(user='qauser',
+                                           password='oc575vtude',
+                                           host='23.16.247.137',
+                                           port=5432,
+                                           database='ods')
+        return self.connection
 
     # execute 任何操作
     def execute(self, sql):
@@ -62,53 +51,80 @@ class PostgreSQLTool:
         return format(ret)
 
     # write db
-    def write_to_db(self, data_tuple):
+    @staticmethod
+    def write_to_db(conn, data_tuple):
         try:
-            # insert data
-            cursor = self.connection.cursor()
+            # Connect to an existing database
+            # self.connection = psycopg2.connect(user='ods',
+            #                                    password='ods',
+            #                                    host='127.0.0.1',
+            #                                    port=5432,
+            #                                    database='ods')
+            #
+            cursor = conn.cursor()
 
-            # Executing a SQL query to insert data into  table
-            insert_query = """ INSERT INTO ods_inventory_summary (sku_id, product_id, product_name, active, 
-            pool, count, threshold, avail_qty,source,warehouse,product_size, vintage, summary_date, update_time) 
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT ON CONSTRAINT 
-            ods_stock_summary_unique DO NOTHING"""
+            cursor.execute("SELECT * from ods.ods_inventory_summary")  # Fetch result
+            record = cursor.fetchone()
+            print("查询记录= ", record, "\n")
+
+            insert_query = """INSERT INTO ods_inventory_summary (sku_id, product_id, product_name, active,
+                        pool, count, threshold, avail_qty,source,warehouse,product_size, vintage, summary_date, update_time)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
             cursor.execute(insert_query, data_tuple)
-            self.connection.commit()
+            conn.commit()
 
         except (Exception, Error) as error:
             print("Error while connecting to PostgreSQL", error)
-
         finally:
-            if self.connection and cursor:
+            if conn and cursor:
+                cursor.close()
+                # self.connection.close()
+                print("PostgreSQL cursor is closed")
+
+    # write_to_db_stock_quantity
+    @staticmethod
+    def write_to_db_stock_quantity(conn, data_tuple):
+        try:
+            cursor = conn.cursor()
+            insert_query = """INSERT INTO public.ods_stock_quant("source", product_code, product_name, product_id,
+             company_name, location_name, warehouse_name, lot_serial, summary_date, quantity, 
+             reserved_quantity)                        
+             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+            cursor.executemany(insert_query, data_tuple)
+            conn.commit()
+
+        except (Exception, Error) as error:
+            print("Error while connecting to PostgreSQL", error)
+        finally:
+            if conn and cursor:
                 cursor.close()
 
     # clean table
-    def clear_summary_of_same_date(self, summary_date, source):
-        self.summary_date = datetime.datetime.now().date()
+    @staticmethod
+    def clear_ods_data(cursor, conn):
         try:
-            cursor = self.connection.cursor()
-
             # Executing a SQL query to delete data
-            insert_query = """ DELETE FROM ods_inventory_summary where source = %s and summary_date = %s"""
-            cursor.execute(insert_query, (source, summary_date))
-            self.connection.commit()
+            # cursor = conn.cursor
+            insert_query = """ DELETE FROM public.ods_stock_quant """
+            cursor.execute(insert_query)
+            conn.commit()
 
         except (Exception, Error) as error:
             print("Error while connecting to PostgreSQL", error)
-
         finally:
-            if self.connection and cursor:
+            if conn and cursor:
                 cursor.close()
+        #         # self.conn.close()
+        #         print("PostgreSQL connection is closed")
 
     # 获取 PostgreSQL 连接
-    def get_mysql_conn(self):
-        return self.self.connection
+    def get_postgresql_conn(self):
+        return self.connection
 
     # PostgreSQL 连接释放
-    def release_mysql_conn(self):
-        if self.connection:
-            self.connection.close()
+    @staticmethod
+    def release_postgresql_conn(conn, cursor):
+        if conn and cursor:
+            cursor.close()
+            conn.close()
             print("PostgreSQL connection is closed")
-
-        self.driver.close()
-        self.driver.quit()

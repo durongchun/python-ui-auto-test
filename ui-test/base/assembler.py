@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Author : abcnull
-# @Time : 2019/12/2 17:37
-# @E-Mail : abcnull@qq.com
-# @CSDN : abcnull
-# @GitHub : abcnull
+
 
 import os
 import threading
@@ -13,10 +9,11 @@ from util.config_reader import ConfigReader
 from util.mysql_tool import MysqlTool
 from util.redis_pool import RedisPool
 from util.thread_local_storage import ThreadLocalStorage
-from selenium.webdriver.chrome.webdriver import RemoteWebDriver
+import selenium.webdriver.chrome.webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.ie.options import Options as IeOptions
+from selenium.webdriver.firefox.options import Options
 
 
 # 初始装配工具（一个线程分配一个驱动，一个 redis 连接，一个 mysql 连接）
@@ -51,9 +48,9 @@ class Assembler:
         # 卸下驱动
         self.disassemble_driver()
         # 卸下 redis 连接池工具
-        self.disassemble_redis()
+        # self.disassemble_redis()
         # 卸下 mysql 工具
-        self.disassemble_mysql()
+        # self.disassemble_mysql()
         # 删除当前线程存储的 {当前线程: 装配器} 键值对
         ThreadLocalStorage.clear_current_thread()
 
@@ -90,9 +87,9 @@ class Assembler:
         # 若是火狐驱动
         elif ConfigReader().read("project")["driver"].lower() == "firefox":
             # firefox option
-            firefox_options = FirefoxOptions()
+            options = Options()
             # 服务端 root 用户不能直接运行 chrome，添加此参数可以运行
-            firefox_options.add_argument('--no-sandbox')
+            options.add_argument('--no-sandbox')
             # 驱动路径
             executable_path = os.path.abspath(os.path.dirname(__file__))[
                               :os.path.abspath(os.path.dirname(__file__)).find("python-ui-auto-test") + len(
@@ -103,7 +100,7 @@ class Assembler:
                        :os.path.abspath(os.path.dirname(__file__)).find("python-ui-auto-test") + len(
                            "python-ui-auto-test")] + "/ui-test" + ConfigReader().read("log")["logfile_path"]
             self.driver = webdriver.Firefox(executable_path=executable_path, log_path=log_path + "geckodriver.log",
-                                            firefox_options=firefox_options)
+                                            firefox_options=options)
 
         # 若是 IE 驱动
         elif ConfigReader().read("project")["driver"].lower() == "ie":
@@ -149,8 +146,8 @@ class Assembler:
     # 卸下驱动
     def disassemble_driver(self):
         if self.driver is not None:
+            self.driver.close()
             self.driver.quit()
-            self.driver = None
 
     # 获取驱动
     def get_driver(self):
