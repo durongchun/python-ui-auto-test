@@ -14,3 +14,6 @@ class WineDirectLocator:
     store = "//*[text()=' Store']"
     inventory_link = "//body/div[@id='subNavigation']/div[1]/ul[1]/li[3]/a[1]"
     next_link = "//*[contains(text(),'Next')]"
+
+    client_resources = "li:nth-child(6) > h1"
+    online_tools = "Online Tools"

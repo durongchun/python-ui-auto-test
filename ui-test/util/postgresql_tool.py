@@ -23,62 +23,27 @@ class PostgreSQLTool:
                                            password='oc575vtude',
                                            host='23.16.247.137',
                                            port=5432,
-                                           database='ods')
+                                           database='stagingods')
         return self.connection
-
-    # execute 任何操作
-    def execute(self, sql):
-        """
-        执行 sql 语句
-        :param sql: sql 语句
-        :return: select 语句返回
-        """
-        # 从 postgresql 连接中获取一个游标对象
-        cursor = self.connection.cursor()
-        # sql 语句执行返回值
-        ret = None
-        try:
-            # 执行 sql 语句
-            ret = cursor.execute(sql)
-            # 提交
-            self.connection.commit()
-        except Exception as e:
-            # 异常回滚数据
-            self.connection.rollback()
-        # 关闭游标
-        cursor.close()
-        # 返回
-        return format(ret)
 
     # write db
     @staticmethod
     def write_to_db(conn, data_tuple):
-        try:
-            # Connect to an existing database
-            # self.connection = psycopg2.connect(user='ods',
-            #                                    password='ods',
-            #                                    host='127.0.0.1',
-            #                                    port=5432,
-            #                                    database='ods')
-            #
+        try:  #
             cursor = conn.cursor()
-
-            cursor.execute("SELECT * from ods.ods_inventory_summary")  # Fetch result
-            record = cursor.fetchone()
-            print("查询记录= ", record, "\n")
-
+            # cursor.execute("SELECT * from public.ods_stock_quant")  # Fetch result
+            # record = cursor.fetchone()
+            # print("查询记录= ", record, "\n")
             insert_query = """INSERT INTO ods_inventory_summary (sku_id, product_id, product_name, active,
                         pool, count, threshold, avail_qty,source,warehouse,product_size, vintage, summary_date, update_time)
                         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
             cursor.execute(insert_query, data_tuple)
             conn.commit()
-
         except (Exception, Error) as error:
             print("Error while connecting to PostgreSQL", error)
         finally:
             if conn and cursor:
                 cursor.close()
-                # self.connection.close()
                 print("PostgreSQL cursor is closed")
 
     # write_to_db_stock_quantity
@@ -99,13 +64,12 @@ class PostgreSQLTool:
             if conn and cursor:
                 cursor.close()
 
-    # clean table
+    # clean CW MTB data
     @staticmethod
-    def clear_ods_data(cursor, conn):
+    def clear_cw_mtb_data(cursor, conn):
         try:
             # Executing a SQL query to delete data
-            # cursor = conn.cursor
-            insert_query = """ DELETE FROM public.ods_stock_quant """
+            insert_query = """ DELETE FROM public.ods_stock_quant WHERE company_name = 'CW-MtB'  """
             cursor.execute(insert_query)
             conn.commit()
 
@@ -116,6 +80,38 @@ class PostgreSQLTool:
                 cursor.close()
         #         # self.conn.close()
         #         print("PostgreSQL connection is closed")
+
+    # clean CW Rust data
+    @staticmethod
+    def clear_cw_rust_data(cursor, conn):
+        try:
+            # Executing a SQL query to delete data
+            insert_query = """ DELETE FROM public.ods_stock_quant WHERE company_name = 'CW-Rust'  """
+            cursor.execute(insert_query)
+            conn.commit()
+
+        except (Exception, Error) as error:
+            print("Error while connecting to PostgreSQL", error)
+        finally:
+            if conn and cursor:
+                cursor.close()
+        #         # self.conn.close()
+        #         print("PostgreSQL connection is closed")
+
+    # clean DW data
+    @staticmethod
+    def clear_wd_data(cursor, conn):
+        try:
+            # Executing a SQL query to delete data
+            insert_query = """ DELETE FROM public.ods_stock_quant WHERE source = 'WD'"""
+            cursor.execute(insert_query)
+            conn.commit()
+
+        except (Exception, Error) as error:
+            print("Error while connecting to PostgreSQL", error)
+        finally:
+            if conn and cursor:
+                cursor.close()
 
     # 获取 PostgreSQL 连接
     def get_postgresql_conn(self):

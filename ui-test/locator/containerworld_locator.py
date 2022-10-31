@@ -10,11 +10,12 @@ class ContainerWorldMainLocator:
     login_btn = "logon_button"
 
     # dropdown list
-    client_resources = "#t1_private_menu_text"
+    client_resources = "li:nth-child(6) > h1"
     menu_list = "menuList"
     online_tools = "Online Tools"
 
     pds = "//div[@id='accordion']/h3[3]"
 
     download_file = "//img[@name='download_file']"
-
+    rust_wine_co = "//div[contains(text(),'RUST WINE CO')]"
+    download_complete = "//html/body/center/h1[1]"

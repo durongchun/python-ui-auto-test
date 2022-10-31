@@ -3,9 +3,6 @@ import datetime
 from typing import List, AnyStr
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
-
 from common.page_common import PageCommon
 from util.postgresql_tool import PostgreSQLTool
 from winedirect_data import WineDirectData
@@ -42,9 +39,9 @@ class WineDirectPage(PageCommon):
     def select_inventory(self):
         ActionChains(self.driver).move_to_element(self.driver.find_element(By.XPATH, WineDirectLocator.inventory_link)) \
             .click_and_hold().perform()
-        self.driver.find_element(By.CSS_SELECTOR, "li:nth-child(6) > h1").click()
+        self.driver.find_element(By.CSS_SELECTOR, WineDirectLocator.client_resources).click()
         self.driver.implicitly_wait(3)
-        self.driver.find_element(By.LINK_TEXT, "Online Tools").click()
+        self.driver.find_element(By.LINK_TEXT, WineDirectLocator.online_tools).click()
 
     # request inventory page
     def get_inventory_data(self):
@@ -52,7 +49,7 @@ class WineDirectPage(PageCommon):
         self.summary_date = datetime.datetime.now().date()
         conn = PostgreSQLTool.get_connection(self)
         cursor = conn.cursor()
-        PostgreSQLTool.clear_ods_data(cursor, conn)
+        PostgreSQLTool.clear_wd_data(cursor, conn)
 
         for index in range(1, 130):
             df = pd.read_html(self.driver.page_source, attrs={'class': 'table table-hover table-striped'})
@@ -99,8 +96,9 @@ class WineDirectPage(PageCommon):
                 active = "Yes"
                 pool = ("%s" % cols[3]).strip().replace(',', '')
 
-                cars = ['WineDirect', sku_id, product_name, product_id, '', pool, '', '', summary_date, count, 0]
-                print("line data " + sku_id + product_name + product_id + pool)
-                item_tuple.append(cars)
+                inventory_datas = ['WD', sku_id.lstrip('0'), product_name, product_id.lstrip('0'), '', pool,
+                                   'N/A', 'N/A', summary_date, count, 0]
+                # print("line data product name = " + product_name)
+                item_tuple.append(inventory_datas)
 
             PostgreSQLTool.write_to_db_stock_quantity(conn, item_tuple)

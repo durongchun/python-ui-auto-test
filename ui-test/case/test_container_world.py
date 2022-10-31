@@ -3,6 +3,8 @@ import unittest
 import paramunittest
 from BeautifulReport import BeautifulReport
 from base.assembler import Assembler
+from containerworld_data import ContainerWorldMainData
+from containerworld_locator import ContainerWorldMainLocator
 from containerworld_page import ContainerWorldMainPage
 from util.log_tool import start_info, end_info, log
 from util.screenshot_tool import ScreenshotTool
@@ -44,8 +46,7 @@ class TestContainerWorld(unittest.TestCase):
         self.assembler.disassemble_all()
 
     # 第一个测试点
-    # @BeautifulReport.add_test_img(ScreenshotTool().get_img_name("../../report/img/test_1_TestOds"))
-    def test_container_world(self):
+    def test_container_world_mtb(self):
         # log 信息
         log().info(f"Container World第一个用例，环境" + self.env + "语言" + self.lan)
         # 初始化
@@ -54,7 +55,7 @@ class TestContainerWorld(unittest.TestCase):
         main_page = ContainerWorldMainPage(self.driver)
         main_page.jump_to()
         # 首页login
-        main_page.login()
+        main_page.login(ContainerWorldMainData.user, ContainerWorldMainData.passwd)
         # select 'online tool'
         main_page.select_online_tools()
         # select PDS Product Inventory by SKU
@@ -64,9 +65,31 @@ class TestContainerWorld(unittest.TestCase):
 
         # 强行截图
         ScreenshotTool().save_img(self.driver, "force_test_1_TestOds")
-
         # 释放
         self.after_tearDown()
+
+    # 第二个测试点
+    # def test_container_world_rust(self):
+    #     # log 信息
+    #     log().info(f"Container World第一个用例，环境" + self.env + "语言" + self.lan)
+    #     # 初始化
+    #     self.before_setUp()
+    #     # 开启ContainerWorld首页
+    #     main_page = ContainerWorldMainPage(self.driver)
+    #     main_page.jump_to()
+    #     # 首页login
+    #     main_page.login(ContainerWorldMainData.user2, ContainerWorldMainData.passwd2)
+    #     # select 'online tool'
+    #     main_page.select_online_tools()
+    #     # select PDS Product Inventory by SKU
+    #     main_page.select_pds_product_available_inquiry()
+    #     # select warehouse
+    #     main_page.select_warehouse()
+    #
+    #     # 强行截图
+    #     ScreenshotTool().save_img(self.driver, "force_test_2_TestOds")
+    #     # 释放
+    #     self.after_tearDown()
 
 
 # 当前用例程序入口

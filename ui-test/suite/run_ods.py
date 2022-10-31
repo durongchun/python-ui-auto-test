@@ -21,7 +21,7 @@ if __name__ == "__main__":
     loader = unittest.TestLoader()
 
     # ods测试流程添加到测试套
-    # suites.addTests(loader.loadTestsFromModule(test_container_world))
+    suites.addTests(loader.loadTestsFromModule(test_container_world))
     suites.addTests(loader.loadTestsFromModule(test_wine_direct))
 
     # 报告生成器，运行用例并生成报告，对 BeautifulReport 套了一层外壳
