@@ -181,7 +181,7 @@ class ContainerWorldMainPage(PageCommon):
                 company_name = 'CW-' + ContainerWorldMainData.company
 
                 inventory_datas = ['CW', sku_num.lstrip('0'), product_name, product_id.lstrip('0'), company_name,
-                                   warehouse, 'N/A', 'N/A',
+                                   warehouse, 'NA',
                                    summary_date,
                                    count, 0]
                 print("line data product name=" + product_name + "  sku_id=" + sku_num + "   location" + warehouse +
@@ -228,7 +228,7 @@ class ContainerWorldMainPage(PageCommon):
                 company_name = 'CW-' + ContainerWorldMainData.company2
 
                 inventory_datas = ['CW', sku_id.lstrip('0'), product_name, product_id.lstrip('0'), company_name,
-                                   warehouse, 'N/A', 'N/A',
+                                   warehouse, 'NA',
                                    summary_date,
                                    count, 0, po_doc_num]
                 item_tuple.append(inventory_datas)
