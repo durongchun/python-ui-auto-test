@@ -46,15 +46,33 @@ class PostgreSQLTool:
                 cursor.close()
                 print("PostgreSQL cursor is closed")
 
-    # write_to_db_stock_quantity
+    # write_to_db_stock_quantity for Rust
+    @staticmethod
+    def write_to_db_stock_quantity_rust(conn, data_tuple):
+        try:
+            cursor = conn.cursor()
+            insert_query = """INSERT INTO public.ods_stock_quant("source", product_code, product_name, product_id,
+             company_name, location_name, warehouse_name, lot_serial, summary_date, quantity, 
+             reserved_quantity, po_doc_num)                        
+             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+            cursor.executemany(insert_query, data_tuple)
+            conn.commit()
+
+        except (Exception, Error) as error:
+            print("Error while connecting to PostgreSQL", error)
+        finally:
+            if conn and cursor:
+                cursor.close()
+        # write_to_db_stock_quantity for Rust
+
     @staticmethod
     def write_to_db_stock_quantity(conn, data_tuple):
         try:
             cursor = conn.cursor()
             insert_query = """INSERT INTO public.ods_stock_quant("source", product_code, product_name, product_id,
-             company_name, location_name, warehouse_name, lot_serial, summary_date, quantity, 
-             reserved_quantity)                        
-             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                company_name, location_name, warehouse_name, lot_serial, summary_date, quantity, 
+                reserved_quantity)                        
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
             cursor.executemany(insert_query, data_tuple)
             conn.commit()
 

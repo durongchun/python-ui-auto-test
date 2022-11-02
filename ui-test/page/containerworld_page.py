@@ -142,7 +142,7 @@ class ContainerWorldMainPage(PageCommon):
                     (By.XPATH, ContainerWorldMainLocator.rust_wine_co)))
 
         except TimeoutException as ex:
-            print("Exception has been thrown. " + str(ex))
+            # print("Exception has been thrown. " + str(ex))
             return False
         else:
             return True
@@ -212,6 +212,7 @@ class ContainerWorldMainPage(PageCommon):
                 product_name = ("%s" % cols[1]).strip()
                 sku_id = ("%s" % cols[0]).strip()
                 product_id = sku_id
+                po_doc_num = ("%s" % cols[3]).strip()
 
                 if len(vintage) > 1:
                     if vintage.isdigit() and len(vintage) == 4:
@@ -229,10 +230,10 @@ class ContainerWorldMainPage(PageCommon):
                 inventory_datas = ['CW', sku_id.lstrip('0'), product_name, product_id.lstrip('0'), company_name,
                                    warehouse, 'N/A', 'N/A',
                                    summary_date,
-                                   count, 0]
+                                   count, 0, po_doc_num]
                 item_tuple.append(inventory_datas)
 
-            PostgreSQLTool.write_to_db_stock_quantity(conn, item_tuple)
+            PostgreSQLTool.write_to_db_stock_quantity_rust(conn, item_tuple)
 
             f.close()
         else:
