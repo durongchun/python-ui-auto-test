@@ -47,7 +47,7 @@ class WineDirectPage(PageCommon):
     def get_inventory_data(self):
         self.driver.get(WineDirectData.inventory_url)
         self.summary_date = datetime.datetime.now().date()
-        conn = PostgreSQLTool.get_connection(self)
+        conn = PostgreSQLTool.get_connection_staging_db(self)
         cursor = conn.cursor()
         PostgreSQLTool.clear_wd_data(cursor, conn)
 
@@ -96,7 +96,7 @@ class WineDirectPage(PageCommon):
                 active = "Yes"
                 pool = ("%s" % cols[3]).strip().replace(',', '')
 
-                inventory_datas = ['WD', sku_id.lstrip('0'), product_name, product_id.lstrip('0'), '', pool,
+                inventory_datas = ['WineDirect', sku_id.lstrip('0'), product_name, product_id.lstrip('0'), '', pool,
                                    'NA',  summary_date, count, 0]
                 # print("line data product name = " + product_name)
                 item_tuple.append(inventory_datas)

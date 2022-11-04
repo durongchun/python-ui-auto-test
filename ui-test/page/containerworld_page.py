@@ -1,7 +1,6 @@
 import os
 import time
 import datetime
-from aifc import Error
 from typing import List, AnyStr
 
 from selenium.common import NoSuchElementException, TimeoutException
@@ -71,7 +70,7 @@ class ContainerWorldMainPage(PageCommon):
         self.download_dir = os.path.expanduser("~") + "/Downloads/"
         self.download_file = "rwservlet.csv"
         self.summary_date = datetime.datetime.now().date()
-        conn = PostgreSQLTool.get_connection(self)
+        conn = PostgreSQLTool.get_connection_staging_db(self)
         cursor = conn.cursor()
         if self.is_rust_existing():
             PostgreSQLTool.clear_cw_rust_data(cursor, conn)
@@ -180,7 +179,7 @@ class ContainerWorldMainPage(PageCommon):
 
                 company_name = 'CW-' + ContainerWorldMainData.company
 
-                inventory_datas = ['CW', sku_num.lstrip('0'), product_name, product_id.lstrip('0'), company_name,
+                inventory_datas = ['ContainerWorld_MtB', sku_num.lstrip('0'), product_name, product_id.lstrip('0'), company_name,
                                    warehouse, 'NA',
                                    summary_date,
                                    count, 0]
@@ -227,7 +226,7 @@ class ContainerWorldMainPage(PageCommon):
                 prod_size = ""  # size
                 company_name = 'CW-' + ContainerWorldMainData.company2
 
-                inventory_datas = ['CW', sku_id.lstrip('0'), product_name, product_id.lstrip('0'), company_name,
+                inventory_datas = ['ContainerWorld_Rust', sku_id.lstrip('0'), product_name, product_id.lstrip('0'), company_name,
                                    warehouse, 'NA',
                                    summary_date,
                                    count, 0, po_doc_num]

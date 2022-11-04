@@ -9,9 +9,7 @@ from util.config_reader import ConfigReader
 from util.mysql_tool import MysqlTool
 from util.redis_pool import RedisPool
 from util.thread_local_storage import ThreadLocalStorage
-import selenium.webdriver.chrome.webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
-from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.ie.options import Options as IeOptions
 from selenium.webdriver.firefox.options import Options
 
@@ -129,9 +127,6 @@ class Assembler:
                                   "python-ui-auto-test")] + "/ui-test" + ConfigReader().read("driver")[
                                   "opera_driver_path"]
             self.driver = webdriver.Opera(executable_path=executable_path)
-
-
-
 
 
         # 若是 Safari 驱动

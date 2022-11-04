@@ -97,6 +97,3 @@ class BrowserCommon(object):
     def jump_to(self, url):
         self.driver.get(url)
         self.driver.implicitly_wait(100)
-
-
-

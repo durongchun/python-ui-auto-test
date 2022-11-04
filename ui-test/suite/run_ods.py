@@ -3,6 +3,7 @@ import unittest
 
 import test_container_world
 import test_mobile_andriod
+import test_sync_data
 import test_wine_direct
 from case import test_baidu_case, test_csdn_case
 from util.config_reader import ConfigReader
@@ -24,7 +25,7 @@ if __name__ == "__main__":
     # ods测试流程添加到测试套
     suites.addTests(loader.loadTestsFromModule(test_container_world))
     suites.addTests(loader.loadTestsFromModule(test_wine_direct))
-    # suites.addTests(loader.loadTestsFromModule(test_mobile_andriod))
+    suites.addTests(loader.loadTestsFromModule(test_sync_data))
 
     # 报告生成器，运行用例并生成报告，对 BeautifulReport 套了一层外壳
     ReportTool(suites).run(filename=report_name, description='demo', report_dir=report_path, theme="theme_cyan")

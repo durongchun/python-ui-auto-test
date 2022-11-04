@@ -1,10 +1,8 @@
 import time
 import unittest
 import paramunittest
-from BeautifulReport import BeautifulReport
 from base.assembler import Assembler
 from containerworld_data import ContainerWorldMainData
-from containerworld_locator import ContainerWorldMainLocator
 from containerworld_page import ContainerWorldMainPage
 from util.log_tool import start_info, end_info, log
 from util.screenshot_tool import ScreenshotTool

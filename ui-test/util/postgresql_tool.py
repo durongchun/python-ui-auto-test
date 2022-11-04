@@ -17,8 +17,8 @@ class PostgreSQLTool:
         # self.db_passwd = 'ods'
         self.connection = None
 
-    # connect to db
-    def get_connection(self):
+    # connect to staging ods db
+    def get_connection_staging_db(self):
         self.connection = psycopg2.connect(user='qauser',
                                            password='oc575vtude',
                                            host='23.16.247.137',
@@ -26,9 +26,18 @@ class PostgreSQLTool:
                                            database='stagingods')
         return self.connection
 
+    # connect to ods db
+    def get_connection_db(self):
+        self.connection = psycopg2.connect(user='qauser',
+                                           password='oc575vtude',
+                                           host='23.16.247.137',
+                                           port=5432,
+                                           database='ods')
+        return self.connection
+
     # write db
     @staticmethod
-    def write_to_db(conn, data_tuple):
+    def write_to_db_staging_ods(conn, data_tuple):
         try:  #
             cursor = conn.cursor()
             # cursor.execute("SELECT * from public.ods_stock_quant")  # Fetch result
@@ -63,8 +72,8 @@ class PostgreSQLTool:
         finally:
             if conn and cursor:
                 cursor.close()
-        # write_to_db_stock_quantity for Rust
 
+    # write_to_db_stock_quantity for Rust
     @staticmethod
     def write_to_db_stock_quantity(conn, data_tuple):
         try:
@@ -81,6 +90,27 @@ class PostgreSQLTool:
         finally:
             if conn and cursor:
                 cursor.close()
+
+    # write to live ods db
+    @staticmethod
+    def write_to_db_ods(conn):
+        try:
+            cursor = conn.cursor()
+            insert_query = """ INSERT INTO public.ods_stock_quant("source", product_code, product_name, product_id,
+                   company_name, location_name, warehouse_name, lot_serial, summary_date, quantity, 
+                   reserved_quantity)                        
+                   SELECT * From public.ods_stock_quant_view """
+            update_query = """ UPDATE public.ods_stock_quant set sync_date = CURRENT_DATE """
+            cursor.execute(insert_query)
+            cursor.execute(update_query)
+            conn.commit()
+
+        except (Exception, Error) as error:
+            print("Error while connecting to PostgreSQL", error)
+        finally:
+            if conn and cursor:
+                cursor.close()
+                conn.close()
 
     # clean CW MTB data
     @staticmethod
@@ -121,7 +151,23 @@ class PostgreSQLTool:
     def clear_wd_data(cursor, conn):
         try:
             # Executing a SQL query to delete data
-            insert_query = """ DELETE FROM public.ods_stock_quant WHERE source = 'WD'"""
+            insert_query = """ DELETE FROM public.ods_stock_quant WHERE source = 'WineDirect'"""
+            cursor.execute(insert_query)
+            conn.commit()
+
+        except (Exception, Error) as error:
+            print("Error while connecting to PostgreSQL", error)
+        finally:
+            if conn and cursor:
+                cursor.close()
+
+        # clean DW data
+
+    @staticmethod
+    def clear_all_data(cursor, conn):
+        try:
+            # Executing a SQL query to delete data
+            insert_query = """ DELETE FROM public.ods_stock_quant """
             cursor.execute(insert_query)
             conn.commit()
 
