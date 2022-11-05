@@ -66,7 +66,7 @@ class ContainerWorldMainPage(PageCommon):
         self.page_has_loaded()
 
     # select warehouse and download csv
-    def select_warehouse(self):
+    def select_warehouse(self, user):
         self.download_dir = os.path.expanduser("~") + "/Downloads/"
         self.download_file = "rwservlet.csv"
         self.summary_date = datetime.datetime.now().date()
@@ -101,7 +101,7 @@ class ContainerWorldMainPage(PageCommon):
             download_element.click()
             self.close_windows()
             # self.process_file(conn, file_path, self.summary_date)
-            self.open_and_process_file(conn, file_path, self.summary_date)
+            self.open_and_process_file(conn, file_path, self.summary_date, user)
             self.driver.find_element(By.NAME, "whse_list")
 
         PostgreSQLTool.release_postgresql_conn(conn, cursor)
@@ -137,7 +137,7 @@ class ContainerWorldMainPage(PageCommon):
 
     def is_rust_existing(self):
         try:
-            WebDriverWait(self.driver, 20).until(
+            WebDriverWait(self.driver, 5).until(
                 expected_conditions.presence_of_element_located(
                     (By.XPATH, ContainerWorldMainLocator.rust_wine_co)))
 
@@ -148,7 +148,7 @@ class ContainerWorldMainPage(PageCommon):
             return True
 
     # open file & process file
-    def open_and_process_file(self, conn, file_path, summary_date):
+    def open_and_process_file(self, conn, file_path, summary_date, user):
         if os.path.exists(file_path):
             f = open(file_path, "rb")
             lines: List[AnyStr] = f.readlines()
@@ -178,7 +178,7 @@ class ContainerWorldMainPage(PageCommon):
                 warehouse = cols[5].strip()  # wh / location
                 prod_size = cols[4].strip()  # size
 
-                if self.is_rust_existing():
+                if user == ContainerWorldMainData.user2:
                     company_name = 'CW-' + ContainerWorldMainData.company2
                     source = "ContainerWorld_Rust"
                 else:
@@ -193,9 +193,11 @@ class ContainerWorldMainPage(PageCommon):
                       "  product_id" + product_id)
                 item_tuple.append(inventory_datas)
 
+            f.close()
+
             PostgreSQLTool.write_to_db_stock_quantity(conn, item_tuple)
 
-            f.close()
+
         else:
             print("The download_file does not exist: ", file_path)
 

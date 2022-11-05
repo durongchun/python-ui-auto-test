@@ -59,7 +59,7 @@ class TestContainerWorld(unittest.TestCase):
         # select PDS Product Inventory by SKU
         main_page.select_pds_product_inventory_by_sku()
         # select warehouse
-        main_page.select_warehouse()
+        main_page.select_warehouse(ContainerWorldMainData.user)
 
         # 强行截图
         ScreenshotTool().save_img(self.driver, "force_test_1_TestOds")
@@ -83,7 +83,7 @@ class TestContainerWorld(unittest.TestCase):
         # main_page.select_pds_product_available_inquiry()
         main_page.select_pds_product_inventory_by_sku()
         # select warehouse
-        main_page.select_warehouse()
+        main_page.select_warehouse(ContainerWorldMainData.user2)
 
         # 强行截图
         ScreenshotTool().save_img(self.driver, "force_test_2_TestOds")
