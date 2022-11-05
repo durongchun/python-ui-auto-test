@@ -69,7 +69,7 @@ class TestContainerWorld(unittest.TestCase):
     # 第二个测试点
     def test_container_world_rust(self):
         # log 信息
-        log().info(f"Container World第一个用例，环境" + self.env + "语言" + self.lan)
+        log().info(f"Container World第二个用例，环境" + self.env + "语言" + self.lan)
         # 初始化
         self.before_setUp()
         # 开启ContainerWorld首页
@@ -80,7 +80,8 @@ class TestContainerWorld(unittest.TestCase):
         # select 'online tool'
         main_page.select_online_tools()
         # select PDS Product Inventory by SKU
-        main_page.select_pds_product_available_inquiry()
+        # main_page.select_pds_product_available_inquiry()
+        main_page.select_pds_product_inventory_by_sku()
         # select warehouse
         main_page.select_warehouse()
 

@@ -100,7 +100,8 @@ class ContainerWorldMainPage(PageCommon):
 
             download_element.click()
             self.close_windows()
-            self.process_file(conn, file_path, self.summary_date)
+            # self.process_file(conn, file_path, self.summary_date)
+            self.open_and_process_file(conn, file_path, self.summary_date)
             self.driver.find_element(By.NAME, "whse_list")
 
         PostgreSQLTool.release_postgresql_conn(conn, cursor)
@@ -177,14 +178,19 @@ class ContainerWorldMainPage(PageCommon):
                 warehouse = cols[5].strip()  # wh / location
                 prod_size = cols[4].strip()  # size
 
-                company_name = 'CW-' + ContainerWorldMainData.company
+                if self.is_rust_existing():
+                    company_name = 'CW-' + ContainerWorldMainData.company2
+                    source = "ContainerWorld_Rust"
+                else:
+                    company_name = 'CW-' + ContainerWorldMainData.company
+                    source = "ContainerWorld_MtB"
 
-                inventory_datas = ['ContainerWorld_MtB', sku_num.lstrip('0'), product_name, product_id.lstrip('0'), company_name,
+                inventory_datas = [source, sku_num.lstrip('0'), product_name, product_id.lstrip('0'), company_name,
                                    warehouse, 'NA',
                                    summary_date,
                                    count, 0]
                 print("line data product name=" + product_name + "  sku_id=" + sku_num + "   location" + warehouse +
-                      "   product_id" + product_id)
+                      "  product_id" + product_id)
                 item_tuple.append(inventory_datas)
 
             PostgreSQLTool.write_to_db_stock_quantity(conn, item_tuple)
@@ -226,7 +232,8 @@ class ContainerWorldMainPage(PageCommon):
                 prod_size = ""  # size
                 company_name = 'CW-' + ContainerWorldMainData.company2
 
-                inventory_datas = ['ContainerWorld_Rust', sku_id.lstrip('0'), product_name, product_id.lstrip('0'), company_name,
+                inventory_datas = ['ContainerWorld_Rust', sku_id.lstrip('0'), product_name, product_id.lstrip('0'),
+                                   company_name,
                                    warehouse, 'NA',
                                    summary_date,
                                    count, 0, po_doc_num]
