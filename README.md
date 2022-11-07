@@ -1,6 +1,6 @@
 
 # 1.Required dependencies
-python 3.8
+python 3.7
 
 ```
 BeautifulReport 0.1.2
