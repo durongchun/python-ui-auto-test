@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+import os
 from telnetlib import EC
 
 from selenium.webdriver import ActionChains
@@ -226,3 +226,21 @@ class PageCommon(BrowserCommon):
             self.driver.find_element_by_link_text(value).is_selected()
 
     ############################## common method ##############################
+    @staticmethod
+    def get_project_path():
+        """得到项目路径"""
+        project_path = os.path.join(
+            os.path.dirname(__file__),
+            "..",
+        )
+        return project_path
+
+    def login(self, username, password, user_xpath, pw_xpath, login_xpath):
+        actions = ActionChains(self.driver)
+        actions.move_to_element(self.driver.find_element(By.ID, user_xpath)). \
+            click_and_hold().perform()
+        self.driver.find_element(By.ID, user_xpath).send_keys(username)
+        actions.move_to_element(self.driver.find_element(By.ID, pw_xpath)).click_and_hold().perform()
+        self.driver.find_element(By.ID, pw_xpath). \
+            send_keys(password)
+        self.driver.find_element(By.XPATH, login_xpath).click()
