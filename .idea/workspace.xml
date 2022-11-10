@@ -4,23 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb966825-d1dc-4b1b-8c82-0b05e31623ef" name="Changes" comment="add browser drivers">
-      <change afterPath="$PROJECT_DIR$/ui-test/data/erp_data.py" afterDir="false" />
+    <list default="true" id="fb966825-d1dc-4b1b-8c82-0b05e31623ef" name="Changes" comment="add excel reader and erp test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui-test/case/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/case/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ui-test/case/test_warehouse.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/case/test_warehouse.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui-test/common/page_common.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/common/page_common.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui-test/locator/erp_locator.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/locator/erp_locator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui-test/data/erp_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/data/erp_data.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ui-test/page/erp_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/page/erp_page.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ui-test/report/html/UI测试报告.html" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/report/html/UI测试报告.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ui-test/report/log/ui_log.log" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/report/log/ui_log.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui-test/report/log/ui_log.log.1" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/report/log/ui_log.log.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui-test/report/log/ui_log.log.2" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/report/log/ui_log.log.2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui-test/report/log/ui_log.log.3" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/report/log/ui_log.log.3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui-test/report/log/ui_log.log.4" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/report/log/ui_log.log.4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui-test/report/log/ui_log.log.5" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/report/log/ui_log.log.5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui-test/util/excel_reader.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/util/excel_reader.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,14 +46,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/lucy/PycharmProjects/python-ui-auto-test/ui-test/data",
-    "settings.editor.selected.configurable": "IntelliLang.Configuration"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/lucy/PycharmProjects/python-ui-auto-test/ui-test/data&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;IntelliLang.Configuration&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\lucy\PycharmProjects\python-ui-auto-test\ui-test\data" />
@@ -263,7 +254,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667458753025</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="add excel reader and erp test">
+      <created>1668043902081</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1668043902082</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -315,7 +313,8 @@
     <MESSAGE value="change package name" />
     <MESSAGE value="change readme" />
     <MESSAGE value="add browser drivers" />
-    <option name="LAST_COMMIT_MESSAGE" value="add browser drivers" />
+    <MESSAGE value="add excel reader and erp test" />
+    <option name="LAST_COMMIT_MESSAGE" value="add excel reader and erp test" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -352,22 +351,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ui-test/data/erp_data.py</url>
-          <line>11</line>
+          <line>13</line>
           <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ui-test/case/test_warehouse.py</url>
-          <line>49</line>
-          <option name="timeStamp" value="63" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ui-test/util/excel_reader.py</url>
-          <line>10</line>
-          <option name="timeStamp" value="64" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ui-test/case/test_warehouse.py</url>
-          <line>58</line>
+          <line>57</line>
           <option name="timeStamp" value="66" />
         </line-breakpoint>
       </breakpoints>

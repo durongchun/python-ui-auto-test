@@ -10,6 +10,7 @@ class ErpPage(PageCommon):
     def jump_to(self):
         self.driver.get("http://23.16.247.137:9069/web/login")
 
+
     # 搜索数据
     def search(self):
         self.input(BaiduMainLocator.search_input, BaiduMainData.data)

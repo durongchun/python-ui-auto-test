@@ -7159,54 +7159,44 @@ body.skin-3 {
 
 
     var resultData = {
-    "testPass": 0,
+    "testPass": 2,
     "testResult": [
         {
             "className": "TestWareHouse_0",
             "methodName": "test_warehousing_0_test_add_MtB_procut_into_ERP_system",
             "description": null,
-            "spendTime": "3.57 s",
-            "status": "错误",
+            "spendTime": "26.1 s",
+            "status": "成功",
             "log": [
-                "[INFO][2022-11-09 17:16:12,433][log_tool.py:108]<测试开始>\n[INFO][2022-11-09 17:16:13,493][test_warehouse.py:60]Container World第一个用例，环境UAT语言en_GB\n[INFO][2022-11-09 17:16:13,862][log_tool.py:113]<测试结束>\n",
-                "Traceback (most recent call last):\n",
-                "  File \"C:\\Users\\lucy\\AppData\\Local\\Programs\\Python\\Python37\\lib\\unittest\\case.py\", line 59, in testPartExecutor\n    yield\n",
-                "  File \"C:\\Users\\lucy\\AppData\\Local\\Programs\\Python\\Python37\\lib\\unittest\\case.py\", line 615, in run\n    testMethod()\n",
-                "  File \"C:\\Users\\lucy\\PycharmProjects\\python-ui-auto-test\\venv\\lib\\site-packages\\numpy\\testing\\_private\\parameterized.py\", line 414, in standalone_func\n    return func(*(a + p.args), **p.kwargs)\n",
-                "  File \"C:\\Users\\lucy\\PycharmProjects\\python-ui-auto-test\\ui-test\\case\\test_warehouse.py\", line 64, in test_warehousing\n    erp_page.jump_to()\n",
-                "  File \"C:\\Users\\lucy\\PycharmProjects\\python-ui-auto-test\\ui-test\\page\\erp_page.py\", line 11, in jump_to\n    self.driver.get(\"http://23.16.247.137:9069/web/login\")\n",
-                "  File \"C:\\Users\\lucy\\PycharmProjects\\python-ui-auto-test\\venv\\lib\\site-packages\\selenium\\webdriver\\remote\\webdriver.py\", line 455, in get\n    self.execute(Command.GET, {\"url\": url})\n",
-                "  File \"C:\\Users\\lucy\\PycharmProjects\\python-ui-auto-test\\venv\\lib\\site-packages\\selenium\\webdriver\\remote\\webdriver.py\", line 444, in execute\n    self.error_handler.check_response(response)\n",
-                "  File \"C:\\Users\\lucy\\PycharmProjects\\python-ui-auto-test\\venv\\lib\\site-packages\\selenium\\webdriver\\remote\\errorhandler.py\", line 249, in check_response\n    raise exception_class(message, screen, stacktrace)\n",
-                "selenium.common.exceptions.WebDriverException: Message: unknown error: net::ERR_INTERNET_DISCONNECTED\n  (Session info: chrome=107.0.5304.88)\nStacktrace:\nBacktrace:\n\tOrdinal0 [0x00BBACD3+2075859]\n\tOrdinal0 [0x00B4EE61+1633889]\n\tOrdinal0 [0x00A4B7BD+571325]\n\tOrdinal0 [0x00A47CD2+556242]\n\tOrdinal0 [0x00A3EC5D+519261]\n\tOrdinal0 [0x00A3FAEC+522988]\n\tOrdinal0 [0x00A3EF27+519975]\n\tOrdinal0 [0x00A3E2EB+516843]\n\tOrdinal0 [0x00A3E231+516657]\n\tOrdinal0 [0x00A3D0A3+512163]\n\tOrdinal0 [0x00A3D5AD+513453]\n\tOrdinal0 [0x00A4D0CE+577742]\n\tOrdinal0 [0x00AABC7D+965757]\n\tOrdinal0 [0x00A9731C+881436]\n\tOrdinal0 [0x00AAB56A+963946]\n\tOrdinal0 [0x00A97136+880950]\n\tOrdinal0 [0x00A6FEFD+720637]\n\tOrdinal0 [0x00A70F3F+724799]\n\tGetHandleVerifier [0x00E6EED2+2769538]\n\tGetHandleVerifier [0x00E60D95+2711877]\n\tGetHandleVerifier [0x00C4A03A+521194]\n\tGetHandleVerifier [0x00C48DA0+516432]\n\tOrdinal0 [0x00B5682C+1665068]\n\tOrdinal0 [0x00B5B128+1683752]\n\tOrdinal0 [0x00B5B215+1683989]\n\tOrdinal0 [0x00B66484+1729668]\n\tBaseThreadInitThunk [0x76F1FA29+25]\n\tRtlGetAppContainerNamedObjectPath [0x77497BBE+286]\n\tRtlGetAppContainerNamedObjectPath [0x77497B8E+238]\n\n"
+                "[INFO][2022-11-10 09:40:01,246][log_tool.py:108]<测试开始>",
+                "[INFO][2022-11-10 09:40:03,074][test_warehouse.py:56]Container World第一个用例，环境UAT语言en_GB",
+                "description: test add MtB procut into ERP system",
+                "warehouse_name: Winery",
+                "[INFO][2022-11-10 09:40:09,063][log_tool.py:113]<测试结束>",
+                ""
             ]
         },
         {
             "className": "TestWareHouse_0",
             "methodName": "test_warehousing_1_test_add_MtB_procut_into_ERP_system",
             "description": null,
-            "spendTime": "23.9 s",
-            "status": "错误",
+            "spendTime": "20.5 s",
+            "status": "成功",
             "log": [
-                "[INFO][2022-11-09 17:16:16,007][log_tool.py:108]<测试开始>\n[INFO][2022-11-09 17:16:21,214][test_warehouse.py:60]Container World第一个用例，环境UAT语言en_GB\n[INFO][2022-11-09 17:16:21,567][log_tool.py:113]<测试结束>\n",
-                "Traceback (most recent call last):\n",
-                "  File \"C:\\Users\\lucy\\AppData\\Local\\Programs\\Python\\Python37\\lib\\unittest\\case.py\", line 59, in testPartExecutor\n    yield\n",
-                "  File \"C:\\Users\\lucy\\AppData\\Local\\Programs\\Python\\Python37\\lib\\unittest\\case.py\", line 615, in run\n    testMethod()\n",
-                "  File \"C:\\Users\\lucy\\PycharmProjects\\python-ui-auto-test\\venv\\lib\\site-packages\\numpy\\testing\\_private\\parameterized.py\", line 414, in standalone_func\n    return func(*(a + p.args), **p.kwargs)\n",
-                "  File \"C:\\Users\\lucy\\PycharmProjects\\python-ui-auto-test\\ui-test\\case\\test_warehouse.py\", line 64, in test_warehousing\n    erp_page.jump_to()\n",
-                "  File \"C:\\Users\\lucy\\PycharmProjects\\python-ui-auto-test\\ui-test\\page\\erp_page.py\", line 11, in jump_to\n    self.driver.get(\"http://23.16.247.137:9069/web/login\")\n",
-                "  File \"C:\\Users\\lucy\\PycharmProjects\\python-ui-auto-test\\venv\\lib\\site-packages\\selenium\\webdriver\\remote\\webdriver.py\", line 455, in get\n    self.execute(Command.GET, {\"url\": url})\n",
-                "  File \"C:\\Users\\lucy\\PycharmProjects\\python-ui-auto-test\\venv\\lib\\site-packages\\selenium\\webdriver\\remote\\webdriver.py\", line 444, in execute\n    self.error_handler.check_response(response)\n",
-                "  File \"C:\\Users\\lucy\\PycharmProjects\\python-ui-auto-test\\venv\\lib\\site-packages\\selenium\\webdriver\\remote\\errorhandler.py\", line 249, in check_response\n    raise exception_class(message, screen, stacktrace)\n",
-                "selenium.common.exceptions.WebDriverException: Message: unknown error: net::ERR_INTERNET_DISCONNECTED\n  (Session info: chrome=107.0.5304.88)\nStacktrace:\nBacktrace:\n\tOrdinal0 [0x00BBACD3+2075859]\n\tOrdinal0 [0x00B4EE61+1633889]\n\tOrdinal0 [0x00A4B7BD+571325]\n\tOrdinal0 [0x00A47CD2+556242]\n\tOrdinal0 [0x00A3EC5D+519261]\n\tOrdinal0 [0x00A3FAEC+522988]\n\tOrdinal0 [0x00A3EF27+519975]\n\tOrdinal0 [0x00A3E2EB+516843]\n\tOrdinal0 [0x00A3E231+516657]\n\tOrdinal0 [0x00A3D0A3+512163]\n\tOrdinal0 [0x00A3D5AD+513453]\n\tOrdinal0 [0x00A4D0CE+577742]\n\tOrdinal0 [0x00AABC7D+965757]\n\tOrdinal0 [0x00A9731C+881436]\n\tOrdinal0 [0x00AAB56A+963946]\n\tOrdinal0 [0x00A97136+880950]\n\tOrdinal0 [0x00A6FEFD+720637]\n\tOrdinal0 [0x00A70F3F+724799]\n\tGetHandleVerifier [0x00E6EED2+2769538]\n\tGetHandleVerifier [0x00E60D95+2711877]\n\tGetHandleVerifier [0x00C4A03A+521194]\n\tGetHandleVerifier [0x00C48DA0+516432]\n\tOrdinal0 [0x00B5682C+1665068]\n\tOrdinal0 [0x00B5B128+1683752]\n\tOrdinal0 [0x00B5B215+1683989]\n\tOrdinal0 [0x00B66484+1729668]\n\tBaseThreadInitThunk [0x76F1FA29+25]\n\tRtlGetAppContainerNamedObjectPath [0x77497BBE+286]\n\tRtlGetAppContainerNamedObjectPath [0x77497B8E+238]\n\n"
+                "[INFO][2022-11-10 09:40:27,311][log_tool.py:108]<测试开始>",
+                "[INFO][2022-11-10 09:40:32,449][test_warehouse.py:56]Container World第一个用例，环境UAT语言en_GB",
+                "description: test add MtB procut into ERP system",
+                "warehouse_name: Winery",
+                "[INFO][2022-11-10 09:40:45,656][log_tool.py:113]<测试结束>",
+                ""
             ]
         }
     ],
     "testName": "demo",
     "testAll": 2,
-    "testFail": 2,
-    "beginTime": "2022-11-09 17:16:12",
-    "totalTime": "27s",
+    "testFail": 0,
+    "beginTime": "2022-11-10 09:40:01",
+    "totalTime": "46s",
     "testSkip": 0,
     "testError": 0
 };

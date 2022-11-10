@@ -3,7 +3,8 @@ import unittest
 import paramunittest
 from numpy.testing._private.parameterized import parameterized
 from base.assembler import Assembler
-from erp_data import ErpMainData
+from browser_common import BrowserCommon
+from erp_data import ErpData
 from erp_locator import ErpLocator
 from erp_page import ErpPage
 from excel_reader import ExcelReader
@@ -53,16 +54,14 @@ class TestWareHouse(unittest.TestCase):
     def test_warehousing(self, description, warehouse_name, location_name, product_name, product_code, quantity):
         # log 信息
         log().info(f"Container World第一个用例，环境" + self.env + "语言" + self.lan)
-        # 初始化百度页面
-        erp_page = ErpPage(self.driver)
-        # 开启ContainerWorld首页
-        erp_page.jump_to()
-        # 首页login
-        PageCommon.login(self, ErpMainData.user_name, ErpMainData.pass_word, ErpLocator.user_name,
+        # go ERP login Page
+        BrowserCommon.jump_to(self, ErpData.url)
+        # login
+        PageCommon.login(self, ErpData.user_name, ErpData.pass_word, ErpLocator.user_name,
                          ErpLocator.pass_word, ErpLocator.login_btn)
 
-        print(description)
-        print(warehouse_name)
+        print("description: " + description)
+        print("warehouse_name: " + warehouse_name)
 
 
 if __name__ == "__main__":
