@@ -1,5 +1,8 @@
+import unittest
+
 import pytest
 import uuid
+
 
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
@@ -7,16 +10,18 @@ from selenium.common.exceptions import TimeoutException
 
 class TestClass:
 
-    @pytest.yield_fixture(autouse=True)
-    def init_browser(self):
-        self.browser = webdriver.Remote(
-            desired_capabilities=webdriver.DesiredCapabilities.FIREFOX,
-            command_executor='http://my-selenium:4444/wd/hub'
-        )
-        yield  # everything after 'yield' is executed on tear-down
-        self.browser.quit()
+    @staticmethod
+    def test_convert_data():
+        result_lit = []
+        test_data = [{'UserName': 'lucy.du@holinova.com', 'PassWord': 'durongchun123~'},
+                     {'UserName': 'lucy.du@holinova.com', 'PassWord': 'durongchun123~'}]
+        for data in test_data:
+            result_lit.append(tuple(data.values()))
 
-    @pytest.mark.parametrize('data', [1, 2, 3, 4])
-    def test_buybuttons(self, data):
-        self.browser.get('http://example.com/' + data)
-        assert '<noindex>' not in self.browser.page_source
+        print(result_lit)
+
+
+if __name__ == "__main__":
+    # 使用 unittest 依次执行当前模块中 test 打头的方法
+    unittest.main()
+

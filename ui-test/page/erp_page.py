@@ -8,12 +8,10 @@ from locator.baidu_main_locator import BaiduMainLocator
 class ErpPage(PageCommon):
     # 百度首页进入页面操作
     def jump_to(self):
-        self.driver.get("https://erp.mtboucherie.com/web/login")
+        self.driver.get("http://23.16.247.137:9069/web/login")
 
     # 搜索数据
     def search(self):
         self.input(BaiduMainLocator.search_input, BaiduMainData.data)
         self.click_element(BaiduMainLocator.search_btn)
-
-
 

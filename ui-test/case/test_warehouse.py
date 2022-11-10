@@ -1,13 +1,12 @@
-import os
+
 import unittest
 import paramunittest
-import pytest
-
+from numpy.testing._private.parameterized import parameterized
 from base.assembler import Assembler
-from browser_common import BrowserCommon
+from erp_data import ErpMainData
 from erp_locator import ErpLocator
 from erp_page import ErpPage
-from excel_reader import ExcelData
+from excel_reader import ExcelReader
 from page_common import PageCommon
 from util.config_reader import ConfigReader
 from util.log_tool import start_info, end_info, log
@@ -31,7 +30,6 @@ class TestWareHouse(unittest.TestCase):
         self.env = env
 
     # @BeforeTest
-    @pytest.yield_fixture(autouse=True)
     def setUp(self):
         # 开始的 log 信息
         start_info()
@@ -41,17 +39,18 @@ class TestWareHouse(unittest.TestCase):
         self.driver = self.assembler.get_driver()
 
     # @AfterTest
-    @pytest.yield_fixture(autouse=True)
     def tearDown(self):
         # 结束的 log 信息
         end_info()
         # 装配器卸载
-        yield
         self.assembler.disassemble_all()
 
     # 第一个测试点ExcelData.get_datas()
-    @pytest.mark.parametrize('test_data', [{"UserName": "lucy.du@holinova.com", "PassWord": "durongchun123~"}])
-    def test_warehousing(self, test_data):
+
+    test_data = PageCommon.test_convert_data(ExcelReader.get_xls(PageCommon.get_data_path()))
+
+    @parameterized.expand(test_data)
+    def test_warehousing(self, description, warehouse_name, location_name, product_name, product_code, quantity):
         # log 信息
         log().info(f"Container World第一个用例，环境" + self.env + "语言" + self.lan)
         # 初始化百度页面
@@ -59,9 +58,11 @@ class TestWareHouse(unittest.TestCase):
         # 开启ContainerWorld首页
         erp_page.jump_to()
         # 首页login
-        user_name = test_data['UserName']
-        pass_word = test_data['PassWord']
-        PageCommon.login(user_name, pass_word, ErpLocator.user_name, ErpLocator.pass_word, ErpLocator.login_btn)
+        PageCommon.login(self, ErpMainData.user_name, ErpMainData.pass_word, ErpLocator.user_name,
+                         ErpLocator.pass_word, ErpLocator.login_btn)
+
+        print(description)
+        print(warehouse_name)
 
 
 if __name__ == "__main__":

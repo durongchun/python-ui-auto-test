@@ -244,3 +244,19 @@ class PageCommon(BrowserCommon):
         self.driver.find_element(By.ID, pw_xpath). \
             send_keys(password)
         self.driver.find_element(By.XPATH, login_xpath).click()
+
+    @staticmethod
+    def test_convert_data(test_data):
+        result_list = []
+        for data in test_data:
+            result_list.append(tuple(data.values()))
+        print(result_list)
+        return result_list
+
+    @staticmethod
+    def get_data_path():
+        file_path = os.path.abspath(__file__)
+        parent_path = os.path.dirname(file_path)
+        parent2_path = os.path.dirname(parent_path)
+        data_path = parent2_path + "\\data\\excel_data\\test_data_erp.xlsx"
+        return data_path
