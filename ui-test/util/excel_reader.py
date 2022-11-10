@@ -20,26 +20,3 @@ class ExcelReader:
 
         return list_dic
 
-    # @staticmethod
-    # def get_datas(self):
-    #     file_path = os.path.abspath(__file__)
-    #     parent_path = os.path.dirname(file_path)
-    #     parent2_path = os.path.dirname(parent_path)
-    #
-    #     data_path = parent2_path + "\\data\\excel_data\\test_data_erp.xlsx"
-    #     sheetname = "test_warehouse"
-    #     # get_data = ExcelReader(self, data_path)
-    #     datas = self.get_xls(self, data_path)
-    #     return datas
-
-# 
-# if __name__ == "__main__":
-#     file_path = os.path.abspath(__file__)
-#     parent_path = os.path.dirname(file_path)
-#     parent2_path = os.path.dirname(parent_path)
-# 
-#     data_path = parent2_path + "\\data\\excel_data\\test_data_erp.xlsx"
-#     sheet_name = "test_warehouse"
-#     get_data = ExcelData(data_path, sheet_name)
-#     datas = get_data.get_xls(data_path)
-#     # print(ExcelData.get_datas())
