@@ -1,4 +1,3 @@
-
 import unittest
 import paramunittest
 from numpy.testing._private.parameterized import parameterized
@@ -51,7 +50,8 @@ class TestWareHouse(unittest.TestCase):
     test_data = PageCommon.test_convert_data(ExcelReader.get_xls(PageCommon.get_data_path()))
 
     @parameterized.expand(test_data)
-    def test_warehousing(self, description, warehouse_name, location_name, product_name, product_code, quantity):
+    def test_warehousing(self, description, warehouse_name, location_name, product_name, product_id,
+                         product_code, quantity):
         # log 信息
         log().info(f"Container World第一个用例，环境" + self.env + "语言" + self.lan)
         # go ERP login Page

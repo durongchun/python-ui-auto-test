@@ -177,10 +177,21 @@ class ContainerWorldMainPage(PageCommon):
                 #     active = td_array[2].text.strip()
                 warehouse = cols[5].strip()  # wh / location
                 prod_size = cols[4].strip()  # size
+                if count.__contains__('.'):
+                    bottle = count.split('.')[1]
+                else:
+                    bottle = 0
+
+                if float(prod_size) <= 0.75:
+                    qty = int(count) * 12 + int(bottle)
+                else:
+                    qty = int(count) * 1 + int(bottle)
 
                 if user == ContainerWorldMainData.user2:
                     company_name = 'CW-' + ContainerWorldMainData.company2
                     source = "ContainerWorld_Rust"
+                    if product_name.__contains__("Syrah") and int(vintage) < 20:
+                        qty = int(count) * 6 + int(bottle)
                 else:
                     company_name = 'CW-' + ContainerWorldMainData.company
                     source = "ContainerWorld_MtB"
@@ -188,15 +199,14 @@ class ContainerWorldMainPage(PageCommon):
                 inventory_datas = [source, sku_num.lstrip('0'), product_name, product_id.lstrip('0'), company_name,
                                    warehouse, 'NA',
                                    summary_date,
-                                   count, 0]
+                                   qty, 0, float(prod_size)]
                 print("line data product name=" + product_name + "  sku_id=" + sku_num + "   location" + warehouse +
-                      "  product_id" + product_id)
+                      "  product_id" + product_id + "prod_size=" + prod_size)
                 item_tuple.append(inventory_datas)
 
             f.close()
 
             PostgreSQLTool.write_to_db_stock_quantity(conn, item_tuple)
-
 
         else:
             print("The download_file does not exist: ", file_path)

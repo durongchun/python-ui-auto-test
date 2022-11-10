@@ -62,8 +62,8 @@ class PostgreSQLTool:
             cursor = conn.cursor()
             insert_query = """INSERT INTO public.ods_stock_quant("source", product_code, product_name, product_id,
              company_name, location_name, warehouse_name, summary_date, quantity, 
-             reserved_quantity, po_doc_num)                        
-             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+             reserved_quantity, po_doc_num, prod_size)                        
+             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
             cursor.executemany(insert_query, data_tuple)
             conn.commit()
 
@@ -80,8 +80,8 @@ class PostgreSQLTool:
             cursor = conn.cursor()
             insert_query = """INSERT INTO public.ods_stock_quant("source", product_code, product_name, product_id,
                 company_name, location_name, warehouse_name, summary_date, quantity, 
-                reserved_quantity)                        
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                reserved_quantity, prod_size)                        
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
             cursor.executemany(insert_query, data_tuple)
             conn.commit()
 

@@ -12,13 +12,15 @@ class TestClass:
 
     @staticmethod
     def test_convert_data():
-        result_lit = []
-        test_data = [{'UserName': 'lucy.du@holinova.com', 'PassWord': 'durongchun123~'},
-                     {'UserName': 'lucy.du@holinova.com', 'PassWord': 'durongchun123~'}]
-        for data in test_data:
-            result_lit.append(tuple(data.values()))
+        size = 0.2
+        count = 2.3
+        bottle = count.split('.')[1]
+        if count.__contains__('.') or size <= 0.75:
+            qty = (count * 12) + bottle
+        else:
+            qty = count * 12
 
-        print(result_lit)
+        print(qty)
 
 
 if __name__ == "__main__":

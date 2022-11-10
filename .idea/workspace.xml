@@ -4,14 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb966825-d1dc-4b1b-8c82-0b05e31623ef" name="Changes" comment="add excel reader and erp test">
+    <list default="true" id="fb966825-d1dc-4b1b-8c82-0b05e31623ef" name="Changes" comment="add excel test data">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui-test/case/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/case/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ui-test/case/test_warehouse.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/case/test_warehouse.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui-test/data/erp_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/data/erp_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui-test/page/erp_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/page/erp_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui-test/data/excel_data/test_data_erp.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/data/excel_data/test_data_erp.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui-test/page/containerworld_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/page/containerworld_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui-test/page/winedirect_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/page/winedirect_page.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ui-test/report/html/UI测试报告.html" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/report/html/UI测试报告.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui-test/report/img/force_test_1_TestOds.png" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/report/img/force_test_1_TestOds.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui-test/report/img/force_test_2_TestOds.png" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/report/img/force_test_2_TestOds.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ui-test/report/log/ui_log.log" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/report/log/ui_log.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui-test/report/log/ui_log.log.1" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/report/log/ui_log.log.1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui-test/report/log/ui_log.log.2" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/report/log/ui_log.log.2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui-test/report/log/ui_log.log.3" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/report/log/ui_log.log.3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui-test/report/log/ui_log.log.4" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/report/log/ui_log.log.4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui-test/report/log/ui_log.log.5" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/report/log/ui_log.log.5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui-test/util/excel_reader.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/util/excel_reader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui-test/util/postgresql_tool.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui-test/util/postgresql_tool.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +76,7 @@
       <recent name="C:\Users\LucyDu\PycharmProjects\python-ui-auto-test" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.run_erp">
+  <component name="RunManager" selected="Python.run_ods">
     <configuration name="excel_reader" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="python-ui-auto-test" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -101,6 +111,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ui-test/suite/run_erp.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="run_ods" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="python-ui-auto-test" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ui-test/suite" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ui-test/suite/run_ods.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -144,27 +175,13 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for test_warehouse.TestWareHouse.test_warehousing" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="python-ui-auto-test" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ui-test/case" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_warehouse.TestWareHouse.test_warehousing&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.run_ods" />
         <item itemvalue="Python.run_erp" />
         <item itemvalue="Python tests.Python tests for test.TestClass.test_convert_data" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.excel_reader" />
-        <item itemvalue="Python tests.Python tests for test_warehouse.TestWareHouse.test_warehousing" />
       </list>
     </recent_temporary>
   </component>
@@ -261,7 +278,21 @@
       <option name="project" value="LOCAL" />
       <updated>1668043902082</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="add excel reader and erp test">
+      <created>1668102150114</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1668102150114</updated>
+    </task>
+    <task id="LOCAL-00014" summary="add excel test data">
+      <created>1668103142525</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1668103142525</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -314,7 +345,8 @@
     <MESSAGE value="change readme" />
     <MESSAGE value="add browser drivers" />
     <MESSAGE value="add excel reader and erp test" />
-    <option name="LAST_COMMIT_MESSAGE" value="add excel reader and erp test" />
+    <MESSAGE value="add excel test data" />
+    <option name="LAST_COMMIT_MESSAGE" value="add excel test data" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -330,34 +362,9 @@
           <option name="timeStamp" value="47" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ui-test/case/test_container_world.py</url>
-          <line>86</line>
-          <option name="timeStamp" value="51" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ui-test/case/test_container_world.py</url>
-          <line>73</line>
-          <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ui-test/case/test_wine_direct.py</url>
-          <line>69</line>
-          <option name="timeStamp" value="54" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ui-test/case/test_wine_direct.py</url>
-          <line>65</line>
-          <option name="timeStamp" value="55" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ui-test/data/erp_data.py</url>
           <line>13</line>
           <option name="timeStamp" value="61" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ui-test/case/test_warehouse.py</url>
-          <line>57</line>
-          <option name="timeStamp" value="66" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -373,6 +380,15 @@
         <watch expression="img_path" />
         <watch expression="new_img_name" />
         <watch expression="PageCommon.get_data_path()" />
+        <watch expression="cols[4].strip()" />
+        <watch expression="cols[4]" />
+        <watch expression="prod_size &lt;= .75" />
+        <watch expression="int(prod_size)" />
+        <watch expression="prod_size" />
+        <watch expression="float(prod_size)" />
+        <watch expression="int(count) * 12 + int(bottle)" />
+        <watch expression="product_name.__contains__(&quot;Syrah&quot;)" />
+        <watch expression="int(vintage) &lt; 20" />
       </configuration>
     </watches-manager>
   </component>
