@@ -47,9 +47,9 @@ class TestWareHouse(unittest.TestCase):
 
     # 第一个测试点ExcelData.get_datas()
 
-    test_data = PageCommon.test_convert_data(ExcelReader.get_xls(PageCommon.get_data_path()))
+    # test_data = PageCommon.test_convert_data(ExcelReader.get_xls(PageCommon.get_data_path()))
 
-    @parameterized.expand(test_data)
+    @parameterized.expand(ErpData.test_data)
     def test_warehousing(self, description, warehouse_name, location_name, product_name, product_id,
                          product_code, quantity):
         # log 信息

@@ -17,7 +17,7 @@ report_path = os.path.abspath(os.path.dirname(__file__))[
 # 报告名字
 report_name = ConfigReader().read("html")["htmlfile_name"]
 
-# 运行所有用例（单线程）
+# 运行所有用例（单线程
 if __name__ == "__main__":
     # 创建测试套
     suites = unittest.TestSuite()
