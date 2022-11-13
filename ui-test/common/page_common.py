@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-from telnetlib import EC
-
+import random
 from selenium.webdriver import ActionChains
 from selenium.webdriver.chrome import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
+
 
 import driver
 from common.browser_common import BrowserCommon
@@ -187,8 +187,8 @@ class PageCommon(BrowserCommon):
 
     # 显性等待时间
     def webDriverWait(self, MaxTime, MinTime, value):
-        element = self.driver.find_element(By.ID, value)
-        WebDriverWait(self.driver, MaxTime, MinTime).until(EC.presence_of_element_located(element))
+        element = self.driver.find_element(By.XPATH, value)
+        WebDriverWait(self.driver, MaxTime, MinTime).until(expected_conditions.presence_of_element_located(element))
 
     def page_has_loaded(self):
         # self.log.info("Checking if {} page is loaded.".format(self.driver.current_url))
@@ -243,7 +243,9 @@ class PageCommon(BrowserCommon):
         actions.move_to_element(self.driver.find_element(By.ID, pw_xpath)).click_and_hold().perform()
         self.driver.find_element(By.ID, pw_xpath). \
             send_keys(password)
+        self.driver.implicitly_wait(500)
         self.driver.find_element(By.XPATH, login_xpath).click()
+        self.driver.implicitly_wait(1500)
 
     @staticmethod
     def test_convert_data(test_data):
@@ -260,3 +262,9 @@ class PageCommon(BrowserCommon):
         parent2_path = os.path.dirname(parent_path)
         data_path = parent2_path + "\\data\\excel_data\\test_data_erp.xlsx"
         return data_path
+
+    @staticmethod
+    def random_number():
+        randon_number = random.randint(1, 100)
+        print(randon_number)
+        return randon_number

@@ -6,19 +6,38 @@ class ErpLocator:
 
     # login btn 定位
     login_btn = "//button[@type='submit']"
+    inventory_app = "//div[text()='Inventory']"
 
     products = "//span[contains(text(),'Products')]"
-    products_dropdown = "Products"
+    products_dropdown = "//a[contains(text(),'Products')]"
 
     create = "//span[contains(text(),'Create')]"
     product_name = "name"
-    attributes_Variants = "// a[contains(text(), 'Attributes & Variants')]"
-    add_line = "Add a line"
+    rfid_number = "rfid_number"
+    save_button = "//span[contains(text(),'Save')]"
+
+    update_quantity = "action_update_quantity_on_hand"
+    create_qty = "//button[contains(text(),'Create')]"
+
+    location_box = "//input[contains(@class,'ui-autocomplete-input') and contains(@xpath,'1')] "
+    counted_qty = "//input[contains(@class,'o_quick_editable o_input')] "
+    save_record_button = "//button[contains(text(),'Save')]"
+
+    apply_button = "//span[text()='Apply' and contains(@xpath, '2')]"
+
+    attributes_Variants = "//a[contains(text(), 'Attributes & Variants')]"
+    add_line = "//tbody/tr[1]/td[1]/a[1]"
     attribute_box = "//tbody/tr[1]/td[1]/div[1]/div[1]/div[1]/input[1]"
     values_box = "//tbody/tr[1]/td[2]/div[1]/div[1]/div[1]/div[1]/input[1]"
 
+    edit_variant_button = "//span[contains(text(),'Edit')]"
 
+    internal_reference_box = "//input[@name='default_code']"
+    barcode_box = "//input[contains(@name, 'barcode') and contains(@class,'o_quick_editable o_input') ]"
 
+    variants = "// span[contains(text(), 'Variants')]"
+
+    variant_value = "//span[contains(text(),'Vintage: {}')]"
 
 
 ''

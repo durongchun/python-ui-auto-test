@@ -1,6 +1,9 @@
+import numbers
 import unittest
 import paramunittest
 from numpy.testing._private.parameterized import parameterized
+from sqlalchemy.sql.elements import Null
+
 from base.assembler import Assembler
 from browser_common import BrowserCommon
 from erp_data import ErpData
@@ -46,12 +49,9 @@ class TestWareHouse(unittest.TestCase):
         self.assembler.disassemble_all()
 
     # 第一个测试点ExcelData.get_datas()
-
-    # test_data = PageCommon.test_convert_data(ExcelReader.get_xls(PageCommon.get_data_path()))
-
     @parameterized.expand(ErpData.test_data)
     def test_warehousing(self, description, warehouse_name, location_name, product_name, product_id,
-                         product_code, quantity):
+                         vintage1, vintage2, product_code1, product_code2, quantity1, quantity2):
         # log 信息
         log().info(f"Container World第一个用例，环境" + self.env + "语言" + self.lan)
         # go ERP login Page
@@ -62,6 +62,15 @@ class TestWareHouse(unittest.TestCase):
 
         print("description: " + description)
         print("warehouse_name: " + warehouse_name)
+        erp = ErpPage(self.driver)
+        erp.go_inventory()
+        erp.select_products_dropdown()
+        erp.create_product(product_name, product_id)
+
+        if vintage1 != 'NULL':
+            erp.add_attributes(vintage1, vintage2)
+
+        ErpPage.update_quantity(location_name, quantity1, quantity2, vintage1, vintage2)
 
 
 if __name__ == "__main__":

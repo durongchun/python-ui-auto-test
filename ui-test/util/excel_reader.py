@@ -8,7 +8,8 @@ class ExcelReader:
     @staticmethod
     def get_xls(data_path):  # xls_name填写用例的Excel名称 sheet_name该Excel的sheet名称
         # 获取用例文件路径
-        ex_data = pd.read_excel(data_path, sheet_name="test_add_MtB", engine='openpyxl')  # 默认读取第一个sheet的内容
+        ex_data = pd.read_excel(data_path, dtype=object, keep_default_na=False, sheet_name="test_add_MtB",
+                                engine='openpyxl')
         head_list = list(ex_data.columns)  # 拿到表头: [A, B, C, D]
         list_dic = []
 
