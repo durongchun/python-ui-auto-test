@@ -26,9 +26,12 @@ class ErpLocator:
     apply_button = "//span[text()='Apply' and contains(@xpath, '2')]"
 
     attributes_Variants = "//a[contains(text(), 'Attributes & Variants')]"
+
     add_line = "//tbody/tr[1]/td[1]/a[1]"
     attribute_box = "//tbody/tr[1]/td[1]/div[1]/div[1]/div[1]/input[1]"
+    vintage = "//ul[contains(@class, 'ui-menu ui-widget ui-widget-content')]//li[5]//a"
     values_box = "//tbody/tr[1]/td[2]/div[1]/div[1]/div[1]/div[1]/input[1]"
+    values2_box = "//tbody/tr[1]/td[2]/div[1]/div[2]/div[1]/div[1]/input[1]"
 
     edit_variant_button = "//span[contains(text(),'Edit')]"
 
@@ -38,6 +41,12 @@ class ErpLocator:
     variants = "// span[contains(text(), 'Variants')]"
 
     variant_value = "//span[contains(text(),'Vintage: {}')]"
+
+    warning = ".oe_edit_only.oe_grey"
+    action = ".btn.btn-secondary.o-no-caret.d-flex.align-items-center"
+    delete = "li.o_menu_item:nth-child(3) > a.dropdown-item"
+    ok_confirm = "//span[contains(text(),'Ok')]"
+    products = ".oe_kanban_details"
 
 
 ''

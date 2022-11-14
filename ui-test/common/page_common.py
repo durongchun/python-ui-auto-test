@@ -2,13 +2,12 @@
 # -*- coding: utf-8 -*-
 import os
 import random
-from selenium.webdriver import ActionChains
 from selenium.webdriver.chrome import webdriver
+from selenium.webdriver.support.select import Select
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
-
 
 import driver
 from common.browser_common import BrowserCommon
@@ -186,7 +185,7 @@ class PageCommon(BrowserCommon):
             return text
 
     # 显性等待时间
-    def webDriverWait(self, MaxTime, MinTime, value):
+    def webDriverWait(self, MaxTime: object, MinTime: object, value: object) -> object:
         element = self.driver.find_element(By.XPATH, value)
         WebDriverWait(self.driver, MaxTime, MinTime).until(expected_conditions.presence_of_element_located(element))
 
@@ -245,7 +244,7 @@ class PageCommon(BrowserCommon):
             send_keys(password)
         self.driver.implicitly_wait(500)
         self.driver.find_element(By.XPATH, login_xpath).click()
-        self.driver.implicitly_wait(1500)
+        self.driver.implicitly_wait(3000)
 
     @staticmethod
     def test_convert_data(test_data):

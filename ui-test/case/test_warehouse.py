@@ -55,14 +55,15 @@ class TestWareHouse(unittest.TestCase):
         # log 信息
         log().info(f"Container World第一个用例，环境" + self.env + "语言" + self.lan)
         # go ERP login Page
+        erp = ErpPage(self.driver)
         BrowserCommon.jump_to(self, ErpData.url)
         # login
-        PageCommon.login(self, ErpData.user_name, ErpData.pass_word, ErpLocator.user_name,
-                         ErpLocator.pass_word, ErpLocator.login_btn)
-
+        # PageCommon.login(self, ErpData.user_name, ErpData.pass_word, ErpLocator.user_name,
+        #                  ErpLocator.pass_word, ErpLocator.login_btn)
+        erp.login(ErpData.user_name, ErpData.pass_word)
         print("description: " + description)
         print("warehouse_name: " + warehouse_name)
-        erp = ErpPage(self.driver)
+
         erp.go_inventory()
         erp.select_products_dropdown()
         erp.create_product(product_name, product_id)
@@ -70,7 +71,7 @@ class TestWareHouse(unittest.TestCase):
         if vintage1 != 'NULL':
             erp.add_attributes(vintage1, vintage2)
 
-        ErpPage.update_quantity(location_name, quantity1, quantity2, vintage1, vintage2)
+    # ErpPage.update_quantity(location_name, quantity1, quantity2, vintage1, vintage2)
 
 
 if __name__ == "__main__":

@@ -128,7 +128,6 @@ class Assembler:
                                   "opera_driver_path"]
             self.driver = webdriver.Opera(executable_path=executable_path)
 
-
         # 若是 Safari 驱动
         elif ConfigReader().read("project")["driver"].lower() == "safari":
             executable_path = os.path.abspath(os.path.dirname(__file__))[
@@ -136,6 +135,13 @@ class Assembler:
                                   "python-ui-auto-test")] + "/ui-test" + ConfigReader().read("driver")[
                                   "safari_driver_path"]
             self.driver = webdriver.Safari(executable_path=executable_path)
+
+        # mobile H5
+        elif ConfigReader().read("project")["driver"].lower() == "h5":
+            mobileEmulation = {'deviceName': 'iPad Air'}
+            options = webdriver.ChromeOptions()
+            options.add_experimental_option('mobileEmulation', mobileEmulation)
+            self.driver = webdriver.Chrome(chrome_options=options)
 
         # 不支持的浏览器类型
         else:
