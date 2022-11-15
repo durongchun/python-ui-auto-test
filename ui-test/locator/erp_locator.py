@@ -8,7 +8,7 @@ class ErpLocator:
     login_btn = "//button[@type='submit']"
     inventory_app = "//div[text()='Inventory']"
 
-    products = "//span[contains(text(),'Products')]"
+    products = ".o-dropdown--no-caret:nth-child(3) button.dropdown-toggle > span:nth-child(1)"
     products_dropdown = "//a[contains(text(),'Products')]"
 
     create = "//span[contains(text(),'Create')]"

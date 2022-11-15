@@ -11,3 +11,6 @@ class ErpData:
     url = "http://23.16.247.137:9069/web/login"
     user_name = "lucy.du@holinova.com"
     pass_word = "durongchun123~"
+    product_url = "https://erp.mtboucherie.com/web#menu_id=243&action=390&model=product.template&view_type=kanban"
+
+

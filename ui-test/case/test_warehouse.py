@@ -64,8 +64,9 @@ class TestWareHouse(unittest.TestCase):
         print("description: " + description)
         print("warehouse_name: " + warehouse_name)
 
-        erp.go_inventory()
-        erp.select_products_dropdown()
+        # erp.go_inventory()
+        # erp.select_products_dropdown()
+        erp.go_product()
         erp.create_product(product_name, product_id)
 
         if vintage1 != 'NULL':

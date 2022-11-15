@@ -2,8 +2,12 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
+
+from browser_common import BrowserCommon
 from common.page_common import PageCommon
+from erp_data import ErpData
 from erp_locator import ErpLocator
+from selenium.common.exceptions import TimeoutException
 
 
 # ERP页面类
@@ -23,24 +27,39 @@ class ErpPage(PageCommon):
         self.driver.find_element(By.ID, ErpLocator.pass_word).send_keys(password)
         self.driver.implicitly_wait(500)
         self.driver.find_element(By.XPATH, ErpLocator.login_btn).click()
-        self.driver.implicitly_wait(3000)
+        # self.driver.implicitly_wait(3000)
+        self.page_has_loaded()
 
-    # 搜索数据
+    def wait_element_presence(self):
+        try:
+            element_present = expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.inventory_app))
+            WebDriverWait(self.driver, 30).until(element_present)
+        except TimeoutException:
+            print("Timed out waiting for page to load")
+
+    def go_product(self):
+        BrowserCommon.jump_to(self, ErpData.product_url)
+
     def go_inventory(self):
         self.driver.refresh
-        wait = WebDriverWait(self.driver, 30)
-        wait.until(expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.inventory_app)))
+        self.wait_element_presence()
         self.driver.find_element(By.XPATH, ErpLocator.inventory_app).click()
         self.driver.implicitly_wait(20)
         self.page_has_loaded()
 
     def select_products_dropdown(self):
-        self.driver.refresh
         actions = ActionChains(self.driver)
-        wait = WebDriverWait(self.driver, 30)
-        wait.until(expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.products)))
-        # actions.move_to_element(self.driver.find_element(By.XPATH, ErpLocator.products)).click_and_hold().perform()
-        self.driver.find_element(By.XPATH, ErpLocator.products).click()
+        try:
+            element_present = expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.products_dropdown))
+            WebDriverWait(self.driver, 30).until(element_present)
+        except TimeoutException:
+            print("Timed out waiting for page to load")
+        self.driver.find_element(By.XPATH, ErpLocator.products_dropdown).click()
+        try:
+            element_present = expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.products_dropdown))
+            WebDriverWait(self.driver, 30).until(element_present)
+        except TimeoutException:
+            print("Timed out waiting for page to load")
         actions.move_to_element(self.driver.find_element(By.XPATH, ErpLocator.products_dropdown)). \
             click_and_hold().perform()
         self.driver.find_element(By.XPATH, ErpLocator.products_dropdown).click()
