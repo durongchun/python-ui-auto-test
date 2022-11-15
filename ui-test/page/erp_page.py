@@ -91,9 +91,10 @@ class ErpPage(PageCommon):
         self.driver.find_element(By.XPATH, ErpLocator.attributes_Variants).click()
         self.driver.implicitly_wait(30)
         self.driver.find_element(By.XPATH, ErpLocator.add_line).click()
+        self.select_attribute()
 
         element = self.driver.find_element(By.XPATH, ErpLocator.attribute_box)
-        self.driver.execute_script("arguments[0].click()", element)
+        # self.driver.execute_script("arguments[0].click()", element)
         self.driver.find_element(By.XPATH, ErpLocator.attribute_box).send_keys("Vintage")
         self.driver.implicitly_wait(30)
         self.driver.find_element(By.XPATH, ErpLocator.attribute_box).send_keys(Keys.TAB)
@@ -150,7 +151,10 @@ class ErpPage(PageCommon):
 
     def select_attribute(self):
         # 激活下拉框
-        self.driver.find_element(By.XPATH, ErpLocator.attribute_box).click()
+        ele = self.driver.find_element(By.XPATH, ErpLocator.attribute_box)
+        ActionChains(self.driver).move_to_element(ele).click(ele).perform()
+        # element = self.driver.find_element(By.XPATH, ErpLocator.attribute_box)
+        # self.driver.execute_script("arguments[0].click()", element)
         self.driver.implicitly_wait(10)
 
         # 提取此下拉框中的所有元素
@@ -161,4 +165,3 @@ class ErpPage(PageCommon):
             if "Vintage" in li.text:
                 li.click()
                 break
-        self.driver.implicitly_wait(10)
