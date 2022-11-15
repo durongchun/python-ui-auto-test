@@ -2,10 +2,8 @@ import os
 import unittest
 
 import test_container_world
-import test_mobile_andriod
 import test_sync_data
 import test_wine_direct
-from case import test_baidu_case, test_csdn_case
 from util.config_reader import ConfigReader
 from util.report_tool import ReportTool
 

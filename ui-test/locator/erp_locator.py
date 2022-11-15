@@ -46,7 +46,11 @@ class ErpLocator:
     action = ".btn.btn-secondary.o-no-caret.d-flex.align-items-center"
     delete = "li.o_menu_item:nth-child(3) > a.dropdown-item"
     ok_confirm = "//span[contains(text(),'Ok')]"
-    products = ".oe_kanban_details"
+    products_details = ".o_image_64_contain"
+
+    products_input = ".o_searchview_input"
+    no_products_show = ".o_view_nocontent_smiling_face"
+    vintage_options = "//ul[@id='ui-id-58']/li"
 
 
 ''
