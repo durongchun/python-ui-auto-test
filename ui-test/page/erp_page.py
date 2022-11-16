@@ -91,26 +91,35 @@ class ErpPage(PageCommon):
         self.driver.find_element(By.XPATH, ErpLocator.attributes_Variants).click()
         self.driver.implicitly_wait(30)
         self.driver.find_element(By.XPATH, ErpLocator.add_line).click()
-        self.select_attribute()
+        self.select_attribute("Vintage")
+        ele = self.driver.find_element(By.XPATH, ErpLocator.values_box)
+        ActionChains(self.driver).move_to_element(ele).click(ele).perform()
+        self.driver.implicitly_wait(10)
+        self.driver.find_element(By.XPATH, ErpLocator.values_box).send_keys(vintage1)
+        self.driver.find_element(By.XPATH, ErpLocator.values2_box).send_keys(Keys.ENTER)
+        ActionChains(self.driver).move_to_element(ele).click(ele).perform()
+        self.driver.implicitly_wait(10)
+        self.driver.find_element(By.XPATH, ErpLocator.values2_box).send_keys(vintage2)
+        self.driver.find_element(By.XPATH, ErpLocator.values2_box).send_keys(Keys.ENTER)
 
-        element = self.driver.find_element(By.XPATH, ErpLocator.attribute_box)
+        # element = self.driver.find_element(By.XPATH, ErpLocator.attribute_box)
         # self.driver.execute_script("arguments[0].click()", element)
-        self.driver.find_element(By.XPATH, ErpLocator.attribute_box).send_keys("Vintage")
-        self.driver.implicitly_wait(30)
-        self.driver.find_element(By.XPATH, ErpLocator.attribute_box).send_keys(Keys.TAB)
-        self.driver.implicitly_wait(30)
+        # self.driver.find_element(By.XPATH, ErpLocator.attribute_box).send_keys("Vintage")
+        # self.driver.implicitly_wait(30)
+        # self.driver.find_element(By.XPATH, ErpLocator.attribute_box).send_keys(Keys.TAB)
+        # self.driver.implicitly_wait(30)
         # self.driver.find_element(By.CSS_SELECTOR, ErpLocator.warning).click()
         # self.driver.find_element(By.XPATH, ErpLocator.values_box).click()
-        self.driver.find_element(By.XPATH, ErpLocator.values_box).send_keys(vintage1)
-        self.driver.implicitly_wait(30)
-        # self.driver.find_element(By.CSS_SELECTOR, ErpLocator.warning).click()
-        self.driver.find_element(By.XPATH, ErpLocator.values_box).send_keys(Keys.ENTER)
-        self.driver.implicitly_wait(30)
-        # self.driver.find_element(By.XPATH, ErpLocator.values2_box).click()
-        self.driver.find_element(By.XPATH, ErpLocator.values2_box).send_keys(vintage2)
-        self.driver.implicitly_wait(30)
-        self.driver.find_element(By.XPATH, ErpLocator.values2_box).send_keys(Keys.ENTER)
-        self.driver.implicitly_wait(30)
+        # self.driver.find_element(By.XPATH, ErpLocator.values_box).send_keys(vintage1)
+        # # self.driver.implicitly_wait(30)
+        # # self.driver.find_element(By.CSS_SELECTOR, ErpLocator.warning).click()
+        # self.driver.find_element(By.XPATH, ErpLocator.values_box).send_keys(Keys.ENTER)
+        # self.driver.implicitly_wait(30)
+        # # self.driver.find_element(By.XPATH, ErpLocator.values2_box).click()
+        # self.driver.find_element(By.XPATH, ErpLocator.values2_box).send_keys(vintage2)
+        # self.driver.implicitly_wait(30)
+        # self.driver.find_element(By.XPATH, ErpLocator.values2_box).send_keys(Keys.ENTER)
+        # self.driver.implicitly_wait(30)
         self.driver.find_element(By.XPATH, ErpLocator.save_button).click()
 
     def add_vintage_quantity(self, vintage, product_code):
@@ -149,19 +158,33 @@ class ErpPage(PageCommon):
             print("is product_showing")
             return True
 
-    def select_attribute(self):
+    def select_attribute(self, Vintage):
         # 激活下拉框
         ele = self.driver.find_element(By.XPATH, ErpLocator.attribute_box)
         ActionChains(self.driver).move_to_element(ele).click(ele).perform()
-        # element = self.driver.find_element(By.XPATH, ErpLocator.attribute_box)
-        # self.driver.execute_script("arguments[0].click()", element)
         self.driver.implicitly_wait(10)
-
         # 提取此下拉框中的所有元素
-        lis = self.driver.find_element(By.XPATH, "//ul[contains(@class,'ui-autocomplete dropdown-menu ui-front')]/li")
-
+        lis = self.driver.find_elements(By.XPATH, "//ul[contains(@class,'ui-autocomplete dropdown-menu ui-front')]//li//a")
         # 判断需要的元素在哪里，点击
         for li in lis:
-            if "Vintage" in li.text:
+            if Vintage in li.text:
+                print(li.text)
                 li.click()
                 break
+        self.driver.implicitly_wait(30)
+
+    def select_vintage_value(self, Vintage):
+        # 激活下拉框
+        ele = self.driver.find_element(By.XPATH, ErpLocator.attribute_box)
+        ActionChains(self.driver).move_to_element(ele).click(ele).perform()
+        self.driver.implicitly_wait(10)
+        # 提取此下拉框中的所有元素
+        lis = self.driver.find_elements(By.XPATH,
+                                        "//ul[contains(@class,'ui-autocomplete dropdown-menu ui-front')]//li//a[1]")
+        # 判断需要的元素在哪里，点击
+        for li in lis:
+            if "Search More..." in li.text:
+                print(li.text)
+                li.click()
+                break
+        self.driver.implicitly_wait(30)
