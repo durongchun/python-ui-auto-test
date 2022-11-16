@@ -51,6 +51,10 @@ class ErpLocator:
     products_input = ".o_searchview_input"
     no_products_show = ".o_view_nocontent_smiling_face"
     vintage_options = "//ul[@id='ui-id-58']/li"
+    attribute_dropdown_options = "//ul[contains(@class,'ui-autocomplete dropdown-menu ui-front')]//li//a"
+    vintage_dropdown_options = "//ul[contains(@class,'ui-autocomplete dropdown-menu ui-front')]//li//a[1]"
+    year_select_button = "button.btn.btn-primary.o_select_button"
+    year_options = "//tr/td[1]/div[@class='custom-control custom-checkbox'][1]"
 
 
 ''
