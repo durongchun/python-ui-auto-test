@@ -1,19 +1,15 @@
-import numbers
 import unittest
 import paramunittest
 from numpy.testing._private.parameterized import parameterized
-from sqlalchemy.sql.elements import Null
-
 from base.assembler import Assembler
 from browser_common import BrowserCommon
 from erp_data import ErpData
-from erp_locator import ErpLocator
 from erp_page import ErpPage
-from excel_reader import ExcelReader
 from page_common import PageCommon
 from util.config_reader import ConfigReader
 from util.log_tool import start_info, end_info, log
 from util.screenshot_tool import ScreenshotTool
+from decimal import Decimal
 
 
 # 参数化构建参数
@@ -51,7 +47,7 @@ class TestWareHouse(unittest.TestCase):
     # 第一个测试点ExcelData.get_datas()
     @parameterized.expand(ErpData.test_data)
     def test_warehousing(self, description, warehouse_name, location_name, product_name, product_id,
-                         vintage1, vintage2, product_code1, product_code2, quantity1, quantity2):
+                         vintage1, vintage2, product_code1, product_code2, quantity1, quantity2, upc, scc):
         # log 信息
         log().info(f"Container World第一个用例，环境" + self.env + "语言" + self.lan)
         # go ERP login Page
@@ -63,18 +59,23 @@ class TestWareHouse(unittest.TestCase):
         erp.login(ErpData.user_name, ErpData.pass_word)
         print("description: " + description)
         print("warehouse_name: " + warehouse_name)
+        qty1 = PageCommon.convert_to_decimal(quantity1)
+        print("quantity: " + str(qty1))
 
-        # erp.go_inventory()
+        erp.go_inventory()
         # erp.select_products_dropdown()
         erp.go_product()
         # clear same products created before
         # erp.clear_products(product_name, ErpLocator.products_details)
+        # create product
         erp.create_product(product_name, product_id)
-
+        # update quantity
+        erp.update_quantity(warehouse_name, location_name, quantity1)
+        erp.back_product_page()
+        erp.validate_quantity_on_hand(str(qty1))
+        # add attributes
         if vintage1 != 'NULL':
             erp.add_attributes(vintage1, vintage2)
-
-    # ErpPage.update_quantity(location_name, quantity1, quantity2, vintage1, vintage2)
 
 
 if __name__ == "__main__":

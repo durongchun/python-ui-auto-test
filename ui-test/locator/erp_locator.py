@@ -19,11 +19,13 @@ class ErpLocator:
     update_quantity = "action_update_quantity_on_hand"
     create_qty = "//button[contains(text(),'Create')]"
 
-    location_box = "//input[contains(@class,'ui-autocomplete-input') and contains(@xpath,'1')] "
-    counted_qty = "//input[contains(@class,'o_quick_editable o_input')] "
+    location_box = "div.o_field_widget.o_field_many2one.o_quick_editable.o_with_button.o_required_modifier"
+    location_search_box = ".o_searchview_quick div.o_searchview_input_container > input.o_searchview_input"
+    location_search_result = "tr.o_data_row.text-danger:nth-child(1)"
+    counted_qty = "//input[contains(@class,'o_quick_editable o_input')]"
     save_record_button = "//button[contains(text(),'Save')]"
 
-    apply_button = "//span[text()='Apply' and contains(@xpath, '2')]"
+    apply_button = "button.btn.btn.btn-link:nth-child(2) > span:nth-child(2)"
 
     attributes_Variants = "//a[contains(text(), 'Attributes & Variants')]"
 
@@ -54,7 +56,12 @@ class ErpLocator:
     attribute_dropdown_options = "//ul[contains(@class,'ui-autocomplete dropdown-menu ui-front')]//li//a"
     vintage_dropdown_options = "//ul[contains(@class,'ui-autocomplete dropdown-menu ui-front')]//li//a[1]"
     year_select_button = "button.btn.btn-primary.o_select_button"
-    year_options = "//tr/td[1]/div[@class='custom-control custom-checkbox'][1]"
+    check_boxes = "//tr/td[1]/div[@class='custom-control custom-checkbox'][1]"
+    year_options = "//td[contains(@class, 'o_data_cell o_field_cell o_list_char o_required_modifier')]"
+
+    product_breadcrumb = "li.breadcrumb-item.o_back_button:nth-child(2) > a:nth-child(1)"
+    qty_on_hand = "//div[@name='qty_available']//span[@class='o_stat_value']"
+
 
 
 ''

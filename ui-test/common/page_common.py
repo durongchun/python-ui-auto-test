@@ -8,6 +8,7 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
+from decimal import Decimal
 
 import driver
 from common.browser_common import BrowserCommon
@@ -267,3 +268,10 @@ class PageCommon(BrowserCommon):
         randon_number = random.randint(1, 100)
         print(randon_number)
         return randon_number
+
+    @staticmethod
+    def convert_to_decimal(number):
+        number = Decimal(number).quantize(Decimal("0.00"))
+        return number
+
+
