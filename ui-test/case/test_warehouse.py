@@ -47,7 +47,8 @@ class TestWareHouse(unittest.TestCase):
     # 第一个测试点ExcelData.get_datas()
     @parameterized.expand(ErpData.test_data)
     def test_warehousing(self, description, warehouse_name, location_name, product_name, product_id,
-                         vintage1, vintage2, product_code1, product_code2, quantity1, quantity2, upc, scc):
+                         vintage1, vintage2, product_code1, product_code2, quantity1, quantity2,
+                         upc, scc):
         # log 信息
         log().info(f"Container World第一个用例，环境" + self.env + "语言" + self.lan)
         # go ERP login Page
@@ -68,7 +69,7 @@ class TestWareHouse(unittest.TestCase):
         # clear same products created before
         # erp.clear_products(product_name, ErpLocator.products_details)
         # create product
-        erp.create_product(product_name, product_id)
+        erp.create_product(product_name, product_id, upc)
         # update quantity
         erp.update_quantity(warehouse_name, location_name, quantity1)
         erp.back_product_page()
@@ -76,6 +77,7 @@ class TestWareHouse(unittest.TestCase):
         # add attributes
         if vintage1 != 'NULL':
             erp.add_attributes(vintage1, vintage2)
+            erp.go_variants()
 
 
 if __name__ == "__main__":

@@ -68,22 +68,18 @@ class ErpPage(PageCommon):
             click_and_hold().perform()
         self.driver.find_element(By.XPATH, ErpLocator.products_dropdown).click()
 
-    def create_product(self, product_name, product_id):
+    def create_product(self, product_name, product_id, upc):
         frid_number = str(product_id) + str(self.random_number())
-        prod_name = product_name + str(self.random_number())
+        barcode = upc + str(self.random_number())
         self.driver.find_element(By.XPATH, ErpLocator.create).click()
         self.driver.find_element(By.NAME, ErpLocator.product_name).send_keys(product_name)
+        self.driver.find_element(By.NAME, ErpLocator.barcode).send_keys(barcode)
         self.driver.find_element(By.NAME, ErpLocator.rfid_number).send_keys(frid_number)
         self.driver.find_element(By.XPATH, ErpLocator.save_button).click()
         time.sleep(2)
         self.page_has_loaded()
 
     def update_quantity(self, warehouse_name, location_name, quantity1):
-        # if vintage1 != 'NULL':
-        #     self.driver.find_element(By.XPATH, ErpLocator.variants).click()
-        #     self.driver.find_element(By.XPATH, ErpLocator.values_box.format(vintage1)).click
-        #     self.page_has_loaded()
-        # else:
         self.driver.find_element(By.NAME, ErpLocator.update_quantity).click()
         self.driver.find_element(By.XPATH, ErpLocator.create_qty).click()
         location_name = self.get_location(warehouse_name, location_name)
@@ -97,11 +93,18 @@ class ErpPage(PageCommon):
         self.page_has_loaded()
 
     def update_vintage_quantity(self, vintage1, vintage2):
-        self.driver.find_element(By.XPATH, ErpLocator.variants).click()
-        self.driver.find_element(By.XPATH, ErpLocator.values_box.format(vintage1)).click
+        variants = self.driver.find_elements(By.CSS_SELECTOR, ErpLocator.variant_value)
+        for variant in variants:
+            if vintage1 == variant.text:
+                variant.click()
+
+
+
+    def go_variants(self):
+        self.driver.find_element(By.CSS_SELECTOR, ErpLocator.variants)
         self.page_has_loaded()
 
-    def add_attributes(self, vintage1, vintage2):
+    def dd_attributes(self, vintage1, vintage2):
         action = ActionChains(self.driver)
         self.driver.find_element(By.XPATH, ErpLocator.attributes_Variants).click()
         time.sleep(3)

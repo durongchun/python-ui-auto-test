@@ -265,7 +265,7 @@ class PageCommon(BrowserCommon):
 
     @staticmethod
     def random_number():
-        randon_number = random.randint(1, 100)
+        randon_number = random.randint(1, 10000)
         print(randon_number)
         return randon_number
 

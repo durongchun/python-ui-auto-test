@@ -14,6 +14,7 @@ class ErpLocator:
     create = "//span[contains(text(),'Create')]"
     product_name = "name"
     rfid_number = "rfid_number"
+    barcode = "barcode"
     save_button = "//span[contains(text(),'Save')]"
 
     update_quantity = "action_update_quantity_on_hand"
@@ -40,9 +41,9 @@ class ErpLocator:
     internal_reference_box = "//input[@name='default_code']"
     barcode_box = "//input[contains(@name, 'barcode') and contains(@class,'o_quick_editable o_input') ]"
 
-    variants = "// span[contains(text(), 'Variants')]"
+    variants = ".o_form_sheet div.oe_button_box.o_full:nth-child(1) > button.btn.oe_stat_button:nth-child(2)"
 
-    variant_value = "//span[contains(text(),'Vintage: {}')]"
+    variant_value = ".o_field_widget.o_readonly_modifier > div.badge.badge-pill.o_tag_color_0"
 
     warning = ".oe_edit_only.oe_grey"
     action = ".btn.btn-secondary.o-no-caret.d-flex.align-items-center"
@@ -61,6 +62,8 @@ class ErpLocator:
 
     product_breadcrumb = "li.breadcrumb-item.o_back_button:nth-child(2) > a:nth-child(1)"
     qty_on_hand = "//div[@name='qty_available']//span[@class='o_stat_value']"
+
+
 
 
 
