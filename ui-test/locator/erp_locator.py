@@ -64,8 +64,10 @@ class ErpLocator:
     qty_on_hand = "//div[@name='qty_available']//span[@class='o_stat_value']"
 
     # vintage_values = "//span[contains(@title, {})]"
-    vintage_values = "//*[contains(@name, 'product_template_variant_value_ids')]//span[@class='o_tag_badge_text']"
+    vintage_values = "span.o_tag_badge_text"
     vintage_update_quantity = ".btn.btn-secondary:nth-child(2) > span:nth-child(1)"
+    vintage_qty_on_hand = "//span[contains(@title, {})]/preceding::td/following-sibling::td" \
+                               "[@name='qty_available']"
 
 
 

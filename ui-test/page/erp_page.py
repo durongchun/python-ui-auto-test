@@ -90,39 +90,47 @@ class ErpPage(PageCommon):
         time.sleep(2)
         # self.driver.find_element(By.XPATH, ErpLocator.save_record_button).click()
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.apply_button).click()
-        time.sleep(2)
+        time.sleep(3)
         self.page_has_loaded()
 
-    def update_vintage_quantity(self, url, vintage1, vintage2, warehouse_name, location_name, quantity1, quantity2):
-        # ele1_located = expected_conditions.presence_of_element_located(
-        #     By.XPATH, ErpLocator.vintage_values.format(str(vintage1)))
-        lis = self.driver.find_elements(By.XPATH, ErpLocator.vintage_values)
-        for li in lis:
-            year = li.text
-            vintage = year.split(":")[1].strip()
-            li.click()
-            if vintage in str(vintage1):
-                self.update_quantity(warehouse_name, location_name, quantity1)
-            if vintage in str(vintage2):
-                self.update_quantity(warehouse_name, location_name, quantity2)
+    def update_and_validate_vintage_quantity(self, url, vintage1, vintage2, warehouse_name, location_name, quantity1, quantity2):
+        self.wait_element(expected_conditions.presence_of_all_elements_located
+                          ((By.CSS_SELECTOR, ErpLocator.vintage_values)))
+        lis = self.driver.find_elements(By.CSS_SELECTOR, ErpLocator.vintage_values)
+        qty = (quantity1, quantity2)
+        vintage = (str(vintage1), str(vintage2))
+        for index in range(len(lis)):
+            if vintage[index] in lis[index].text:
+                lis[index].click()
+                self.update_quantity(warehouse_name, location_name, qty[index])
+                self.back_to_variants_page(url)
+            self.wait_element(expected_conditions.presence_of_all_elements_located
+                              ((By.CSS_SELECTOR, ErpLocator.vintage_values)))
+            self.validate_vintage_quantity(vintage[index], qty[index])
+            lis = self.driver.find_elements(By.CSS_SELECTOR, ErpLocator.vintage_values)
+            break
 
-            self.back_to_variants_page(url)
-            lis = self.driver.find_elements(By.XPATH, ErpLocator.vintage_values)
+    def validate_vintage_quantity(self, vintage, quantity):
+        self.driver.refresh()
+        self.page_has_loaded()
+        self.wait_element(expected_conditions.presence_of_element_located
+                          ((By.XPATH, ErpLocator.vintage_qty_on_hand.format(vintage))))
+        qty = self.driver.find_element(By.XPATH, ErpLocator.vintage_qty_on_hand.format(vintage)).text
+        assert qty == str(PageCommon.convert_to_decimal(quantity))
 
     def back_to_variants_page(self, url):
-        self.driver.get(url)
-        time.sleep(2)
+        BrowserCommon.jump_to(self, url)
+        self.driver.refresh()
+        time.sleep(1)
         self.page_has_loaded()
 
     def go_variants(self):
-        ele = expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, ErpLocator.variants))
-        self.wait_element(ele)
+        self.wait_element(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, ErpLocator.variants)))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.variants).click()
         time.sleep(2)
         self.page_has_loaded()
 
     def add_attributes(self, vintage1, vintage2):
-        action = ActionChains(self.driver)
         self.driver.find_element(By.XPATH, ErpLocator.attributes_Variants).click()
         time.sleep(3)
         self.driver.find_element(By.XPATH, ErpLocator.add_line).click()

@@ -18,7 +18,7 @@ from decimal import Decimal
     {"lan": ConfigReader().read("project")["lan"], "env": ConfigReader().read("project")["env"]}
 )
 # ods流程用例测试
-class TestWareHouse(unittest.TestCase):
+class TestTransfer(unittest.TestCase):
     # 出错需要截图时此方法自动被调用
     def save_img(self, img_name):
         ScreenshotTool().save_img(self.driver, img_name)
@@ -64,23 +64,7 @@ class TestWareHouse(unittest.TestCase):
         print("quantity: " + str(qty1))
 
         erp.go_inventory()
-        # erp.select_products_dropdown()
-        erp.go_product()
-        # clear same products created before
-        # erp.clear_products(product_name, ErpLocator.products_details)
-        # create product
-        erp.create_product(product_name, product_id, upc)
-        # add attributes and update qty if having vintages
-        if vintage1 != 'NULL':
-            erp.add_attributes(vintage1, vintage2)
-            erp.go_variants()
-            erp.update_and_validate_vintage_quantity(PageCommon.get_url(self), vintage1,
-                                                     vintage2, warehouse_name, location_name, quantity1, quantity2)
-        else:
-            # directly update quantity if no vintage
-            erp.update_quantity(warehouse_name, location_name, quantity1)
-            erp.back_product_page()
-            erp.validate_quantity_on_hand(str(qty1))
+        # go transfer
 
 
 if __name__ == "__main__":
