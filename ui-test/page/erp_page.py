@@ -90,34 +90,35 @@ class ErpPage(PageCommon):
         time.sleep(2)
         # self.driver.find_element(By.XPATH, ErpLocator.save_record_button).click()
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.apply_button).click()
+        time.sleep(2)
         self.page_has_loaded()
 
     def update_vintage_quantity(self, url, vintage1, vintage2, warehouse_name, location_name, quantity1, quantity2):
         # ele1_located = expected_conditions.presence_of_element_located(
         #     By.XPATH, ErpLocator.vintage_values.format(str(vintage1)))
-        vintage_values = self.driver.find_elements(By.XPATH, ErpLocator.vintage_values)
-        for index in range(len(vintage_values)):
-            vintage_value = vintage_values[index].text
-            vintage = vintage_value.split(":")[1].strip()
-            if vintage in (str(vintage1), str(vintage2)):
-                vintage_values[index].click()
-                if vintage in str(vintage1):
-                    self.update_quantity(warehouse_name, location_name, quantity1)
-                if vintage in str(vintage2):
-                    self.update_quantity(warehouse_name, location_name, quantity2)
+        lis = self.driver.find_elements(By.XPATH, ErpLocator.vintage_values)
+        for li in lis:
+            year = li.text
+            vintage = year.split(":")[1].strip()
+            li.click()
+            if vintage in str(vintage1):
+                self.update_quantity(warehouse_name, location_name, quantity1)
+            if vintage in str(vintage2):
+                self.update_quantity(warehouse_name, location_name, quantity2)
+
             self.back_to_variants_page(url)
-            self.driver.find_elements(By.XPATH, ErpLocator.vintage_values)
+            lis = self.driver.find_elements(By.XPATH, ErpLocator.vintage_values)
 
     def back_to_variants_page(self, url):
         self.driver.get(url)
-        time.sleep(1)
+        time.sleep(2)
         self.page_has_loaded()
 
     def go_variants(self):
         ele = expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, ErpLocator.variants))
         self.wait_element(ele)
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.variants).click()
-        time.sleep(1)
+        time.sleep(2)
         self.page_has_loaded()
 
     def add_attributes(self, vintage1, vintage2):
