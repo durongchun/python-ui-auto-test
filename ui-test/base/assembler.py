@@ -80,7 +80,7 @@ class Assembler:
             else:
                 url = "http://" + ConfigReader().read("project")["remote_ip"] + ":" + ConfigReader().read("project")[
                     "remote_port"] + "/wd/hub"
-                self.driver = RemoteWebDriver(command_executor=url, options=chrome_options)
+                self.driver = webdriver.Remote(command_executor=url, options=chrome_options)
 
         # 若是火狐驱动
         elif ConfigReader().read("project")["driver"].lower() == "firefox":
