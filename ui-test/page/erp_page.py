@@ -32,10 +32,9 @@ class ErpPage(PageCommon):
         time.sleep(2)
         self.page_has_loaded()
 
-    def wait_element_presence(self):
+    def wait_element(self, ele):
         try:
-            element_present = expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.inventory_app))
-            WebDriverWait(self.driver, 30).until(element_present)
+            WebDriverWait(self.driver, 30).until(ele)
         except TimeoutException:
             print("Timed out waiting for page to load")
 
@@ -46,7 +45,8 @@ class ErpPage(PageCommon):
 
     def go_inventory(self):
         self.driver.refresh()
-        self.wait_element_presence()
+        element_present = expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.inventory_app))
+        self.wait_element(element_present)
         self.driver.find_element(By.XPATH, ErpLocator.inventory_app).click()
         time.sleep(2)
         self.page_has_loaded()
@@ -92,19 +92,33 @@ class ErpPage(PageCommon):
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.apply_button).click()
         self.page_has_loaded()
 
-    def update_vintage_quantity(self, vintage1, vintage2):
-        variants = self.driver.find_elements(By.CSS_SELECTOR, ErpLocator.variant_value)
-        for variant in variants:
-            if vintage1 == variant.text:
-                variant.click()
+    def update_vintage_quantity(self, vintage1, vintage2, warehouse_name, location_name, quantity1, quantity2):
+        # ele1_located = expected_conditions.presence_of_element_located(
+        #     By.XPATH, ErpLocator.vintage_values.format(str(vintage1)))
+        # ele2_located = expected_conditions.presence_of_element_located(
+        #     By.XPATH, ErpLocator.vintage_values.format(str(vintage2)))
+        vintage_values = self.driver.find_elements(By.XPATH, ErpLocator.vintage_values)
+        for vintage_value in vintage_values:
+            if str(vintage1) in vintage_value.text:
+                vintage_value.click()
+                self.update_quantity(warehouse_name, location_name, quantity1)
+                self.back_to_variants_page()
+            if str(vintage2) in vintage_value.text:
+                vintage_value.click()
+                self.update_quantity(warehouse_name, location_name, quantity2)
+                self.back_to_variants_page()
 
-
-
-    def go_variants(self):
-        self.driver.find_element(By.CSS_SELECTOR, ErpLocator.variants)
+    def back_to_variants_page(self):
+        url = self.driver.current_url
+        self.driver.get(url)
         self.page_has_loaded()
 
-    def dd_attributes(self, vintage1, vintage2):
+    def go_variants(self):
+        self.driver.find_element(By.CSS_SELECTOR, ErpLocator.variants).click()
+        time.sleep(1)
+        self.page_has_loaded()
+
+    def add_attributes(self, vintage1, vintage2):
         action = ActionChains(self.driver)
         self.driver.find_element(By.XPATH, ErpLocator.attributes_Variants).click()
         time.sleep(3)
@@ -113,6 +127,7 @@ class ErpPage(PageCommon):
         self.select_attribute("Vintage")
         self.select_vintage_value(vintage1, vintage2)
         self.driver.find_element(By.XPATH, ErpLocator.save_button).click()
+        time.sleep(2)
 
     def add_vintage_quantity(self, vintage, product_code):
         self.driver.find_element(By.XPATH, ErpLocator.values_box.format(vintage)).click

@@ -70,14 +70,16 @@ class TestWareHouse(unittest.TestCase):
         # erp.clear_products(product_name, ErpLocator.products_details)
         # create product
         erp.create_product(product_name, product_id, upc)
-        # update quantity
-        erp.update_quantity(warehouse_name, location_name, quantity1)
-        erp.back_product_page()
-        erp.validate_quantity_on_hand(str(qty1))
-        # add attributes
+        # add attributes and update qty if having vintages
         if vintage1 != 'NULL':
             erp.add_attributes(vintage1, vintage2)
             erp.go_variants()
+            erp.update_vintage_quantity(vintage1, vintage2, warehouse_name, location_name, quantity1, quantity2)
+        else:
+            # directly update quantity if no vintage
+            erp.update_quantity(warehouse_name, location_name, quantity1)
+            erp.back_product_page()
+            erp.validate_quantity_on_hand(str(qty1))
 
 
 if __name__ == "__main__":
