@@ -74,7 +74,8 @@ class TestWareHouse(unittest.TestCase):
         if vintage1 != 'NULL':
             erp.add_attributes(vintage1, vintage2)
             erp.go_variants()
-            erp.update_vintage_quantity(vintage1, vintage2, warehouse_name, location_name, quantity1, quantity2)
+            erp.update_vintage_quantity(PageCommon.get_url(self), vintage1,
+                                        vintage2, warehouse_name, location_name, quantity1, quantity2)
         else:
             # directly update quantity if no vintage
             erp.update_quantity(warehouse_name, location_name, quantity1)
