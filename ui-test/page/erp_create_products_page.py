@@ -30,12 +30,6 @@ class ErpCreateProductPage(PageCommon):
         time.sleep(2)
         self.page_has_loaded()
 
-    # def wait_element(self, ele):
-    #     try:
-    #         WebDriverWait(self.driver, 30).until(ele)
-    #     except TimeoutException:
-    #         print("Timed out waiting for page to load")
-
     def go_product(self):
         BrowserCommon.jump_to(self, ErpData.product_url)
         time.sleep(2)
@@ -69,13 +63,17 @@ class ErpCreateProductPage(PageCommon):
     def create_product(self, product_name, product_id, upc):
         frid_number = str(product_id) + str(self.random_number())
         barcode = upc + str(self.random_number())
+        prod_name = product_name + " (T" + str(self.random_number()) + ")"
         self.driver.find_element(By.XPATH, ErpLocator.create).click()
-        self.driver.find_element(By.NAME, ErpLocator.product_name).send_keys(product_name)
+        self.driver.find_element(By.NAME, ErpLocator.product_name).send_keys(prod_name)
         self.driver.find_element(By.NAME, ErpLocator.barcode).send_keys(barcode)
         self.driver.find_element(By.NAME, ErpLocator.rfid_number).send_keys(frid_number)
         self.driver.find_element(By.XPATH, ErpLocator.save_button).click()
         time.sleep(2)
         self.page_has_loaded()
+
+    def get_product_url(self):
+        return self.get_url()
 
     def update_quantity(self, warehouse_name, location_name, quantity1):
         self.driver.find_element(By.NAME, ErpLocator.update_quantity).click()
@@ -87,27 +85,46 @@ class ErpCreateProductPage(PageCommon):
         self.driver.find_element(By.XPATH, ErpLocator.counted_qty).send_keys(Keys.ENTER)
         time.sleep(2)
         # self.driver.find_element(By.XPATH, ErpLocator.save_record_button).click()
-        self.driver.find_element(By.CSS_SELECTOR, ErpLocator.apply_button).click()
+        self.wait_element(expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.apply_button)))
+        self.driver.find_element(By.XPATH, ErpLocator.apply_button).click()
         time.sleep(3)
         self.page_has_loaded()
 
-    def update_and_validate_vintage_quantity(self, url, vintage1, vintage2, warehouse_name, location_name, quantity1,
-                                             quantity2):
+    def update_and_validate_vintage_quantity(self, url, vintage1, vintage2, vintage3,
+                                             vintage4, vintage5, vintage6, vintage7, warehouse_name,
+                                             location_name, quantity1, quantity2, quantity3, quantity4,
+                                             quantity5, quantity6, quantity7):
+        time.sleep(2)
         self.wait_element(expected_conditions.presence_of_all_elements_located
-                          ((By.CSS_SELECTOR, ErpLocator.vintage_values)))
-        lis = self.driver.find_elements(By.CSS_SELECTOR, ErpLocator.vintage_values)
-        qty = (quantity1, quantity2)
-        vintage = (str(vintage1), str(vintage2))
+                          ((By.XPATH, ErpLocator.vintage_values)))
+        lis = self.driver.find_elements(By.XPATH, ErpLocator.vintage_values)
+        print("vintage lis: " + str(len(lis)))
+        qty = (quantity1, quantity2, quantity3, quantity4, quantity5, quantity6, quantity7)
+        vintage = (str(vintage1), str(vintage2), str(vintage3), str(vintage4), str(vintage5),
+                   str(vintage6), str(vintage7))
+
         for index in range(len(lis)):
             if vintage[index] in lis[index].text:
+                time.sleep(2)
                 lis[index].click()
                 self.update_quantity(warehouse_name, location_name, qty[index])
                 self.back_to_variants_page(url)
             self.wait_element(expected_conditions.presence_of_all_elements_located
-                              ((By.CSS_SELECTOR, ErpLocator.vintage_values)))
+                              ((By.XPATH, ErpLocator.vintage_values)))
             self.validate_vintage_quantity(vintage[index], qty[index])
-            lis = self.driver.find_elements(By.CSS_SELECTOR, ErpLocator.vintage_values)
-            break
+            lis = self.driver.find_elements(By.XPATH, ErpLocator.vintage_values)
+
+    def validate_all_vintage_qty(self, quantity1, quantity2, quantity3, quantity4, quantity5, quantity6, quantity7):
+        qtys = (quantity1, quantity2, quantity3, quantity4, quantity5, quantity6, quantity7)
+        all_qty = 0
+        for qty in qtys:
+            if qty != 'NULL':
+                all_qty = all_qty + qty
+
+        qty = self.driver.find_element(By.XPATH, ErpLocator.qty_on_hand).text
+        print("qty on hand: " + qty)
+        print("all qty from data: " + str(all_qty))
+        assert qty == str(PageCommon.convert_to_decimal(all_qty))
 
     def validate_vintage_quantity(self, vintage, quantity):
         self.driver.refresh()
@@ -115,12 +132,14 @@ class ErpCreateProductPage(PageCommon):
         self.wait_element(expected_conditions.presence_of_element_located
                           ((By.XPATH, ErpLocator.vintage_qty_on_hand.format(vintage))))
         qty = self.driver.find_element(By.XPATH, ErpLocator.vintage_qty_on_hand.format(vintage)).text
+        print("xpath: " + ErpLocator.vintage_qty_on_hand.format(vintage))
+        print("vintage qty in ERP: " + qty)
         assert qty == str(PageCommon.convert_to_decimal(quantity))
 
     def back_to_variants_page(self, url):
         BrowserCommon.jump_to(self, url)
         self.driver.refresh()
-        time.sleep(1)
+        time.sleep(2)
         self.page_has_loaded()
 
     def go_variants(self):
@@ -129,15 +148,16 @@ class ErpCreateProductPage(PageCommon):
         time.sleep(2)
         self.page_has_loaded()
 
-    def add_attributes(self, vintage1, vintage2):
+    def add_attributes(self, vintage1, vintage2, vintage3, vintage4, vintage5, vintage6, vintage7):
         self.driver.find_element(By.XPATH, ErpLocator.attributes_Variants).click()
         time.sleep(3)
         self.driver.find_element(By.XPATH, ErpLocator.add_line).click()
         time.sleep(2)
         self.select_attribute("Vintage")
-        self.select_vintage_value(vintage1, vintage2)
+        self.select_vintage_value(vintage1, vintage2, vintage3, vintage4, vintage5, vintage6, vintage7)
+        self.wait_element(expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.save_button)))
         self.driver.find_element(By.XPATH, ErpLocator.save_button).click()
-        time.sleep(2)
+        time.sleep(4)
 
     def clear_products(self, product_name, products_by_xpath):
         self.search_products_by_product_name(product_name)
@@ -215,7 +235,7 @@ class ErpCreateProductPage(PageCommon):
                 break
         time.sleep(2)
 
-    def select_vintage_value(self, vintage1, vintage2):
+    def select_vintage_value(self, vintage1, vintage2, vintage3, vintage4, vintage5, vintage6, vintage7):
         # 激活下拉框
         ele = self.driver.find_element(By.XPATH, ErpLocator.values_box)
         ActionChains(self.driver).move_to_element(ele).click(ele).perform()
@@ -230,13 +250,14 @@ class ErpCreateProductPage(PageCommon):
                 break
         time.sleep(2)
 
-        self.select_years(vintage1, vintage2)
+        self.select_years(vintage1, vintage2, vintage3, vintage4, vintage5, vintage6, vintage7)
 
-    def select_years(self, vintage1, vintage2):
+    def select_years(self, vintage1, vintage2, vintage3, vintage4, vintage5, vintage6, vintage7):
         years = self.driver.find_elements(By.XPATH, ErpLocator.year_options)
         check_boxes = self.driver.find_elements(By.XPATH, ErpLocator.check_boxes)
         for index in range(len(years)):
-            if years[index].text in (str(vintage1), str(vintage2)):
+            if years[index].text in (str(vintage1), str(vintage2), str(vintage3), str(vintage4),
+                                     str(vintage5), str(vintage6), str(vintage7)):
                 check_boxes[index].click()
         time.sleep(1)
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.year_select_button).click()
@@ -261,4 +282,9 @@ class ErpCreateProductPage(PageCommon):
                           ((By.CSS_SELECTOR, ErpLocator.product_breadcrumb)))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.product_breadcrumb).click()
         time.sleep(2)
+        self.page_has_loaded()
+
+    def go_product_page(self, url):
+        self.jump_to(url)
+        time.sleep(1)
         self.page_has_loaded()

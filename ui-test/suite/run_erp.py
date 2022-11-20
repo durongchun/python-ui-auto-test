@@ -5,7 +5,7 @@ import test_container_world
 import test_erp_transfer
 import test_mobile_andriod
 import test_sync_data
-import test_erp_create_products
+import test_erp_add_products
 import test_wine_direct
 from case import test_baidu_case, test_csdn_case
 from util.config_reader import ConfigReader
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     loader = unittest.TestLoader()
 
     # erp测试流程添加到测试套
-    suites.addTests(loader.loadTestsFromModule(test_erp_create_products))
+    suites.addTests(loader.loadTestsFromModule(test_erp_add_products))
     # suites.addTests(loader.loadTestsFromModule(test_erp_transfer))
 
     # 报告生成器，运行用例并生成报告，对 BeautifulReport 套了一层外壳

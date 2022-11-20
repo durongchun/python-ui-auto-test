@@ -28,7 +28,7 @@ class ErpLocator:
     counted_qty = "//input[contains(@class,'o_quick_editable o_input')]"
     save_record_button = "//button[contains(text(),'Save')]"
 
-    apply_button = "button.btn.btn.btn-link:nth-child(2) > span:nth-child(2)"
+    apply_button = "//td[@name='inventory_diff_quantity']/following-sibling::td//span[text()='Apply']"
 
     attributes_Variants = "//a[contains(text(), 'Attributes & Variants')]"
 
@@ -66,10 +66,9 @@ class ErpLocator:
     qty_on_hand = "//div[@name='qty_available']//span[@class='o_stat_value']"
 
     # vintage_values = "//span[contains(@title, {})]"
-    vintage_values = "span.o_tag_badge_text"
+    vintage_values = "//tr[@class='o_data_row']//span[contains(text(), 'Vintage')]"
     vintage_update_quantity = ".btn.btn-secondary:nth-child(2) > span:nth-child(1)"
-    vintage_qty_on_hand = "//span[contains(@title, {})]/preceding::td/following-sibling::td" \
-                          "[@name='qty_available']"
+    vintage_qty_on_hand = "//span[contains(text(), {})]/../../../../following-sibling::td[@name='qty_available']"
 
     # -------------------------transfer pages ------------------------------------
     operations_menu = "//span[contains(text(),'Operations')]"
