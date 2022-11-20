@@ -10,16 +10,14 @@ from erp_locator import ErpLocator
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.common.keys import Keys
 import time
+import unittest
+import paramunittest
 
 
 # ERP页面类
-class ErpPage(PageCommon):
+class ErpCreateProductPage(PageCommon):
     def __init__(self, driver=None):
         super().__init__(driver)
-
-    # ERP首页进入页面操作
-    def jump_to(self):
-        self.driver.get("http://23.16.247.137:9069/web/login")
 
     def login(self, username, password):
         actions = ActionChains(self.driver)
@@ -32,11 +30,11 @@ class ErpPage(PageCommon):
         time.sleep(2)
         self.page_has_loaded()
 
-    def wait_element(self, ele):
-        try:
-            WebDriverWait(self.driver, 30).until(ele)
-        except TimeoutException:
-            print("Timed out waiting for page to load")
+    # def wait_element(self, ele):
+    #     try:
+    #         WebDriverWait(self.driver, 30).until(ele)
+    #     except TimeoutException:
+    #         print("Timed out waiting for page to load")
 
     def go_product(self):
         BrowserCommon.jump_to(self, ErpData.product_url)
@@ -93,7 +91,8 @@ class ErpPage(PageCommon):
         time.sleep(3)
         self.page_has_loaded()
 
-    def update_and_validate_vintage_quantity(self, url, vintage1, vintage2, warehouse_name, location_name, quantity1, quantity2):
+    def update_and_validate_vintage_quantity(self, url, vintage1, vintage2, warehouse_name, location_name, quantity1,
+                                             quantity2):
         self.wait_element(expected_conditions.presence_of_all_elements_located
                           ((By.CSS_SELECTOR, ErpLocator.vintage_values)))
         lis = self.driver.find_elements(By.CSS_SELECTOR, ErpLocator.vintage_values)
@@ -248,13 +247,18 @@ class ErpPage(PageCommon):
             location = "WH" + "/" + location_name
         return location
 
-    def validate_quantity_on_hand(self, quantity1):
+    def get_quantity_on_hand(self):
         self.driver.refresh()
         self.page_has_loaded()
+        self.wait_element(expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.qty_on_hand)))
         qty = self.driver.find_element(By.XPATH, ErpLocator.qty_on_hand).text
-        assert qty == quantity1
-        print("The added quantity is showing: " + qty)
+        return qty
+
+        # assert qty == quantity1
+        # print("The added quantity is showing: " + qty)
 
     def back_product_page(self):
+        self.wait_element(expected_conditions.presence_of_element_located
+                          ((By.CSS_SELECTOR, ErpLocator.product_breadcrumb)))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.product_breadcrumb).click()
         self.page_has_loaded()

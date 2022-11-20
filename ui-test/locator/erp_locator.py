@@ -8,6 +8,8 @@ class ErpLocator:
     login_btn = "//button[@type='submit']"
     inventory_app = "//div[text()='Inventory']"
 
+    # ----------------------create product pages--------------------------------------------
+
     products = ".o-dropdown--no-caret:nth-child(3) button.dropdown-toggle > span:nth-child(1)"
     products_dropdown = "//a[contains(text(),'Products')]"
 
@@ -67,12 +69,13 @@ class ErpLocator:
     vintage_values = "span.o_tag_badge_text"
     vintage_update_quantity = ".btn.btn-secondary:nth-child(2) > span:nth-child(1)"
     vintage_qty_on_hand = "//span[contains(@title, {})]/preceding::td/following-sibling::td" \
-                               "[@name='qty_available']"
+                          "[@name='qty_available']"
 
+    # -------------------------transfer pages ------------------------------------
+    operations_menu = "//span[contains(text(),'Operations')]"
+    transfer_dropdown_option = "//a[contains(text(),'Transfers')]"
+    operation_type = "tr:nth-child(2) td:nth-child(2) > div.o_field_widget.o_field_many2one"
+    source_location = "tr:nth-child(3) td:nth-child(2) > div.o_field_widget.o_field_many2one"
+    destination_location = "tr:nth-child(5) td:nth-child(2) > div.o_field_widget.o_field_many2one"
+    operation_type_dropdown_options = "//ul[contains(@class,'ui-autocomplete dropdown-menu ui-front')]//li//a"
 
-
-
-
-
-
-''

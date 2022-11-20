@@ -4,12 +4,12 @@ from numpy.testing._private.parameterized import parameterized
 from base.assembler import Assembler
 from browser_common import BrowserCommon
 from erp_data import ErpData
-from erp_page import ErpPage
+from erp_create_products_page import ErpCreateProductPage
 from page_common import PageCommon
 from util.config_reader import ConfigReader
 from util.log_tool import start_info, end_info, log
 from util.screenshot_tool import ScreenshotTool
-from decimal import Decimal
+
 
 
 # 参数化构建参数
@@ -45,14 +45,14 @@ class TestWareHouse(unittest.TestCase):
         self.assembler.disassemble_all()
 
     # 第一个测试点ExcelData.get_datas()
-    @parameterized.expand(ErpData.test_data)
+    @parameterized.expand(ErpData.test_add_MtB_data)
     def test_warehousing(self, description, warehouse_name, location_name, product_name, product_id,
                          vintage1, vintage2, product_code1, product_code2, quantity1, quantity2,
                          upc, scc):
         # log 信息
         log().info(f"Container World第一个用例，环境" + self.env + "语言" + self.lan)
         # go ERP login Page
-        erp = ErpPage(self.driver)
+        erp = ErpCreateProductPage(self.driver)
         BrowserCommon.jump_to(self, ErpData.url)
         # login
         # PageCommon.login(self, ErpData.user_name, ErpData.pass_word, ErpLocator.user_name,
@@ -80,7 +80,12 @@ class TestWareHouse(unittest.TestCase):
             # directly update quantity if no vintage
             erp.update_quantity(warehouse_name, location_name, quantity1)
             erp.back_product_page()
-            erp.validate_quantity_on_hand(str(qty1))
+            # erp.validate_quantity_on_hand()
+            self.assertEqual(erp.get_quantity_on_hand(), str(qty1),
+                             "Updated quantity on hand is showing as expected: str(qty1)")
+
+        ScreenshotTool().save_img(self.driver, "force_test_1_TestOds")
+        self.tearDown()
 
 
 if __name__ == "__main__":

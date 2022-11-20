@@ -4,7 +4,8 @@ from numpy.testing._private.parameterized import parameterized
 from base.assembler import Assembler
 from browser_common import BrowserCommon
 from erp_data import ErpData
-from erp_page import ErpPage
+from erp_create_products_page import ErpCreateProductPage
+from erp_transfer_page import ErpTransferPage
 from page_common import PageCommon
 from util.config_reader import ConfigReader
 from util.log_tool import start_info, end_info, log
@@ -45,14 +46,15 @@ class TestTransfer(unittest.TestCase):
         self.assembler.disassemble_all()
 
     # 第一个测试点ExcelData.get_datas()
-    @parameterized.expand(ErpData.test_data)
+    @parameterized.expand(ErpData.test_internal_transfer_data)
     def test_warehousing(self, description, warehouse_name, location_name, product_name, product_id,
                          vintage1, vintage2, product_code1, product_code2, quantity1, quantity2,
-                         upc, scc):
+                         upc, scc, operation_type, source_location, destination_location):
         # log 信息
         log().info(f"Container World第一个用例，环境" + self.env + "语言" + self.lan)
         # go ERP login Page
-        erp = ErpPage(self.driver)
+        erp = ErpCreateProductPage(self.driver)
+        tran_page = ErpTransferPage(self.driver)
         BrowserCommon.jump_to(self, ErpData.url)
         # login
         # PageCommon.login(self, ErpData.user_name, ErpData.pass_word, ErpLocator.user_name,
@@ -65,6 +67,8 @@ class TestTransfer(unittest.TestCase):
 
         erp.go_inventory()
         # go transfer
+        tran_page.go_transfer_page()
+        tran_page.select_operation_type()
 
 
 if __name__ == "__main__":

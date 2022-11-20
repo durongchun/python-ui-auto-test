@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 import os
 import random
+
+from selenium.common import TimeoutException
 from selenium.webdriver.chrome import webdriver
 from selenium.webdriver.support.select import Select
 from selenium.webdriver import ActionChains
@@ -98,43 +100,49 @@ class PageCommon(BrowserCommon):
     # 鼠标事件方法一
     def click(self, type, value):
         if type == "xpath":
-            self.driver.find_element_by_xpath(value).click()
+            self.driver.find_element(By.XPATH, value).click()
         elif type == "class_name":
-            self.driver.find_element_by_class_name(value).click()
+            self.driver.find_element(By.CLASS_NAME, value).click()
         elif type == "id":
-            self.driver.find_element_by_id(value).click()
+            self.driver.find_element(By.ID, value).click()
         elif type == "name":
-            self.driver.find_element_by_name(value).click()
+            self.driver.find_element(By.NAME, value).click()
         elif type == "link_text":
-            self.driver.find_element_by_link_text(value).click()
+            self.driver.find_element(By.LINK_TEXT, value).click()
+        elif type == "css_selector":
+            self.driver.find_element(By.CSS_SELECTOR, value).click()
         elif type == "partial_link_text":
-            self.driver.find_element_by_partial_link_text(value).click()
+            self.driver.find_element(By.PARTIAL_LINK_TEXT, value).click()
 
     # 鼠标事件方法二
     def clear(self, type, value):
         if type == "xpath":
-            self.driver.find_element_by_xpath(value).clear()
+            self.driver.find_element(By.XPATH, value).clear()
         elif type == "id":
-            self.driver.find_element_by_id(value).clear()
+            self.driver.find_element(By.ID, value).clear()
         elif type == "name":
-            self.driver.find_element_by_name(value).clear()
+            self.driver.find_element(By.NAME, value).clear()
         elif type == "link_text":
-            self.driver.find_element_by_link_text(value).clear()
+            self.driver.find_element(By.LINK_TEXT, value).clear()
+        elif type == "css_selector":
+            self.driver.find_element(By.CSS_SELECTOR, value).clear()
         elif type == "partial_link_text":
-            self.driver.find_element_by_partial_link_text(value).clear()
+            self.driver.find_element(By.PARTIAL_LINK_TEXT, value).clear()
 
     # 验证元素是否存在
     def check_element(self, type, value):
         if type == "xpath":
-            self.driver.find_element_by_xpath(value)
+            self.driver.find_element(By.XPATH, value)
         elif type == "id":
-            self.driver.find_element_by_id(value)
+            self.driver.find_element(By.ID, value)
         elif type == "name":
-            self.driver.find_element_by_name(value)
+            self.driver.find_element(By.NAME, value)
         elif type == "link_text":
-            self.driver.find_element_by_link_text(value)
+            self.driver.find_element(By.LINK_TEXT, value)
+        elif type == "css_selector":
+            self.driver.find_element(By.CSS_SELECTOR, value)
         elif type == "partial_link_text":
-            self.driver.find_element_by_partial_link_text(value)
+            self.driver.find_element(By.PARTIAL_LINK_TEXT, value)
 
     # 获取子元素
     def select_child_elements(self, type, value1, value2):
@@ -170,25 +178,34 @@ class PageCommon(BrowserCommon):
     # 获取下拉框的文本的值
     def get_text(self, type, value):
         if type == "xpath":
-            text = self.driver.find_element_by_xpath(value).text
+            text = self.driver.find_element(By.XPATH, value).text
             return text
         elif type == "name":
-            text = self.driver.find_element_by_name(value).text
+            text = self.driver.find_element(By.NAME, value).text
             return text
         elif type == "link_text":
-            text = self.driver.find_element_by_link_text(value).text
+            text = self.driver.find_element(By.LINK_TEXT, value).text
             return text
         elif type == "class_name":
-            text = self.driver.find_element_by_class_name(value).text
+            text = self.driver.find_element(By.CLASS_NAME, value).text
             return text
         elif type == "id":
-            text = self.driver.find_element_by_id(value).text
+            text = self.driver.find_element(By.ID, value).text
+            return text
+        elif type == "css_selector":
+            text = self.driver.find_element(By.CSS_SELECTOR, value).text
             return text
 
     # 显性等待时间
     def webDriverWait(self, MaxTime: object, MinTime: object, value: object) -> object:
         element = self.driver.find_element(By.XPATH, value)
         WebDriverWait(self.driver, MaxTime, MinTime).until(expected_conditions.presence_of_element_located(element))
+
+    def wait_element(self, ele):
+        try:
+            WebDriverWait(self.driver, 30).until(ele)
+        except TimeoutException:
+            print("Timed out waiting for page to load")
 
     def page_has_loaded(self):
         # self.log.info("Checking if {} page is loaded.".format(self.driver.current_url))
@@ -214,18 +231,21 @@ class PageCommon(BrowserCommon):
 
     # 校验按钮是否为选中状态
     def is_selected(self, type, value):
-        if type == "id":
-            self.driver.find_element_by_id(value).is_selected()
-        elif type == "xpath":
-            self.driver.find_element_by_xpath(value).is_selected()
-        elif type == "class_name":
-            self.driver.find_element_by_class_name(value).is_selected()
+        if type == "xpath":
+            self.driver.find_element(By.XPATH, value).is_selected()
+        elif type == "id":
+            self.driver.find_element(By.ID, value).is_selected()
         elif type == "name":
-            self.driver.find_element_by_name(value).is_selected()
+            self.driver.find_element(By.NAME, value).is_selected()
         elif type == "link_text":
-            self.driver.find_element_by_link_text(value).is_selected()
+            self.driver.find_element(By.LINK_TEXT, value).is_selected()
+        elif type == "css_selector":
+            self.driver.find_element(By.CSS_SELECTOR, value).is_selected()
+        elif type == "partial_link_text":
+            self.driver.find_element(By.PARTIAL_LINK_TEXT, value).is_selected()
 
-    ############################## common method ##############################
+    # ############################## common method ##############################
+
     @staticmethod
     def get_project_path():
         """得到项目路径"""
@@ -274,5 +294,10 @@ class PageCommon(BrowserCommon):
         number = Decimal(number).quantize(Decimal("0.00"))
         return number
 
+    def active_dropdown(self, ele):
+        action = ActionChains(self.driver)
+        action.move_to_element(ele).click(ele).perform()
 
-
+    def click_and_hold(self, ele):
+        action = ActionChains(self.driver)
+        action.move_to_element(ele).click_and_hold().perform()
