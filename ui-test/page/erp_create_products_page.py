@@ -247,18 +247,18 @@ class ErpCreateProductPage(PageCommon):
             location = "WH" + "/" + location_name
         return location
 
-    def get_quantity_on_hand(self):
+    def compare_to_quantity_on_hand(self, quantity1):
         self.driver.refresh()
         self.page_has_loaded()
         self.wait_element(expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.qty_on_hand)))
         qty = self.driver.find_element(By.XPATH, ErpLocator.qty_on_hand).text
-        return qty
-
-        # assert qty == quantity1
-        # print("The added quantity is showing: " + qty)
+        if qty != str(quantity1):
+            return False
+        return qty == str(quantity1)
 
     def back_product_page(self):
         self.wait_element(expected_conditions.presence_of_element_located
                           ((By.CSS_SELECTOR, ErpLocator.product_breadcrumb)))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.product_breadcrumb).click()
+        time.sleep(2)
         self.page_has_loaded()

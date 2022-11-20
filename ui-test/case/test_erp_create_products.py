@@ -81,11 +81,11 @@ class TestWareHouse(unittest.TestCase):
             erp.update_quantity(warehouse_name, location_name, quantity1)
             erp.back_product_page()
             # erp.validate_quantity_on_hand()
-            self.assertEqual(erp.get_quantity_on_hand(), str(qty1),
+            self.assertEqual(erp.compare_to_quantity_on_hand(qty1), True,
                              "Updated quantity on hand is showing as expected: str(qty1)")
 
-        ScreenshotTool().save_img(self.driver, "force_test_1_TestOds")
-        self.tearDown()
+        # ScreenshotTool().save_img(self.driver, "force_test_1_TestOds")
+        # self.tearDown()
 
 
 if __name__ == "__main__":
