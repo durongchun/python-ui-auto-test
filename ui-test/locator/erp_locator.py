@@ -68,7 +68,8 @@ class ErpLocator:
     # vintage_values = "//span[contains(@title, {})]"
     vintage_values = "//tr[@class='o_data_row']//span[contains(text(), 'Vintage')]"
     vintage_update_quantity = ".btn.btn-secondary:nth-child(2) > span:nth-child(1)"
-    vintage_qty_on_hand = "//span[contains(text(), {})]/../../../../following-sibling::td[@name='qty_available']"
+    vintage_qty_on_hand = "//span[contains(text(), 'Vintage: {}')]/../../../../" \
+                          "following-sibling::td[@name='qty_available']"
 
     # -------------------------transfer pages ------------------------------------
     operations_menu = "//span[contains(text(),'Operations')]"

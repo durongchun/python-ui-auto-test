@@ -104,7 +104,9 @@ class ErpCreateProductPage(PageCommon):
                    str(vintage6), str(vintage7))
 
         for index in range(len(lis)):
-            if vintage[index] in lis[index].text:
+            vintage_text = lis[index].text
+            li = vintage_text.split(":")[1].strip()
+            if li in vintage:
                 time.sleep(2)
                 lis[index].click()
                 self.update_quantity(warehouse_name, location_name, qty[index])
@@ -122,9 +124,9 @@ class ErpCreateProductPage(PageCommon):
                 all_qty = all_qty + qty
 
         qty = self.driver.find_element(By.XPATH, ErpLocator.qty_on_hand).text
-        print("qty on hand: " + qty)
+        print("qty on hand: " + qty.replace(',', ''))
         print("all qty from data: " + str(all_qty))
-        assert qty == str(PageCommon.convert_to_decimal(all_qty))
+        assert qty.replace(',', '') == str(PageCommon.convert_to_decimal(all_qty))
 
     def validate_vintage_quantity(self, vintage, quantity):
         self.driver.refresh()
@@ -132,14 +134,14 @@ class ErpCreateProductPage(PageCommon):
         self.wait_element(expected_conditions.presence_of_element_located
                           ((By.XPATH, ErpLocator.vintage_qty_on_hand.format(vintage))))
         qty = self.driver.find_element(By.XPATH, ErpLocator.vintage_qty_on_hand.format(vintage)).text
-        print("xpath: " + ErpLocator.vintage_qty_on_hand.format(vintage))
+        print("xpath: " + qty.replace(',', ''))
         print("vintage qty in ERP: " + qty)
-        assert qty == str(PageCommon.convert_to_decimal(quantity))
+        assert qty.replace(',', '') == str(PageCommon.convert_to_decimal(quantity))
 
     def back_to_variants_page(self, url):
         BrowserCommon.jump_to(self, url)
         self.driver.refresh()
-        time.sleep(2)
+        time.sleep(4)
         self.page_has_loaded()
 
     def go_variants(self):
