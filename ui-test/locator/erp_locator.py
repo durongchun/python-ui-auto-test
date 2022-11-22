@@ -78,4 +78,7 @@ class ErpLocator:
     source_location = "tr:nth-child(3) td:nth-child(2) > div.o_field_widget.o_field_many2one"
     destination_location = "tr:nth-child(5) td:nth-child(2) > div.o_field_widget.o_field_many2one"
     operation_type_dropdown_options = "//ul[contains(@class,'ui-autocomplete dropdown-menu ui-front')]//li//a"
+    source_location_dropdown_options = "//ul[@id='ui-id-3']//li//a"
+    destination_location_dropdown_options = "//ul[@id='ui-id-4']//li//a"
+
 
