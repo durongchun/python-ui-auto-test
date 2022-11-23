@@ -9,7 +9,6 @@ class ErpLocator:
     inventory_app = "//div[text()='Inventory']"
 
     # ----------------------create product pages--------------------------------------------
-
     products = "//span[contains(text(),'Products')]"
     products_dropdown = "//a[contains(text(),'Products')]"
 
@@ -80,5 +79,9 @@ class ErpLocator:
     operation_type_dropdown_options = "//ul[contains(@class,'ui-autocomplete dropdown-menu ui-front')]//li//a"
     source_location_dropdown_options = "//ul[@id='ui-id-3']//li//a"
     destination_location_dropdown_options = "//ul[@id='ui-id-4']//li//a"
+    transfer_add_line = "Add a line"
+    transfer_product_box = "//div[2]/div[1]/table[1]/tbody[1]/tr[1]/td[2]/div[1]/div[1]/div[1]/input[1]"
+    transfer_demand_box = "//tbody/tr[1]/td[4]/input[1]"
+    transfer_unit_box = "//div[2]/div[1]/table[1]/tbody[1]/tr[1]/td[6]/div[1]/div[1]/div[1]/input[1]"
 
 

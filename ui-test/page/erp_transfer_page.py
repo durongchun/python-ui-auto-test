@@ -47,3 +47,9 @@ class ErpTransferPage(PageCommon):
                 li.click()
                 break
 
+    def select_product_transfer(self):
+        self.highlight(self.find_element(By.LINK_TEXT, ErpLocator.transfer_add_line))
+        self.click("link_text", ErpLocator.transfer_add_line)
+
+    def select_product(self):
+        self.click("xpath", ErpLocator.transfer_product_box)
