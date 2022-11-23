@@ -22,10 +22,13 @@ class ErpCreateProductPage(PageCommon):
     def login(self, username, password):
         actions = ActionChains(self.driver)
         actions.move_to_element(self.driver.find_element(By.ID, ErpLocator.user_name)).click_and_hold().perform()
+        self.highlight(self.driver.find_element(By.ID, ErpLocator.user_name))
         self.driver.find_element(By.ID, ErpLocator.user_name).send_keys(username)
+        self.highlight(self.driver.find_element(By.ID, ErpLocator.pass_word))
         actions.move_to_element(self.driver.find_element(By.ID, ErpLocator.pass_word)).click_and_hold().perform()
         self.driver.find_element(By.ID, ErpLocator.pass_word).send_keys(password)
         time.sleep(1)
+        self.highlight(self.driver.find_element(By.XPATH, ErpLocator.login_btn))
         self.driver.find_element(By.XPATH, ErpLocator.login_btn).click()
         time.sleep(2)
         self.page_has_loaded()
@@ -36,26 +39,19 @@ class ErpCreateProductPage(PageCommon):
         self.page_has_loaded()
 
     def go_inventory(self):
-        self.driver.refresh()
+        # self.driver.refresh()
         element_present = expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.inventory_app))
         self.wait_element(element_present)
+        self.highlight(self.driver.find_element(By.XPATH, ErpLocator.inventory_app))
         self.driver.find_element(By.XPATH, ErpLocator.inventory_app).click()
         time.sleep(2)
         self.page_has_loaded()
 
     def select_products_dropdown(self):
         actions = ActionChains(self.driver)
-        try:
-            element_present = expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.products_dropdown))
-            WebDriverWait(self.driver, 30).until(element_present)
-        except TimeoutException:
-            print("Timed out waiting for page to load")
-        self.driver.find_element(By.XPATH, ErpLocator.products_dropdown).click()
-        try:
-            element_present = expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.products_dropdown))
-            WebDriverWait(self.driver, 30).until(element_present)
-        except TimeoutException:
-            print("Timed out waiting for page to load")
+        self.highlight(self.driver.find_element(By.XPATH, ErpLocator.products))
+        self.driver.find_element(By.XPATH, ErpLocator.products).click()
+        self.highlight(self.driver.find_element(By.XPATH, ErpLocator.products_dropdown))
         actions.move_to_element(self.driver.find_element(By.XPATH, ErpLocator.products_dropdown)). \
             click_and_hold().perform()
         self.driver.find_element(By.XPATH, ErpLocator.products_dropdown).click()
@@ -64,10 +60,14 @@ class ErpCreateProductPage(PageCommon):
         frid_number = str(product_id) + str(self.random_number())
         barcode = upc + str(self.random_number())
         prod_name = product_name + " (T" + str(self.random_number()) + ")"
+        self.highlight(self.driver.find_element(By.XPATH, ErpLocator.create))
         self.driver.find_element(By.XPATH, ErpLocator.create).click()
+        self.highlight(self.driver.find_element(By.NAME, ErpLocator.product_name))
         self.driver.find_element(By.NAME, ErpLocator.product_name).send_keys(prod_name)
+        self.highlight(self.driver.find_element(By.NAME, ErpLocator.barcode))
         self.driver.find_element(By.NAME, ErpLocator.barcode).send_keys(barcode)
-        self.driver.find_element(By.NAME, ErpLocator.rfid_number).send_keys(frid_number)
+        # self.driver.find_element(By.NAME, ErpLocator.rfid_number).send_keys(frid_number)
+        self.highlight(self.driver.find_element(By.XPATH, ErpLocator.save_button))
         self.driver.find_element(By.XPATH, ErpLocator.save_button).click()
         time.sleep(2)
         self.page_has_loaded()
@@ -76,15 +76,19 @@ class ErpCreateProductPage(PageCommon):
         return self.get_url()
 
     def update_quantity(self, warehouse_name, location_name, quantity1):
+        self.highlight(self.driver.find_element(By.NAME, ErpLocator.update_quantity))
         self.driver.find_element(By.NAME, ErpLocator.update_quantity).click()
+        self.highlight(self.driver.find_element(By.XPATH, ErpLocator.create_qty))
         self.driver.find_element(By.XPATH, ErpLocator.create_qty).click()
         location_name = self.get_location(warehouse_name, location_name)
         self.select_location(location_name)
         self.driver.find_element(By.XPATH, ErpLocator.counted_qty).clear()
+        self.highlight(self.driver.find_element(By.XPATH, ErpLocator.counted_qty))
         self.driver.find_element(By.XPATH, ErpLocator.counted_qty).send_keys(quantity1)
         self.driver.find_element(By.XPATH, ErpLocator.counted_qty).send_keys(Keys.ENTER)
-        time.sleep(2)
+        time.sleep(1)
         # self.driver.find_element(By.XPATH, ErpLocator.save_record_button).click()
+        self.highlight(self.driver.find_element(By.XPATH, ErpLocator.apply_button))
         self.wait_element(expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.apply_button)))
         self.driver.find_element(By.XPATH, ErpLocator.apply_button).click()
         time.sleep(3)
@@ -108,6 +112,7 @@ class ErpCreateProductPage(PageCommon):
             li = vintage_text.split(":")[1].strip()
             if li in vintage:
                 time.sleep(2)
+                self.highlight(lis[index])
                 lis[index].click()
                 self.update_quantity(warehouse_name, location_name, qty[index])
                 self.back_to_variants_page(url)
@@ -145,18 +150,22 @@ class ErpCreateProductPage(PageCommon):
         self.page_has_loaded()
 
     def go_variants(self):
+        self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.variants))
         self.wait_element(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, ErpLocator.variants)))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.variants).click()
         time.sleep(2)
         self.page_has_loaded()
 
     def add_attributes(self, vintage1, vintage2, vintage3, vintage4, vintage5, vintage6, vintage7):
+        self.highlight(self.driver.find_element(By.XPATH, ErpLocator.attributes_Variants))
         self.driver.find_element(By.XPATH, ErpLocator.attributes_Variants).click()
-        time.sleep(3)
+        time.sleep(2)
+        self.highlight(self.driver.find_element(By.XPATH, ErpLocator.add_line))
         self.driver.find_element(By.XPATH, ErpLocator.add_line).click()
         time.sleep(2)
         self.select_attribute("Vintage")
         self.select_vintage_value(vintage1, vintage2, vintage3, vintage4, vintage5, vintage6, vintage7)
+        self.highlight(self.driver.find_element(By.XPATH, ErpLocator.save_button))
         self.wait_element(expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.save_button)))
         self.driver.find_element(By.XPATH, ErpLocator.save_button).click()
         time.sleep(4)
@@ -203,6 +212,7 @@ class ErpCreateProductPage(PageCommon):
     def select_location(self, location):
         # 激活下拉框
         ele = self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_box)
+        self.highlight(ele)
         ActionChains(self.driver).move_to_element(ele).click(ele).perform()
         time.sleep(2)
         # 提取此下拉框中的所有元素
@@ -211,20 +221,23 @@ class ErpCreateProductPage(PageCommon):
         for li in lis:
             if "Search More..." in li.text:
                 print(li.text)
+                self.highlight(li)
                 li.click()
                 break
-        time.sleep(2)
-
+        time.sleep(1)
+        self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box).send_keys(location)
         time.sleep(1)
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box).send_keys(Keys.ENTER)
         time.sleep(1)
+        self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_result))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_result).click()
         time.sleep(2)
 
     def select_attribute(self, vintage):
         # 激活下拉框
         ele = self.driver.find_element(By.XPATH, ErpLocator.attribute_box)
+        self.highlight(ele)
         ActionChains(self.driver).move_to_element(ele).click(ele).perform()
         time.sleep(2)
         # 提取此下拉框中的所有元素
@@ -233,6 +246,7 @@ class ErpCreateProductPage(PageCommon):
         for li in lis:
             if vintage in li.text:
                 print(li.text)
+                self.highlight(li)
                 li.click()
                 break
         time.sleep(2)
@@ -240,6 +254,7 @@ class ErpCreateProductPage(PageCommon):
     def select_vintage_value(self, vintage1, vintage2, vintage3, vintage4, vintage5, vintage6, vintage7):
         # 激活下拉框
         ele = self.driver.find_element(By.XPATH, ErpLocator.values_box)
+        self.highlight(ele)
         ActionChains(self.driver).move_to_element(ele).click(ele).perform()
         time.sleep(2)
         # 提取此下拉框中的所有元素
@@ -248,6 +263,7 @@ class ErpCreateProductPage(PageCommon):
         for li in lis:
             if "Search More..." in li.text:
                 print(li.text)
+                self.highlight(li)
                 li.click()
                 break
         time.sleep(2)
@@ -262,6 +278,7 @@ class ErpCreateProductPage(PageCommon):
                                      str(vintage5), str(vintage6), str(vintage7)):
                 check_boxes[index].click()
         time.sleep(1)
+        self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.year_select_button))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.year_select_button).click()
 
     @staticmethod

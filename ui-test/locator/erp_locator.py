@@ -10,7 +10,7 @@ class ErpLocator:
 
     # ----------------------create product pages--------------------------------------------
 
-    products = ".o-dropdown--no-caret:nth-child(3) button.dropdown-toggle > span:nth-child(1)"
+    products = "//span[contains(text(),'Products')]"
     products_dropdown = "//a[contains(text(),'Products')]"
 
     create = "//span[contains(text(),'Create')]"

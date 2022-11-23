@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 import random
+import time
 
 from selenium.common import TimeoutException
 from selenium.webdriver.chrome import webdriver
@@ -301,3 +302,15 @@ class PageCommon(BrowserCommon):
     def click_and_hold(self, ele):
         action = ActionChains(self.driver)
         action.move_to_element(ele).click_and_hold().perform()
+
+    def highlight(self, element):
+        """Highlights a Selenium webdriver element"""
+        self.driver = element._parent
+        def apply_style(s):
+            self.driver.execute_script("arguments[0].setAttribute('style', arguments[1])", element, s)
+
+        orignal_style = element.get_attribute('style')
+        apply_style("border: 4px solid red")
+        if (element.get_attribute("style") != None):
+            time.sleep(1)
+        apply_style(orignal_style)

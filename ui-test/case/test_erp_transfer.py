@@ -68,7 +68,9 @@ class TestTransfer(unittest.TestCase):
         erp.go_inventory()
         # go transfer
         tran_page.go_transfer_page()
-        tran_page.select_operation_type()
+        tran_page.select_operation_type(operation_type)
+        tran_page.select_source_location(source_location)
+        tran_page.select_destination_location(destination_location)
 
 
 if __name__ == "__main__":

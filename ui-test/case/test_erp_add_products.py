@@ -64,8 +64,8 @@ class TestWareHouse(unittest.TestCase):
         print("quantity: " + str(qty1))
 
         erp.go_inventory()
-        # erp.select_products_dropdown()
-        erp.go_product()
+        erp.select_products_dropdown()
+        # erp.go_product()
         # clear same products created before
         # erp.clear_products(product_name, ErpLocator.products_details)
         # create product
