@@ -98,7 +98,7 @@ class PostgreSQLTool:
             cursor = conn.cursor()
             insert_query = """ INSERT INTO public.ods_stock_quant("source", product_code, product_name, product_id,
                    company_name, location_name, warehouse_name, lot_serial, summary_date, quantity, 
-                   reserved_quantity)                        
+                   reserved_quantity, prod_size)                        
                    SELECT * From public.ods_stock_quant_view """
             update_query = """ UPDATE public.ods_stock_quant set sync_date = CURRENT_DATE """
             cursor.execute(insert_query)

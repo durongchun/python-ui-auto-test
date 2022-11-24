@@ -97,7 +97,7 @@ class WineDirectPage(PageCommon):
                 pool = ("%s" % cols[3]).strip().replace(',', '')
 
                 inventory_datas = ['WineDirect', sku_id.lstrip('0'), product_name, product_id.lstrip('0'), '', pool,
-                                   'NA', summary_date, count, 0, 0]
+                                   'NA', summary_date, count, 0, '']
                 # print("line data product name = " + product_name)
                 item_tuple.append(inventory_datas)
 

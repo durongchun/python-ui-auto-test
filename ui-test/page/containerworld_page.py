@@ -199,7 +199,7 @@ class ContainerWorldMainPage(PageCommon):
                 inventory_datas = [source, sku_num.lstrip('0'), product_name, product_id.lstrip('0'), company_name,
                                    warehouse, 'NA',
                                    summary_date,
-                                   qty, 0, float(prod_size)]
+                                   qty, 0, str(float(prod_size))]
                 print("line data product name=" + product_name + "  sku_id=" + sku_num + "   location" + warehouse +
                       "  product_id" + product_id + "prod_size=" + prod_size)
                 item_tuple.append(inventory_datas)
