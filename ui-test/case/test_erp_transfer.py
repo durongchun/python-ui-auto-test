@@ -47,9 +47,8 @@ class TestTransfer(unittest.TestCase):
 
     # 第一个测试点ExcelData.get_datas()
     @parameterized.expand(ErpData.test_internal_transfer_data)
-    def test_warehousing(self, description, warehouse_name, location_name, product_name, product_id,
-                         vintage1, vintage2, product_code1, product_code2, quantity1, quantity2,
-                         upc, scc, operation_type, source_location, destination_location):
+    def test_warehousing(self, description, product_name, product_id, vintage1, vintage2,
+                         upc, scc, deliver_address, operation_type, source_location, destination_location, demand, unit):
         # log 信息
         log().info(f"Container World第一个用例，环境" + self.env + "语言" + self.lan)
         # go ERP login Page
@@ -61,16 +60,15 @@ class TestTransfer(unittest.TestCase):
         #                  ErpLocator.pass_word, ErpLocator.login_btn)
         erp.login(ErpData.user_name, ErpData.pass_word)
         print("description: " + description)
-        print("warehouse_name: " + warehouse_name)
-        qty1 = PageCommon.convert_to_decimal(quantity1)
-        print("quantity: " + str(qty1))
 
         erp.go_inventory()
         # go transfer
         tran_page.go_transfer_page()
+        tran_page.click_create_button()
         tran_page.select_operation_type(operation_type)
-        tran_page.select_source_location(source_location)
-        tran_page.select_destination_location(destination_location)
+        tran_page.select_deliver_address(deliver_address)
+        # tran_page.select_source_location(source_location)
+        # tran_page.select_destination_location(destination_location)
 
 
 if __name__ == "__main__":

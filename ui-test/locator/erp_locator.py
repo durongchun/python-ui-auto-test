@@ -73,15 +73,21 @@ class ErpLocator:
     # -------------------------transfer pages ------------------------------------
     operations_menu = "//span[contains(text(),'Operations')]"
     transfer_dropdown_option = "//a[contains(text(),'Transfers')]"
+    deliver_address = "tr:nth-child(1) td:nth-child(2) > div.o_field_widget.o_field_many2one"
     operation_type = "tr:nth-child(2) td:nth-child(2) > div.o_field_widget.o_field_many2one"
     source_location = "tr:nth-child(3) td:nth-child(2) > div.o_field_widget.o_field_many2one"
     destination_location = "tr:nth-child(5) td:nth-child(2) > div.o_field_widget.o_field_many2one"
+    deliver_address_dropdown_options = "//ul[contains(@id, 'ui-id-')][2]//li//a"
     operation_type_dropdown_options = "//ul[contains(@class,'ui-autocomplete dropdown-menu ui-front')]//li//a"
-    source_location_dropdown_options = "//ul[@id='ui-id-3']//li//a"
-    destination_location_dropdown_options = "//ul[@id='ui-id-4']//li//a"
+    source_location_dropdown_options = "//ul[contains(@id, 'ui-id-')][3]//li//a"
+    destination_location_dropdown_options = "//ul[contains(@id, 'ui-id-')][4]//li//a"
     transfer_add_line = "Add a line"
     transfer_product_box = "//div[2]/div[1]/table[1]/tbody[1]/tr[1]/td[2]/div[1]/div[1]/div[1]/input[1]"
     transfer_demand_box = "//tbody/tr[1]/td[4]/input[1]"
     transfer_unit_box = "//div[2]/div[1]/table[1]/tbody[1]/tr[1]/td[6]/div[1]/div[1]/div[1]/input[1]"
+    deliver_address_search_results = "div.table-responsive table.o_list_table.table.table-sm.table-hover." \
+                                     "table-striped.o_list_table_ungrouped tbody.ui-sortable:nth-child(2) " \
+                                     "tr.o_data_row:nth-child(1) > td.o_data_cell.o_field_cell.o_list_char" \
+                                     ".o_readonly_modifier:nth-child(1)"
 
 
