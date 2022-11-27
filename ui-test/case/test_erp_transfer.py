@@ -59,10 +59,11 @@ class TestTransfer(unittest.TestCase):
         print("description: " + description)
 
         erp.go_inventory()
-        erp.select_products_dropdown()
         # get product original qty
         origin_qty1 = tran_page.check_product_quantity(product1, Vintage1)
         origin_qty2 = tran_page.check_product_quantity(product2, Vintage2)
+        print("Original quantity of " + product1 + " is: " + origin_qty1)
+        print("Original quantity of " + product2 + " is: " + origin_qty2)
         # go transfer
         tran_page.go_transfer_page()
         tran_page.click_create_button()
@@ -71,6 +72,8 @@ class TestTransfer(unittest.TestCase):
         # get product current qty
         current_qty1 = tran_page.check_product_quantity(product1, Vintage1)
         current_qty2 = tran_page.check_product_quantity(product2, Vintage2)
+        print("Current quantity of " + product1 + " is: " + origin_qty1)
+        print("Current quantity of " + product2 + " is: " + origin_qty2)
         self.assertEqual(tran_page.compare_to_quantity_on_hand(origin_qty1, current_qty1, demand1), True,
                          "Transfer with delivery orders: " + product1 + "successfully")
         self.assertEqual(tran_page.compare_to_quantity_on_hand(origin_qty2, current_qty2, demand2), True,

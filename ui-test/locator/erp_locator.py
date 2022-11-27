@@ -96,6 +96,11 @@ class ErpLocator:
                             "o_list_char.o_readonly_modifier:nth-child(2)"
     transfer_create_highlight = "div.o_list_buttons.d-flex > button.btn.btn-primary.o_list_button_add:nth-child(3)"
     create_button = "//span[contains(text(),'Create')]"
+    make_as_to_do = "div.o_form_sheet_bg div.o_form_statusbar div.o_statusbar_buttons > " \
+                    "button.btn.btn-primary:nth-child(1)"
+    check_available = "div.o_form_statusbar div.o_statusbar_buttons > button.btn.btn-primary:nth-child(2)"
+    validate = "div.o_form_statusbar div.o_statusbar_buttons > button.btn.btn-primary:nth-child(3)"
+    apply = "div:nth-child(1) footer:nth-child(1) > button.btn.btn-primary:nth-child(1)"
 
 
 

@@ -296,6 +296,15 @@ class PageCommon(BrowserCommon):
         print(randon_number)
         return randon_number
 
+    # 删除小数点后多余的0
+    def delete_extra_zero(n):
+        if isinstance(n, int):
+            return n
+        if isinstance(n, float):
+            n = str(n).rstrip('0')  # 删除小数点后多余的0
+            n = int(n.rstrip('.')) if n.endswith('.') else float(n)  # 只剩小数点直接转int，否则转回float
+            return n
+
     @staticmethod
     def convert_to_decimal(number):
         number = Decimal(number).quantize(Decimal("0.00"))

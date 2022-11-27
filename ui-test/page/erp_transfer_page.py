@@ -110,6 +110,7 @@ class ErpTransferPage(PageCommon):
         time.sleep(2)
         self.highlight(self.find_element(By.XPATH, ErpLocator.transfer_demand_box))
         self.input("xpath", ErpLocator.transfer_demand_box, demand)
+        self.find_element(By.XPATH, ErpLocator.transfer_demand_box).send_keys(Keys.ENTER)
 
     def select_products_and_transfer(self, product1, product2, demand1, demand2):
         prods = (product1, product2)
@@ -121,6 +122,14 @@ class ErpTransferPage(PageCommon):
             self.add_demand_quantity(demands[num])
             time.sleep(1)
         self.click_save_button()
+        self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.make_as_to_do))
+        self.find_element(By.CSS_SELECTOR, ErpLocator.make_as_to_do).click()
+        time.sleep(1)
+        self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.validate))
+        self.find_element(By.CSS_SELECTOR, ErpLocator.validate).click()
+        time.sleep(1)
+        self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.apply))
+        self.find_element(By.CSS_SELECTOR, ErpLocator.apply).click()
 
     def click_save_button(self):
         self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.save_button))
@@ -128,6 +137,7 @@ class ErpTransferPage(PageCommon):
         time.sleep(1)
 
     def check_product_quantity(self, product, vintage):
+        ErpCreateProductPage.select_products_dropdown(self)
         ErpCreateProductPage.search_products_by_product_name(self, product)
         self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.product_item))
         self.click("css_selector", ErpLocator.product_item)
@@ -142,7 +152,9 @@ class ErpTransferPage(PageCommon):
 
     @staticmethod
     def compare_to_quantity_on_hand(origin_qty, current_qty, demand):
-        if origin_qty == current_qty + demand:
+        ori_qty = origin_qty.strip().replace(',', '')
+        cur_qty = current_qty.strip().replace(',', '')
+        if float(ori_qty) == float(cur_qty) + float(demand):
             return True
         else:
             return False
