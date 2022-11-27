@@ -45,30 +45,36 @@ class TestTransfer(unittest.TestCase):
         # 装配器卸载
         self.assembler.disassemble_all()
 
-    # 第一个测试点ExcelData.get_datas()
-    @parameterized.expand(ErpData.test_internal_transfer_data)
-    def test_warehousing(self, description, product_name, product_id, vintage1, vintage2,
-                         upc, scc, deliver_address, operation_type, source_location, destination_location, demand, unit):
+    # 第一个测试点
+    @parameterized.expand(ErpData.test_delivery_orders_transfer_data)
+    def test_delivery_orders_transfer(self, description, product1, product2, Vintage1, Vintage2, demand1, demand2,
+                                      unit1, unit2, deliver_address, operation_type, source_location):
         # log 信息
         log().info(f"Container World第一个用例，环境" + self.env + "语言" + self.lan)
         # go ERP login Page
         erp = ErpCreateProductPage(self.driver)
         tran_page = ErpTransferPage(self.driver)
         BrowserCommon.jump_to(self, ErpData.url)
-        # login
-        # PageCommon.login(self, ErpData.user_name, ErpData.pass_word, ErpLocator.user_name,
-        #                  ErpLocator.pass_word, ErpLocator.login_btn)
         erp.login(ErpData.user_name, ErpData.pass_word)
         print("description: " + description)
 
         erp.go_inventory()
+        erp.select_products_dropdown()
+        # get product original qty
+        origin_qty1 = tran_page.check_product_quantity(product1, Vintage1)
+        origin_qty2 = tran_page.check_product_quantity(product2, Vintage2)
         # go transfer
         tran_page.go_transfer_page()
         tran_page.click_create_button()
         tran_page.select_operation_type(operation_type)
-        tran_page.select_deliver_address(deliver_address)
-        # tran_page.select_source_location(source_location)
-        # tran_page.select_destination_location(destination_location)
+        tran_page.select_products_and_transfer(product1, product2, str(demand1), str(demand2))
+        # get product current qty
+        current_qty1 = tran_page.check_product_quantity(product1, Vintage1)
+        current_qty2 = tran_page.check_product_quantity(product2, Vintage2)
+        self.assertEqual(tran_page.compare_to_quantity_on_hand(origin_qty1, current_qty1, demand1), True,
+                         "Transfer with delivery orders: " + product1 + "successfully")
+        self.assertEqual(tran_page.compare_to_quantity_on_hand(origin_qty2, current_qty2, demand2), True,
+                         "Transfer with delivery orders: " + product2 + "successfully")
 
 
 if __name__ == "__main__":

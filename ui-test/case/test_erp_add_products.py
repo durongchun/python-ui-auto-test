@@ -65,7 +65,6 @@ class TestWareHouse(unittest.TestCase):
 
         erp.go_inventory()
         erp.select_products_dropdown()
-        # erp.go_product()
         # clear same products created before
         # erp.clear_products(product_name, ErpLocator.products_details)
         # create product

@@ -12,11 +12,11 @@ class ErpLocator:
     products = "//span[contains(text(),'Products')]"
     products_dropdown = "//a[contains(text(),'Products')]"
 
-    create = "//span[contains(text(),'Create')]"
+    create = "//button[@title='Create record']"
     product_name = "name"
     rfid_number = "rfid_number"
     barcode = "barcode"
-    save_button = "//span[contains(text(),'Save')]"
+    save_button = "div.o_form_buttons_edit > button.btn.btn-primary.o_form_button_save:nth-child(1)"
 
     update_quantity = "action_update_quantity_on_hand"
     create_qty = "//button[contains(text(),'Create')]"
@@ -69,6 +69,7 @@ class ErpLocator:
     vintage_update_quantity = ".btn.btn-secondary:nth-child(2) > span:nth-child(1)"
     vintage_qty_on_hand = "//span[contains(text(), 'Vintage: {}')]/../../../../" \
                           "following-sibling::td[@name='qty_available']"
+    product_item = "div.oe_kanban_card.oe_kanban_global_click.o_kanban_record:nth-child(1) > div.oe_kanban_details"
 
     # -------------------------transfer pages ------------------------------------
     operations_menu = "//span[contains(text(),'Operations')]"
@@ -77,17 +78,24 @@ class ErpLocator:
     operation_type = "tr:nth-child(2) td:nth-child(2) > div.o_field_widget.o_field_many2one"
     source_location = "tr:nth-child(3) td:nth-child(2) > div.o_field_widget.o_field_many2one"
     destination_location = "tr:nth-child(5) td:nth-child(2) > div.o_field_widget.o_field_many2one"
-    deliver_address_dropdown_options = "//ul[contains(@id, 'ui-id-')][2]//li//a"
+    deliver_address_dropdown_options = "//ul[contains(@id, 'ui-id-')][1]//li//a"
     operation_type_dropdown_options = "//ul[contains(@class,'ui-autocomplete dropdown-menu ui-front')]//li//a"
     source_location_dropdown_options = "//ul[contains(@id, 'ui-id-')][3]//li//a"
     destination_location_dropdown_options = "//ul[contains(@id, 'ui-id-')][4]//li//a"
-    transfer_add_line = "Add a line"
-    transfer_product_box = "//div[2]/div[1]/table[1]/tbody[1]/tr[1]/td[2]/div[1]/div[1]/div[1]/input[1]"
-    transfer_demand_box = "//tbody/tr[1]/td[4]/input[1]"
+    transfer_add_line = "//td[@colspan='8']//a[contains(text(), 'Add a line')]"
+    transfer_product_box = "//div[@name='product_id']"
+    transfer_demand_box = "//input[contains(@name,  'product_uom_qty') and contains(@type, 'text') ]"
     transfer_unit_box = "//div[2]/div[1]/table[1]/tbody[1]/tr[1]/td[6]/div[1]/div[1]/div[1]/input[1]"
     deliver_address_search_results = "div.table-responsive table.o_list_table.table.table-sm.table-hover." \
                                      "table-striped.o_list_table_ungrouped tbody.ui-sortable:nth-child(2) " \
                                      "tr.o_data_row:nth-child(1) > td.o_data_cell.o_field_cell.o_list_char" \
                                      ".o_readonly_modifier:nth-child(1)"
+    product_box_options = "//ul[contains(@class, 'dropdown-menu ui-front') ][6]//li//a"
+    unit_box_options = "//ul[contains(@class, 'dropdown-menu ui-front') ][8]//li//a"
+    product_search_result = "tr.o_data_row:nth-child(1) > td.o_data_cell.o_field_cell." \
+                            "o_list_char.o_readonly_modifier:nth-child(2)"
+    transfer_create_highlight = "div.o_list_buttons.d-flex > button.btn.btn-primary.o_list_button_add:nth-child(3)"
+    create_button = "//span[contains(text(),'Create')]"
+
 
 

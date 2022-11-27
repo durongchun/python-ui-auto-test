@@ -86,17 +86,23 @@ class PageCommon(BrowserCommon):
     # 输入内容方法
     def input(self, type, value, inputvalue):
         if type == "xpath":
-            self.driver.find_element_by_xpath(value).send_keys(inputvalue)
+            self.driver.find_element(By.XPATH, value).clear()
+            self.driver.find_element(By.XPATH, value).send_keys(inputvalue)
         elif type == "class_name":
-            self.driver.find_element_by_class_name(value).send_keys(inputvalue)
+            self.driver.find_element(By.XPATH, value).clear()
+            self.driver.find_element(By.CLASS_NAME, value).send_keys(inputvalue)
         elif type == "id":
-            self.driver.find_element_by_id(value).send_keys(inputvalue)
+            self.driver.find_element(By.XPATH, value).clear()
+            self.driver.find_element(By.ID, value).send_keys(inputvalue)
         elif type == "name":
-            self.driver.find_element_by_name(value).send_keys(inputvalue)
+            self.driver.find_element(By.XPATH, value).clear()
+            self.driver.find_element(By.NAME, value).send_keys(inputvalue)
         elif type == "link_text":
-            self.driver.find_element_by_link_text(value).send_keys(inputvalue)
+            self.driver.find_element(By.XPATH, value).clear()
+            self.driver.find_element(By.LINK_TEXT, value).send_keys(inputvalue)
         elif type == "partial_link_text":
-            self.driver.find_element_by_partial_link_text(value).send_keys(inputvalue)
+            self.driver.find_element(By.XPATH, value).clear()
+            self.driver.find_element(By.PARTIAL_LINK_TEXT, value).send_keys(inputvalue)
 
     # 鼠标事件方法一
     def click(self, type, value):
@@ -218,17 +224,17 @@ class PageCommon(BrowserCommon):
     # # 鼠标移动点击机制
     def move_action(self, type, value):
         if type == "xpath":
-            xm = self.driver.find_element_by_xpath(value)
-            webdriver.ActionChains(self.driver).click(xm).perform()
+            ele = self.driver.find_element(By.XPATH, value)
+            ActionChains(self.driver).move_to_element(ele).click(ele).perform()
         elif type == "id":
-            xm = self.driver.find_element_by_id(value)
-            webdriver.ActionChains(self.driver).click(xm).perform()
+            ele = self.driver.find_element(By.ID, value)
+            ActionChains(self.driver).move_to_element(ele).click(ele).perform()
         elif type == "name":
-            xm = self.driver.find_element_by_name(value)
-            webdriver.ActionChains(self.driver).click(xm).perform()
+            ele = self.driver.find_element(By.NAME, value)
+            ActionChains(self.driver).move_to_element(ele).click(ele).perform()
         elif type == "link_text":
-            xm = self.driver.find_element_by_link_text(value)
-            webdriver.ActionChains(self.driver).click(xm).perform()
+            ele = self.driver.find_element(By.LINK_TEXT, value)
+            ActionChains(self.driver).move_to_element(ele).click(ele).perform()
 
     # 校验按钮是否为选中状态
     def is_selected(self, type, value):
@@ -310,7 +316,8 @@ class PageCommon(BrowserCommon):
             self.driver.execute_script("arguments[0].setAttribute('style', arguments[1])", element, s)
 
         orignal_style = element.get_attribute('style')
-        apply_style("border: 4px solid red")
+        apply_style("border:6px solid red; background:yellow")
+        # apply_style("border: 4px solid red")
         if (element.get_attribute("style") != None):
             time.sleep(1)
         apply_style(orignal_style)

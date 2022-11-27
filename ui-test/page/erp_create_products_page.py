@@ -176,6 +176,7 @@ class ErpCreateProductPage(PageCommon):
             elements = self.driver.find_elements(By.CSS_SELECTOR, products_by_xpath)
             action = ActionChains(self.driver)
             action.move_to_element(elements[0]).click_and_hold().perform()
+            self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.product_item))
             elements[0].click()
             self.page_has_loaded()
             for index in range(len(elements)):
@@ -194,6 +195,9 @@ class ErpCreateProductPage(PageCommon):
         # self.driver.find_element(By.CSS_SELECTOR, ErpLocator.action)
 
     def search_products_by_product_name(self, product_name):
+        time.sleep(2)
+        self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.products_input))
+        self.driver.find_element(By.CSS_SELECTOR, ErpLocator.products_input).clear()
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.products_input).send_keys(product_name)
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.products_input).send_keys(Keys.ENTER)
         self.page_has_loaded()
