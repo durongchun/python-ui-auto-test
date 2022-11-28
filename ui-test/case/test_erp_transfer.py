@@ -67,6 +67,7 @@ class TestTransfer(unittest.TestCase):
         # go transfer
         tran_page.go_transfer_page()
         tran_page.click_create_button()
+        tran_page.select_delivery_address(deliver_address)
         tran_page.select_operation_type(operation_type)
         tran_page.select_products_and_transfer(product1, product2, str(demand1), str(demand2))
         # get product current qty
