@@ -80,6 +80,41 @@ class TestTransfer(unittest.TestCase):
         self.assertEqual(tran_page.compare_to_quantity_on_hand(origin_qty2, current_qty2, demand2), True,
                          "Transfer with delivery orders: " + product2 + "successfully")
 
+    # 第二个测试点
+    @parameterized.expand(ErpData.test_internal_transfer_data)
+    def test_internal_transfer(self, description, product1, product2, Vintage1, Vintage2, demand1, demand2,
+                               unit1, unit2, contact, operation_type, source_location, destination_location):
+        # log 信息
+        log().info(f"Container World第一个用例，环境" + self.env + "语言" + self.lan)
+        # go ERP login Page
+        erp = ErpCreateProductPage(self.driver)
+        tran_page = ErpTransferPage(self.driver)
+        BrowserCommon.jump_to(self, ErpData.url)
+        erp.login(ErpData.user_name, ErpData.pass_word)
+        print("description: " + description)
+
+        erp.go_inventory()
+        # get product original qty
+        origin_qty1 = tran_page.check_product_quantity(product1, Vintage1)
+        origin_qty2 = tran_page.check_product_quantity(product2, Vintage2)
+        print("Original quantity of " + product1 + " is: " + origin_qty1)
+        print("Original quantity of " + product2 + " is: " + origin_qty2)
+        # go transfer
+        tran_page.go_transfer_page()
+        tran_page.click_create_button()
+        tran_page.select_delivery_address(contact)
+        tran_page.select_operation_type(operation_type)
+        tran_page.select_products_and_transfer(product1, product2, str(demand1), str(demand2))
+        # get product current qty
+        current_qty1 = tran_page.check_product_quantity(product1, Vintage1)
+        current_qty2 = tran_page.check_product_quantity(product2, Vintage2)
+        print("Current quantity of " + product1 + " is: " + origin_qty1)
+        print("Current quantity of " + product2 + " is: " + origin_qty2)
+        self.assertEqual(tran_page.compare_to_quantity_on_hand(origin_qty1, current_qty1, demand1), True,
+                         "Transfer with delivery orders: " + product1 + "successfully")
+        self.assertEqual(tran_page.compare_to_quantity_on_hand(origin_qty2, current_qty2, demand2), True,
+                         "Transfer with delivery orders: " + product2 + "successfully")
+
 
 if __name__ == "__main__":
     # 使用 unittest 依次执行当前模块中 test 打头的方法
