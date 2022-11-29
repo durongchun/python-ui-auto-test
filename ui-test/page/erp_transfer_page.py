@@ -39,20 +39,24 @@ class ErpTransferPage(PageCommon):
         time.sleep(1)
 
     def select_source_location(self, source_location):
+        self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.source_location))
         self.click("css_selector", ErpLocator.source_location)
         lis = self.find_elements(By.XPATH, ErpLocator.source_location_dropdown_options)
         for li in lis:
             if "Search More..." == li.text:
+                self.highlight(li)
                 li.click()
                 break
         time.sleep(1)
         self.search_location(source_location)
 
     def select_destination_location(self, destination_location):
+        self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.destination_location))
         self.click("css_selector", ErpLocator.destination_location)
         lis = self.find_elements(By.XPATH, ErpLocator.destination_location_dropdown_options)
         for li in lis:
             if "Search More..." == lis.text:
+                self.highlight(li)
                 li.click()
                 break
         time.sleep(1)
@@ -95,9 +99,9 @@ class ErpTransferPage(PageCommon):
                 self.highlight(li)
                 li.click()
                 break
-        self.search_contact(deliver_address)
+        self.search_location(deliver_address)
 
-    def search_contact(self, deliver_address):
+    def search_location(self, deliver_address):
         self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box).send_keys(deliver_address)
         time.sleep(1)
@@ -122,10 +126,13 @@ class ErpTransferPage(PageCommon):
         demands = (demand1, demand2)
         nums = (0, 1)
         for num in nums:
+            if prods[num] == "":
+                break
             self.click_add_line()
             self.select_product(prods[num])
             self.add_demand_quantity(demands[num])
             time.sleep(1)
+
         self.click_save_button()
         self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.make_as_to_do))
         self.find_element(By.CSS_SELECTOR, ErpLocator.make_as_to_do).click()
@@ -156,10 +163,38 @@ class ErpTransferPage(PageCommon):
         return qty
 
     @staticmethod
-    def compare_to_quantity_on_hand(origin_qty, current_qty, demand):
+    def compare_to_qty_stock_in(origin_qty, current_qty, demand):
+        ori_qty = origin_qty.strip().replace(',', '')
+        cur_qty = current_qty.strip().replace(',', '')
+        if float(cur_qty) == float(ori_qty) + float(demand):
+            return True
+        else:
+            return False
+
+    @staticmethod
+    def compare_to_qty_stock_out(origin_qty, current_qty, demand):
         ori_qty = origin_qty.strip().replace(',', '')
         cur_qty = current_qty.strip().replace(',', '')
         if float(ori_qty) == float(cur_qty) + float(demand):
             return True
         else:
             return False
+
+    def check_product_quantity_from_inventory_report(self, product_code, location):
+        self.go_inventory_report()
+        ErpCreateProductPage.search_products_by_product_name(self, product_code)
+        self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.top_category))
+        self.find_element(By.CSS_SELECTOR, ErpLocator.top_category).click()
+        self.highlight(self.find_element(By.XPATH, ErpLocator.location_category.format(location)))
+        self.find_element(By.XPATH, ErpLocator.location_category.format(location)).click()
+        available_qty = self.find_element(By.XPATH, ErpLocator.available_quantity.format(location)).text
+        return available_qty
+
+    def go_inventory_report(self):
+        self.highlight(self.find_element(By.XPATH, ErpLocator.reporting))
+        self.find_element(By.XPATH, ErpLocator.reporting).click()
+        self.highlight(self.find_element(By.XPATH, ErpLocator.inventory_report_option))
+        self.find_element(By.XPATH, ErpLocator.inventory_report_option).click()
+        time.sleep(1)
+        self.page_has_loaded()
+

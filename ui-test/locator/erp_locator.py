@@ -101,5 +101,10 @@ class ErpLocator:
     validate = "div.o_form_statusbar div.o_statusbar_buttons > button.btn.btn-primary:nth-child(3)"
     apply = "div:nth-child(1) footer:nth-child(1) > button.btn.btn-primary:nth-child(1)"
 
-
+    # --------------------------------Reporting-------------------------------------------
+    reporting = "//span[contains(text(),'Reporting')]"
+    inventory_report_option = "//a[contains(text(),'Inventory Report')]"
+    top_category = "tr.o_group_header.o_group_has_content > th.o_group_name:nth-child(1)"
+    location_category = "//*[contains(text(), '{}')]"
+    available_quantity = "//td[contains(text(), '{}')]//following-sibling::td[@name='available_quantity']"
 
