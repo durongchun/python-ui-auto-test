@@ -2,6 +2,8 @@ import os
 import unittest
 
 import test_container_world
+import test_erp_sample_in
+import test_erp_sample_out
 import test_erp_transfer
 import test_mobile_andriod
 import test_sync_data
@@ -25,8 +27,10 @@ if __name__ == "__main__":
     loader = unittest.TestLoader()
 
     # erp测试流程添加到测试套
-    # suites.addTests(loader.loadTestsFromModule(test_erp_add_products))
+    suites.addTests(loader.loadTestsFromModule(test_erp_add_products))
     suites.addTests(loader.loadTestsFromModule(test_erp_transfer))
+    suites.addTests(loader.loadTestsFromModule(test_erp_sample_out))
+    suites.addTests(loader.loadTestsFromModule(test_erp_sample_in))
 
     # 报告生成器，运行用例并生成报告，对 BeautifulReport 套了一层外壳
     ReportTool(suites).run(filename=report_name, description='demo', report_dir=report_path, theme="theme_cyan")

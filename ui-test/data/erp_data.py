@@ -24,6 +24,12 @@ class ErpData:
     test_return_transfer_data = PageCommon.test_convert_data(
         ExcelReader.get_test_return_transfer_xls(PageCommon.get_data_path()))
 
+    test_sample_out_data = PageCommon.test_convert_data(
+        ExcelReader.get_test_sample_out_xls(PageCommon.get_data_path()))
+
+    test_sample_in_data = PageCommon.test_convert_data(
+        ExcelReader.get_test_sample_in_xls(PageCommon.get_data_path()))
+
     url = "https://dev.mtboucherie.com/web#cids=1"
     user_name = "lucy.du@holinova.com"
     pass_word = "durongchun123~"
