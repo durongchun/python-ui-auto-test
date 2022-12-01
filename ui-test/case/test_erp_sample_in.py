@@ -50,21 +50,21 @@ class TestTransfer(unittest.TestCase):
     def test_sample_in(self, description, product, product_code, demand, unit, contact,
                        operation_type, ware_house, destination_location):
         # log 信息
-        log().info(f"ERP Transfer 第二个用例，环境" + self.env + "语言" + self.lan)
-        # go ERP login Page
+        log().info(f"ERP Sample In, Environment: " + self.env + "Language: " + self.lan)
         erp = ErpCreateProductPage(self.driver)
         tran_page = ErpTransferPage(self.driver)
+        log().info("Go ERP")
         BrowserCommon.jump_to(self, ErpData.url)
         erp.login(ErpData.user_name, ErpData.pass_word)
-        print("description: " + description)
         erp.go_inventory()
         # get product original qty
         origin_destination_location_qty = tran_page.check_product_quantity_from_inventory_report(
             product_code, destination_location)
-        print("Original quantity of " + product + " in destination location is: " + origin_destination_location_qty)
+        log().info("Original quantity of " + product + " in destination location is: " + origin_destination_location_qty)
         # go transfer
         tran_page.go_transfer_page()
         tran_page.click_create_button()
+        log().info("Select the 'Contact'")
         tran_page.select_delivery_address(contact)
         tran_page.select_operation_type_search(operation_type, ware_house)
         tran_page.select_destination_location(destination_location)
@@ -72,7 +72,7 @@ class TestTransfer(unittest.TestCase):
         # get product current qty
         current_destination_location_qty = tran_page.check_product_quantity_from_inventory_report(
             product_code, destination_location)
-        print("Current quantity of " + product + " in destination location is: " + current_destination_location_qty)
+        log().info("Current quantity of " + product + " in destination location is: " + current_destination_location_qty)
         self.assertEqual(tran_page.compare_to_qty_stock_in(
             origin_destination_location_qty, current_destination_location_qty, demand), True,
             "Sample in: " + product + " successfully")

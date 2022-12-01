@@ -50,19 +50,13 @@ class TestWareHouse(unittest.TestCase):
                               quantity1, quantity2, quantity3, quantity4, quantity5, quantity6, quantity7,
                               upc, scc):
         # log 信息
-        log().info(f"Container World第一个用例，环境" + self.env + "语言" + self.lan)
+        log().info(f"ERP This is the first case, Environment: " + self.env + "Language: " + self.lan)
         # go ERP login Page
         erp = ErpCreateProductPage(self.driver)
+        log().info("Go ERP")
         BrowserCommon.jump_to(self, ErpData.url)
-        # login
-        # PageCommon.login(self, ErpData.user_name, ErpData.pass_word, ErpLocator.user_name,
-        #                  ErpLocator.pass_word, ErpLocator.login_btn)
         erp.login(ErpData.user_name, ErpData.pass_word)
-        print("description: " + description)
-        print("warehouse_name: " + warehouse_name)
         qty1 = PageCommon.convert_to_decimal(quantity1)
-        print("quantity: " + str(qty1))
-
         erp.go_inventory()
         erp.select_products_dropdown()
         # clear same products created before
@@ -95,19 +89,12 @@ class TestWareHouse(unittest.TestCase):
                                quantity1, quantity2, quantity3, quantity4, quantity5, quantity6, quantity7,
                                upc, scc):
         # log 信息
-        log().info(f"Container World第一个用例，环境" + self.env + "语言" + self.lan)
-        # go ERP login Page
+        log().info(f"ERP This is the second case, Environment: " + self.env + "Language: " + self.lan)
         erp = ErpCreateProductPage(self.driver)
+        log().info("Go ERP")
         BrowserCommon.jump_to(self, ErpData.url)
-        # login
-        # PageCommon.login(self, ErpData.user_name, ErpData.pass_word, ErpLocator.user_name,
-        #                  ErpLocator.pass_word, ErpLocator.login_btn)
         erp.login(ErpData.user_name, ErpData.pass_word)
-        print("description: " + description)
-        print("warehouse_name: " + warehouse_name)
         qty1 = PageCommon.convert_to_decimal(quantity1)
-        print("quantity: " + str(qty1))
-
         erp.go_inventory()
         # erp.select_products_dropdown()
         erp.go_product()
