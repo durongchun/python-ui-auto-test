@@ -38,6 +38,20 @@ class ErpTransferPage(PageCommon):
                 break
         time.sleep(1)
 
+    def select_operation_type_search(self, operation_type, ware_house):
+        time.sleep(1)
+        self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.operation_type))
+        self.click("css_selector", ErpLocator.operation_type)
+        time.sleep(1)
+        lis = self.find_elements(By.XPATH, ErpLocator.operation_type_dropdown_options)
+        for li in lis:
+            if "Search More..." == li.text:
+                self.highlight(li)
+                li.click()
+                break
+        time.sleep(1)
+        self.search_operation_type(operation_type, ware_house)
+
     def select_source_location(self, source_location):
         self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.source_location))
         self.click("css_selector", ErpLocator.source_location)
@@ -55,7 +69,7 @@ class ErpTransferPage(PageCommon):
         self.click("css_selector", ErpLocator.destination_location)
         lis = self.find_elements(By.XPATH, ErpLocator.destination_location_dropdown_options)
         for li in lis:
-            if "Search More..." == lis.text:
+            if "Search More..." == li.text:
                 self.highlight(li)
                 li.click()
                 break
@@ -109,6 +123,18 @@ class ErpTransferPage(PageCommon):
         time.sleep(1)
         self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.deliver_address_search_results))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.deliver_address_search_results).click()
+        time.sleep(2)
+
+    def search_operation_type(self, operation_type, ware_house):
+        self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box))
+        self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box).send_keys(operation_type)
+        time.sleep(1)
+        self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box).send_keys(Keys.ENTER)
+        time.sleep(1)
+        self.highlight(self.find_element(By.XPATH, ErpLocator.operation_type_search_result.format(
+            ware_house, operation_type)))
+        self.active_dropdown(self.find_element(By.XPATH, ErpLocator.operation_type_search_result.format(
+            ware_house, operation_type)))
         time.sleep(2)
 
     def click_create_button(self):
@@ -197,4 +223,3 @@ class ErpTransferPage(PageCommon):
         self.find_element(By.XPATH, ErpLocator.inventory_report_option).click()
         time.sleep(1)
         self.page_has_loaded()
-

@@ -69,6 +69,7 @@ class TestTransfer(unittest.TestCase):
         tran_page.click_create_button()
         tran_page.select_delivery_address(deliver_address)
         tran_page.select_operation_type(operation_type)
+        tran_page.select_source_location(source_location)
         tran_page.select_products_and_transfer(product1, product2, str(demand1), str(demand2))
         # get product current qty
         current_qty1 = tran_page.check_product_quantity(product1, vintage1)
@@ -107,8 +108,8 @@ class TestTransfer(unittest.TestCase):
         tran_page.select_delivery_address(contact)
         tran_page.select_operation_type(operation_type)
         tran_page.select_source_location(source_location)
-        # tran_page.select_destination_location(destination_location)
-        tran_page.select_products_and_transfer(product, "",  str(demand), "")
+        tran_page.select_destination_location(destination_location)
+        tran_page.select_products_and_transfer(product, "", str(demand), "")
         # get product current qty
         current_source_location_qty = tran_page.check_product_quantity_from_inventory_report(
             product_code, source_location)
@@ -118,10 +119,74 @@ class TestTransfer(unittest.TestCase):
         print("Current quantity of " + product + " in destination location is: " + current_destination_location_qty)
         self.assertEqual(tran_page.compare_to_qty_stock_out(
             origin_source_location_qty, current_source_location_qty, demand), True,
-                         "Internal Transfer: " + product + " successfully")
+            "Internal Transfer: " + product + " successfully")
         self.assertEqual(tran_page.compare_to_qty_stock_in(
             origin_destination_location_qty, current_destination_location_qty, demand), True,
-                         "Internal Transfer: " + product + " successfully")
+            "Internal Transfer: " + product + " successfully")
+
+    # 第三个测试点
+    @parameterized.expand(ErpData.test_receipts_transfer_data)
+    def test_receipts_transfer(self, description, product, product_code, demand, unit, contact,
+                               operation_type, destination_location):
+        # log 信息
+        log().info(f"ERP Transfer 第二个用例，环境" + self.env + "语言" + self.lan)
+        # go ERP login Page
+        erp = ErpCreateProductPage(self.driver)
+        tran_page = ErpTransferPage(self.driver)
+        BrowserCommon.jump_to(self, ErpData.url)
+        erp.login(ErpData.user_name, ErpData.pass_word)
+        print("description: " + description)
+        erp.go_inventory()
+        # get product original qty
+        origin_destination_location_qty = tran_page.check_product_quantity_from_inventory_report(
+            product_code, destination_location)
+        print("Original quantity of " + product + " in destination location is: " + origin_destination_location_qty)
+        # go transfer
+        tran_page.go_transfer_page()
+        tran_page.click_create_button()
+        tran_page.select_delivery_address(contact)
+        tran_page.select_operation_type(operation_type)
+        tran_page.select_destination_location(destination_location)
+        tran_page.select_products_and_transfer(product, "", str(demand), "")
+        # get product current qty
+        current_destination_location_qty = tran_page.check_product_quantity_from_inventory_report(
+            product_code, destination_location)
+        print("Current quantity of " + product + " in destination location is: " + current_destination_location_qty)
+        self.assertEqual(tran_page.compare_to_qty_stock_in(
+            origin_destination_location_qty, current_destination_location_qty, demand), True,
+            "Receipts Transfer: " + product + " successfully")
+
+    # 第四个测试点
+    @parameterized.expand(ErpData.test_return_transfer_data)
+    def test_returns_transfer(self, description, product, product_code, demand, unit, contact,
+                              operation_type, ware_house, destination_location):
+        # log 信息
+        log().info(f"ERP Transfer 第二个用例，环境" + self.env + "语言" + self.lan)
+        # go ERP login Page
+        erp = ErpCreateProductPage(self.driver)
+        tran_page = ErpTransferPage(self.driver)
+        BrowserCommon.jump_to(self, ErpData.url)
+        erp.login(ErpData.user_name, ErpData.pass_word)
+        print("description: " + description)
+        erp.go_inventory()
+        # get product original qty
+        origin_destination_location_qty = tran_page.check_product_quantity_from_inventory_report(
+            product_code, destination_location)
+        print("Original quantity of " + product + " in destination location is: " + origin_destination_location_qty)
+        # go transfer
+        tran_page.go_transfer_page()
+        tran_page.click_create_button()
+        tran_page.select_delivery_address(contact)
+        tran_page.select_operation_type_search(operation_type, ware_house)
+        tran_page.select_destination_location(destination_location)
+        tran_page.select_products_and_transfer(product, "", str(demand), "")
+        # get product current qty
+        current_destination_location_qty = tran_page.check_product_quantity_from_inventory_report(
+            product_code, destination_location)
+        print("Current quantity of " + product + " in destination location is: " + current_destination_location_qty)
+        self.assertEqual(tran_page.compare_to_qty_stock_in(
+            origin_destination_location_qty, current_destination_location_qty, demand), True,
+            "Returns Transfer: " + product + " successfully")
 
 
 if __name__ == "__main__":
