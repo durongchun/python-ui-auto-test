@@ -73,8 +73,8 @@ class ErpCreateProductPage(PageCommon):
         self.highlight(self.driver.find_element(By.NAME, ErpLocator.barcode))
         self.driver.find_element(By.NAME, ErpLocator.barcode).send_keys(barcode)
         # self.driver.find_element(By.NAME, ErpLocator.rfid_number).send_keys(frid_number)
-        self.highlight(self.driver.find_element(By.XPATH, ErpLocator.save_button))
-        self.driver.find_element(By.XPATH, ErpLocator.save_button).click()
+        self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.save_button))
+        self.driver.find_element(By.CSS_SELECTOR, ErpLocator.save_button).click()
         time.sleep(2)
         self.page_has_loaded()
 
