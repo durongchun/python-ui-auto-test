@@ -50,7 +50,7 @@ class TestTransfer(unittest.TestCase):
     def test_delivery_orders_transfer(self, description, product1, product2, vintage1, vintage2, demand1, demand2,
                                       unit1, unit2, delivery_address, operation_type, source_location):
         # log 信息
-        log().info(f"ERP This is the first case, Environment: " + self.env + "Language: " + self.lan)
+        log().info(f"ERP This is the first case, Environment: " + self.env + " Language: " + self.lan)
         erp = ErpCreateProductPage(self.driver)
         tran_page = ErpTransferPage(self.driver)
         log().info("Go ERP")
@@ -85,7 +85,7 @@ class TestTransfer(unittest.TestCase):
     def test_internal_transfer(self, description, product, product_code, demand, unit, contact,
                                operation_type, source_location, destination_location):
         # log 信息
-        log().info(f"ERP This is the second case, Environment: " + self.env + "Language: " + self.lan)
+        log().info(f"ERP This is the second case, Environment: " + self.env + " Language: " + self.lan)
         erp = ErpCreateProductPage(self.driver)
         tran_page = ErpTransferPage(self.driver)
         log().info("Go ERP")
@@ -131,7 +131,7 @@ class TestTransfer(unittest.TestCase):
     def test_receipts_transfer(self, description, product, product_code, demand, unit, contact,
                                operation_type, destination_location):
         # log 信息
-        log().info(f"ERP This is the third case, Environment: " + self.env + "Language: " + self.lan)
+        log().info(f"ERP This is the third case, Environment: " + self.env + " Language: " + self.lan)
         erp = ErpCreateProductPage(self.driver)
         tran_page = ErpTransferPage(self.driver)
         log().info("Go ERP")
@@ -165,7 +165,7 @@ class TestTransfer(unittest.TestCase):
     def test_returns_transfer(self, description, product, product_code, demand, unit, contact,
                               operation_type, ware_house, destination_location):
         # log 信息
-        log().info(f"ERP This is the fourth case, Environment: " + self.env + "Language: " + self.lan)
+        log().info(f"ERP This is the fourth case, Environment: " + self.env + " Language: " + self.lan)
         erp = ErpCreateProductPage(self.driver)
         tran_page = ErpTransferPage(self.driver)
         log().info("Go ERP")

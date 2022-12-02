@@ -50,7 +50,7 @@ class TestTransfer(unittest.TestCase):
     def test_sample_in(self, description, product, product_code, demand, unit, contact,
                        operation_type, ware_house, destination_location):
         # log 信息
-        log().info(f"ERP Sample In, Environment: " + self.env + "Language: " + self.lan)
+        log().info(f"ERP Sample In, Environment: " + self.env + " Language: " + self.lan)
         erp = ErpCreateProductPage(self.driver)
         tran_page = ErpTransferPage(self.driver)
         log().info("Go ERP")

@@ -50,7 +50,7 @@ class TestWareHouse(unittest.TestCase):
                               quantity1, quantity2, quantity3, quantity4, quantity5, quantity6, quantity7,
                               upc, scc):
         # log 信息
-        log().info(f"ERP This is the first case, Environment: " + self.env + "Language: " + self.lan)
+        log().info(f"ERP This is the first case, Environment: " + self.env + " Language: " + self.lan)
         # go ERP login Page
         erp = ErpCreateProductPage(self.driver)
         log().info("Go ERP")
@@ -89,7 +89,7 @@ class TestWareHouse(unittest.TestCase):
                                quantity1, quantity2, quantity3, quantity4, quantity5, quantity6, quantity7,
                                upc, scc):
         # log 信息
-        log().info(f"ERP This is the second case, Environment: " + self.env + "Language: " + self.lan)
+        log().info(f"ERP This is the second case, Environment: " + self.env + " Language: " + self.lan)
         erp = ErpCreateProductPage(self.driver)
         log().info("Go ERP")
         BrowserCommon.jump_to(self, ErpData.url)
