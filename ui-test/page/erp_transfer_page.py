@@ -181,6 +181,7 @@ class ErpTransferPage(PageCommon):
         self.find_element(By.CSS_SELECTOR, ErpLocator.validate).click()
         time.sleep(1)
         log().info("Click the 'Apply' button")
+        self.wait_element(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ErpLocator.apply)))
         self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.apply))
         self.find_element(By.CSS_SELECTOR, ErpLocator.apply).click()
 
