@@ -85,7 +85,8 @@ logging_dic = {
         # logging.getLogger(__name__) 拿到的 logger 配置
         '': {
             # 这里把上面定义的两个handler都加上，即 log 数据既写入文件又打印到屏幕
-            'handlers': ['sh', 'fh'],
+            # 'handlers': ['sh', 'fh'],
+            'handlers': ['sh'],
             'level': all_level,
             # 向上（更高 level 的 logger）传递
             'propagate': True,
@@ -105,17 +106,17 @@ def log():
 
 # 用例开始
 def start_info():
-    log().info(f"<测试开始>")
+    log().info(f"<Test Starts>")
 
 
 # 用例结束
 def end_info():
-    log().info(f"<测试结束>")
+    log().info(f"<Test Ends>")
 
 
 # 用例登陆成功
 def login_info():
-    log().info(f"{dic['username']} 登陆成功")
+    log().info(f"{dic['username']} Login Successfully")
 
 # 尝试（单独测试这里可以取消注释，之后这里请务必要注释掉！）
 # login_info()
