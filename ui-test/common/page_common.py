@@ -291,6 +291,14 @@ class PageCommon(BrowserCommon):
         return data_path
 
     @staticmethod
+    def get_browser_driver_path():
+        file_path = os.path.abspath(__file__)
+        parent_path = os.path.dirname(file_path)
+        parent2_path = os.path.dirname(parent_path)
+        browser_driver_path = parent2_path + "\\resource\\driver"
+        return browser_driver_path
+
+    @staticmethod
     def random_number():
         randon_number = random.randint(1, 10000)
         print(randon_number)

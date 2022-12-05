@@ -1,7 +1,8 @@
+import os
 import unittest
 import paramunittest
 from numpy.testing._private.parameterized import parameterized
-from base.assembler import Assembler
+from selenium import webdriver
 from browser_common import BrowserCommon
 from erp_data import ErpData
 from erp_create_products_page import ErpCreateProductPage
@@ -10,7 +11,6 @@ from page_common import PageCommon
 from util.config_reader import ConfigReader
 from util.log_tool import start_info, end_info, log
 from util.screenshot_tool import ScreenshotTool
-from decimal import Decimal
 
 
 # 参数化构建参数
@@ -31,19 +31,15 @@ class TestTransfer(unittest.TestCase):
 
     # @BeforeTest
     def setUp(self):
-        # 开始的 log 信息
-        start_info()
-        # 装配器初始化
-        self.assembler = Assembler()
-        # 提取驱动
-        self.driver = self.assembler.get_driver()
+        print("Test Starts")
+        # 开启一个Firefox驱动
+        self.driver = webdriver.Firefox(PageCommon.get_browser_driver_path())
 
     # @AfterTest
     def tearDown(self):
-        # 结束的 log 信息
-        end_info()
-        # 装配器卸载
-        self.assembler.disassemble_all()
+        print("Test Ends")
+        # 驱动退出
+        self.driver.quit()
 
     # 第一个测试点
     @parameterized.expand(ErpData.test_sample_in_data)
@@ -60,7 +56,8 @@ class TestTransfer(unittest.TestCase):
         # get product original qty
         origin_destination_location_qty = tran_page.check_product_quantity_from_inventory_report(
             product_code, destination_location)
-        log().info("Original quantity of " + product + " in destination location is: " + origin_destination_location_qty)
+        log().info(
+            "Original quantity of " + product + " in destination location is: " + origin_destination_location_qty)
         # go transfer
         tran_page.go_transfer_page()
         tran_page.click_create_button()
@@ -72,7 +69,8 @@ class TestTransfer(unittest.TestCase):
         # get product current qty
         current_destination_location_qty = tran_page.check_product_quantity_from_inventory_report(
             product_code, destination_location)
-        log().info("Current quantity of " + product + " in destination location is: " + current_destination_location_qty)
+        log().info(
+            "Current quantity of " + product + " in destination location is: " + current_destination_location_qty)
         self.assertEqual(tran_page.compare_to_qty_stock_in(
             origin_destination_location_qty, current_destination_location_qty, demand), True,
             "Sample in: " + product + " successfully")

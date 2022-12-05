@@ -1,6 +1,8 @@
 import os
 import unittest
-from case import test_baidu_case, test_csdn_case, test_other_case
+
+import test_erp_sample_in
+import test_erp_sample_out
 from util.config_reader import ConfigReader
 from util.report_tool import ReportTool
 from tomorrow import threads
@@ -16,7 +18,7 @@ report_path = os.path.abspath(os.path.dirname(__file__))[
 
 
 # 设置三线程
-@threads(3)
+@threads(2)
 def run_mutithread(test_suite):
     # 报告生成器，运行用例并生成报告，对 BeautifulReport 套了一层外壳
     ReportTool(test_suite).run(filename=new_report_name, description='demo', report_dir=report_path, theme="theme_cyan")
@@ -29,9 +31,9 @@ if __name__ == "__main__":
     loader = unittest.TestLoader()
 
     # 百度测试流程添加到测试套
-    suites.addTests(loader.loadTestsFromModule(test_baidu_case))
+    suites.addTests(loader.loadTestsFromModule(test_erp_sample_out))
     # csdn 测试流程添加到测试套
-    suites.addTests(loader.loadTestsFromModule(test_csdn_case))
+    suites.addTests(loader.loadTestsFromModule(test_erp_sample_in))
     # 其他测试流程（这一行可以取消注释，可以查看断言错误的截图在报告中的效果）
     # suites.addTests(loader.loadTestsFromModule(test_other_case))
 
