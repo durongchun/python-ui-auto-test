@@ -33,7 +33,7 @@ class TestTransfer(unittest.TestCase):
     def setUp(self):
         print("Test Starts")
         # 开启一个Firefox驱动
-        self.driver = webdriver.Firefox(PageCommon.get_browser_driver_path())
+        self.driver = PageCommon.get_chrome_driver()
 
     # @AfterTest
     def tearDown(self):

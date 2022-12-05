@@ -12,6 +12,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from decimal import Decimal
+from selenium import webdriver
 
 import driver
 from common.browser_common import BrowserCommon
@@ -291,12 +292,27 @@ class PageCommon(BrowserCommon):
         return data_path
 
     @staticmethod
-    def get_browser_driver_path():
+    def get_ui_test_path():
+        file_path = os.path.abspath(__file__)
+        parent_path = os.path.dirname(file_path)
+        parent2_path = os.path.dirname(parent_path)
+        return parent2_path
+
+    @staticmethod
+    def get_firefox_driver():
         file_path = os.path.abspath(__file__)
         parent_path = os.path.dirname(file_path)
         parent2_path = os.path.dirname(parent_path)
         browser_driver_path = parent2_path + "\\resource\\driver"
-        return browser_driver_path
+        return webdriver.Firefox(browser_driver_path)
+
+    @staticmethod
+    def get_chrome_driver():
+        file_path = os.path.abspath(__file__)
+        parent_path = os.path.dirname(file_path)
+        parent2_path = os.path.dirname(parent_path)
+        browser_driver_path = parent2_path + "\\resource\\driver\\chromedriver.exe"
+        return webdriver.Chrome(browser_driver_path)
 
     @staticmethod
     def random_number():
