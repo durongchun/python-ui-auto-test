@@ -262,7 +262,8 @@ class ErpTransferPage(PageCommon):
     def compare_to_qty_stock_in(origin_qty, current_qty, demand):
         ori_qty = origin_qty.strip().replace(',', '')
         cur_qty = current_qty.strip().replace(',', '')
-        if float(cur_qty) == float(ori_qty) + float(demand):
+        if PageCommon.convert_to_decimal(cur_qty) == PageCommon.convert_to_decimal(ori_qty)\
+                + PageCommon.convert_to_decimal(demand):
             return True
         else:
             return False
@@ -271,7 +272,8 @@ class ErpTransferPage(PageCommon):
     def compare_to_qty_stock_out(origin_qty, current_qty, demand):
         ori_qty = origin_qty.strip().replace(',', '')
         cur_qty = current_qty.strip().replace(',', '')
-        if float(ori_qty) == float(cur_qty) + float(demand):
+        if PageCommon.convert_to_decimal(ori_qty) == PageCommon.convert_to_decimal(cur_qty)\
+                + PageCommon.convert_to_decimal(demand):
             return True
         else:
             return False
