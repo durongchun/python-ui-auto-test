@@ -23,10 +23,6 @@ if __name__ == "__main__":
     loader = unittest.TestLoader()
 
     # erp测试流程添加到测试套
-    suites.addTests(loader.loadTestsFromModule(test_erp_add_products))
-    suites.addTests(loader.loadTestsFromModule(test_erp_transfer))
-    suites.addTests(loader.loadTestsFromModule(test_erp_sample_out))
-    suites.addTests(loader.loadTestsFromModule(test_erp_sample_in))
     suites.addTests(loader.loadTestsFromModule(test_erp_harvest))
 
     # 报告生成器，运行用例并生成报告，对 BeautifulReport 套了一层外壳
