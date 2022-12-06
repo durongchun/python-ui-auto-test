@@ -67,7 +67,7 @@ class ErpLocator:
     # vintage_values = "//span[contains(@title, {})]"
     vintage_values = "//tr[@class='o_data_row']//span[contains(text(), 'Vintage')]"
     vintage_update_quantity = ".btn.btn-secondary:nth-child(2) > span:nth-child(1)"
-    vintage_qty_on_hand = "//span[contains(text(), 'Vintage: {}')]/../../../../" \
+    vintage_qty_on_hand = "//span[contains(text(), '{}')]/../../../../" \
                           "following-sibling::td[@name='qty_available']"
     product_item = "div.oe_kanban_card.oe_kanban_global_click.o_kanban_record:nth-child(1) > div.oe_kanban_details"
 
@@ -95,6 +95,7 @@ class ErpLocator:
     unit_box_options = "//ul[contains(@class, 'dropdown-menu ui-front') ][8]//li//a"
     product_search_result = "tr.o_data_row:nth-child(1) > td.o_data_cell.o_field_cell." \
                             "o_list_char.o_readonly_modifier:nth-child(2)"
+    product_vintage_search_result = "//span[contains(text(), '{}')]/../../../.."
     transfer_create_highlight = "div.o_list_buttons.d-flex > button.btn.btn-primary.o_list_button_add:nth-child(3)"
     create_button = "//span[contains(text(),'Create')]"
     make_as_to_do = "div.o_form_sheet_bg div.o_form_statusbar div.o_statusbar_buttons > " \

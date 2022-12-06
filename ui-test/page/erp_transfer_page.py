@@ -102,6 +102,21 @@ class ErpTransferPage(PageCommon):
         time.sleep(2)
         self.search_product(product)
 
+    def select_product_vintage(self, product, vintage):
+        log().info("Select products")
+        self.highlight(self.find_element(By.XPATH, ErpLocator.transfer_product_box))
+        self.move_action("xpath", ErpLocator.transfer_product_box)
+        time.sleep(2)
+        lis = self.find_elements(By.XPATH, ErpLocator.product_box_options)
+        for li in lis:
+            if "Search More..." == li.text:
+                log().info("Click 'Search More...'")
+                self.highlight(li)
+                li.click()
+                break
+        time.sleep(2)
+        self.search_product_vintage(product, vintage)
+
     def search_product(self, product):
         log().info("Search product and add it to line")
         self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box))
@@ -111,6 +126,17 @@ class ErpTransferPage(PageCommon):
         time.sleep(1)
         self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.product_search_result))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.product_search_result).click()
+        time.sleep(2)
+
+    def search_product_vintage(self, product, vintage):
+        log().info("Search product and add it to line")
+        self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box))
+        self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box).send_keys(product)
+        time.sleep(1)
+        self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box).send_keys(Keys.ENTER)
+        time.sleep(1)
+        self.highlight(self.driver.find_element(By.XPATH, ErpLocator.product_vintage_search_result.format(vintage)))
+        self.driver.find_element(By.XPATH, ErpLocator.product_vintage_search_result.format(vintage)).click()
         time.sleep(2)
 
     def select_delivery_address(self, deliver_address):
@@ -168,6 +194,33 @@ class ErpTransferPage(PageCommon):
                 break
             self.click_add_line()
             self.select_product(prods[num])
+            self.add_demand_quantity(demands[num])
+            time.sleep(1)
+
+        self.click_save_button()
+        log().info("Click the 'Make as to do' button")
+        self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.make_as_to_do))
+        self.find_element(By.CSS_SELECTOR, ErpLocator.make_as_to_do).click()
+        time.sleep(1)
+        log().info("Click the 'Validate' button")
+        self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.validate))
+        self.find_element(By.CSS_SELECTOR, ErpLocator.validate).click()
+        time.sleep(1)
+        log().info("Click the 'Apply' button")
+        self.wait_element(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ErpLocator.apply)))
+        self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.apply))
+        self.find_element(By.CSS_SELECTOR, ErpLocator.apply).click()
+
+    def select_products_vintages_and_transfer(self, product, vintage1, vintage2, vintage3, demand1, demand2, demand3):
+        log().info("Select the product and add it to transfer")
+        vintages = (vintage1, vintage2, vintage3)
+        demands = (demand1, demand2, demand3)
+        nums = (0, 1, 2)
+        for num in nums:
+            if vintages[num] == "":
+                break
+            self.click_add_line()
+            self.select_product_vintage(product, vintages[num])
             self.add_demand_quantity(demands[num])
             time.sleep(1)
 
