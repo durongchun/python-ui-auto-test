@@ -199,6 +199,7 @@ class ErpCreateProductPage(PageCommon):
                 break
 
     def action_delete(self):
+        log().info("Click the 'Delete' option from 'Action' button")
         action = ActionChains(self.driver)
         self.highlight(self.driver.find_element(By.XPATH, ErpLocator.action))
         self.driver.find_element(By.XPATH, ErpLocator.action).click()

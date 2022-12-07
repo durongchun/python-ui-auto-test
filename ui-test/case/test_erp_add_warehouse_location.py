@@ -67,6 +67,7 @@ class TestTransfer(unittest.TestCase):
         warehouse_page.go_locations()
         warehouse_page.add_location(location, short_name, location_type)
         erp.action_delete()
+        self.assertFalse(warehouse_page.is_location_existing(location), "The added location is deleted successfully")
 
 
 if __name__ == "__main__":

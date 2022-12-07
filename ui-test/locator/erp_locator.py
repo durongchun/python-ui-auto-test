@@ -128,3 +128,4 @@ class ErpLocator:
     discard_button = "div.o_form_buttons_edit > button.btn.btn-secondary.o_form_button_cancel:nth-child(2)"
     location_type_option = "//option[contains(text(),'{}')]"
     location_result = "//td[(text()='{}')]"
+    location_name = "//span[contains(text(), '{}') and (@name='name')]"

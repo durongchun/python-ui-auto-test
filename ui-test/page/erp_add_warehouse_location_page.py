@@ -23,6 +23,7 @@ class ErpAddWarehouseLocationPage(PageCommon):
         super().__init__(driver)
 
     def go_warehouses(self):
+        log().info("Go 'Configuration' --> 'Warehouse'")
         self.highlight(self.find_element(By.XPATH, ErpLocator.configuration))
         self.find_element(By.XPATH, ErpLocator.configuration).click()
         self.highlight(self.find_element(By.XPATH, ErpLocator.warehouse_option))
@@ -30,17 +31,21 @@ class ErpAddWarehouseLocationPage(PageCommon):
         time.sleep(1)
 
     def add_warehouse(self, warehouse_name, short_name, address):
+        log().info("Add warehouse")
         self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.warehouse_create))
         self.find_element(By.CSS_SELECTOR, ErpLocator.warehouse_create).click()
         time.sleep(1)
+        log().info("Input warehouse name")
         self.highlight(self.find_element(By.NAME, ErpLocator.warehouse_name))
         self.input("name", ErpLocator.warehouse_name, warehouse_name)
         time.sleep(1)
+        log().info("Input warehouse short name")
         self.highlight(self.find_element(By.NAME, ErpLocator.short_name))
         self.input("name", ErpLocator.short_name, short_name)
         self.select_address(address)
 
     def select_address(self, address):
+        log().info("Select address")
         self.active_dropdown(self.find_element(By.XPATH, ErpLocator.address))
         self.highlight(self.find_element(By.XPATH, ErpLocator.address))
         lis = self.find_elements(By.XPATH, ErpLocator.address_dropdown_options)
@@ -51,10 +56,12 @@ class ErpAddWarehouseLocationPage(PageCommon):
                 break
 
         ErpTransferPage.search_location(self, address)
+        log().info("Save")
         self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.save_button))
         self.find_element(By.CSS_SELECTOR, ErpLocator.save_button).click()
 
     def go_locations(self):
+        log().info("Go 'Configuration' --> 'Location'")
         self.highlight(self.find_element(By.XPATH, ErpLocator.configuration))
         self.find_element(By.XPATH, ErpLocator.configuration).click()
         self.highlight(self.find_element(By.XPATH, ErpLocator.location_option))
@@ -62,16 +69,20 @@ class ErpAddWarehouseLocationPage(PageCommon):
         time.sleep(1)
 
     def add_location(self, location_name, parent_location, location_type):
+        log().info("Add location")
         self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.warehouse_create))
         self.find_element(By.CSS_SELECTOR, ErpLocator.warehouse_create).click()
         self.highlight(self.find_element(By.NAME, ErpLocator.warehouse_name))
+        log().info("Input location name")
         self.input("name", ErpLocator.warehouse_name, location_name)
         self.select_parent_location(parent_location)
         self.select_location_type(location_type)
+        log().info("Save the location")
         self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.save_button))
         self.find_element(By.CSS_SELECTOR, ErpLocator.save_button).click()
 
     def select_parent_location(self, parent_location):
+        log().info("Select parent location")
         self.active_dropdown(self.find_element(By.NAME, ErpLocator.parent_location))
         lis = self.find_elements(By.XPATH, ErpLocator.address_dropdown_options)
         for li in lis:
@@ -82,6 +93,7 @@ class ErpAddWarehouseLocationPage(PageCommon):
         ErpTransferPage.search_location_with_parameter(self, parent_location)
 
     def select_location_type(self, location_type):
+        log().info("Select location type")
         self.highlight(self.find_element(By.NAME, ErpLocator.location_type))
         self.find_element(By.NAME, ErpLocator.location_type).click()
         self.highlight(self.find_element(By.XPATH, ErpLocator.location_type_option.format(location_type)))
@@ -102,9 +114,21 @@ class ErpAddWarehouseLocationPage(PageCommon):
         return self.find_element(By.CSS_SELECTOR, ErpLocator.warning).text
 
     def click_ok_button(self):
+        log().info("Click 'Ok' button from warning pop-up")
         self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.ok_button))
         self.find_element(By.CSS_SELECTOR, ErpLocator.ok_button).click()
 
     def click_discard_button(self):
+        log().info("Click 'Discard' button")
         self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.discard_button))
         self.find_element(By.CSS_SELECTOR, ErpLocator.discard_button).click()
+
+    def is_location_existing(self, location):
+        try:
+            self.find_element(By.XPATH, ErpLocator.location_name.format(location))
+        except NoSuchElementException:
+            print("Location is not showing")
+            return False
+        else:
+            print("Location is showing")
+            return True
