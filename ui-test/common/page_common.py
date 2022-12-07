@@ -155,22 +155,16 @@ class PageCommon(BrowserCommon):
     # 获取子元素
     def select_child_elements(self, type, value1, value2):
         if type == "xpath":
-            self.highlight(self.find_element(By.XPATH, value1))
             Select(self.driver.find_element(By.XPATH, value1)).select_by_visible_text(value2)
         elif type == "id":
-            self.highlight(self.find_element(By.ID, value1))
             Select(self.driver.find_element(By.ID, value1)).select_by_visible_text(value2)
         elif type == "name":
-            self.highlight(self.find_element(By.NAME, value1))
             Select(self.driver.find_element(By.NAME, value1)).select_by_visible_text(value2)
         elif type == "link_text":
-            self.highlight(self.find_element(By.LINK_TEXT, value1))
             Select(self.driver.find_element(By.LINK_TEXT, value1)).select_by_visible_text(value2)
         elif type == "partial_link_text":
-            self.highlight(self.find_element(By.PARTIAL_LINK_TEXT, value1))
             Select(self.driver.find_element(By.PARTIAL_LINK_TEXT, value1)).select_by_visible_text(value2)
         elif type == "css_selector":
-            self.highlight(self.find_element(By.CSS_SELECTOR, value1))
             Select(self.driver.find_element(By.CSS_SELECTOR, value1)).select_by_visible_text(value2)
 
     # 获取输入框的值

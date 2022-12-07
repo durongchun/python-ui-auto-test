@@ -160,6 +160,16 @@ class ErpTransferPage(PageCommon):
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.deliver_address_search_results).click()
         time.sleep(2)
 
+    def search_location_with_parameter(self, location):
+        self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box))
+        self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box).send_keys(location)
+        time.sleep(1)
+        self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box).send_keys(Keys.ENTER)
+        time.sleep(1)
+        self.highlight(self.driver.find_element(By.XPATH, ErpLocator.location_result.format(location)))
+        self.driver.find_element(By.XPATH, ErpLocator.location_result.format(location)).click()
+        time.sleep(2)
+
     def search_operation_type(self, operation_type, ware_house):
         self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box).send_keys(operation_type)

@@ -61,11 +61,12 @@ class TestTransfer(unittest.TestCase):
         warehouse_page.add_warehouse(warehouse, short_name, address)
         if warehouse_page.validation_error_displaying():
             print("Warning: " + warehouse_page.get_warning_text())
-            log().info("Failed to add warehouse becuase of " + warehouse_page.get_warning_text())
+            log().info("Failed to add warehouse: " + warehouse_page.get_warning_text())
             warehouse_page.click_ok_button()
             warehouse_page.click_discard_button()
         warehouse_page.go_locations()
         warehouse_page.add_location(location, short_name, location_type)
+        erp.action_delete()
 
 
 if __name__ == "__main__":

@@ -200,9 +200,12 @@ class ErpCreateProductPage(PageCommon):
 
     def action_delete(self):
         action = ActionChains(self.driver)
-        self.driver.find_element(By.CSS_SELECTOR, ErpLocator.action).click()
+        self.highlight(self.driver.find_element(By.XPATH, ErpLocator.action))
+        self.driver.find_element(By.XPATH, ErpLocator.action).click()
         action.move_to_element(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.delete)).click_and_hold().perform()
+        self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.delete))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.delete).click()
+        self.highlight(self.driver.find_element(By.XPATH, ErpLocator.ok_confirm))
         self.driver.find_element(By.XPATH, ErpLocator.ok_confirm).click()
         time.sleep(2)
         self.page_has_loaded()

@@ -47,9 +47,9 @@ class ErpLocator:
     variant_value = ".o_field_widget.o_readonly_modifier > div.badge.badge-pill.o_tag_color_0"
 
     warning = ".oe_edit_only.oe_grey"
-    action = ".btn.btn-secondary.o-no-caret.d-flex.align-items-center"
+    action = "//button[@data-original-title='Additional actions']"
     delete = "li.o_menu_item:nth-child(3) > a.dropdown-item"
-    ok_confirm = "//span[contains(text(),'Ok')]"
+    ok_confirm = "//button[@class='btn btn-primary']"
     products_details = ".o_image_64_contain"
 
     products_input = ".o_searchview_input"
@@ -126,3 +126,5 @@ class ErpLocator:
     warning = ".o_dialog_warning"
     ok_button = "div.modal-content footer.modal-footer > button.btn.btn-primary"
     discard_button = "div.o_form_buttons_edit > button.btn.btn-secondary.o_form_button_cancel:nth-child(2)"
+    location_type_option = "//option[contains(text(),'{}')]"
+    location_result = "//td[(text()='{}')]"

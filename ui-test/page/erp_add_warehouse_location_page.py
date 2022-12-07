@@ -68,6 +68,8 @@ class ErpAddWarehouseLocationPage(PageCommon):
         self.input("name", ErpLocator.warehouse_name, location_name)
         self.select_parent_location(parent_location)
         self.select_location_type(location_type)
+        self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.save_button))
+        self.find_element(By.CSS_SELECTOR, ErpLocator.save_button).click()
 
     def select_parent_location(self, parent_location):
         self.active_dropdown(self.find_element(By.NAME, ErpLocator.parent_location))
@@ -77,9 +79,12 @@ class ErpAddWarehouseLocationPage(PageCommon):
                 self.highlight(li)
                 li.click()
                 break
-        ErpTransferPage.search_location(self, parent_location)
+        ErpTransferPage.search_location_with_parameter(self, parent_location)
 
     def select_location_type(self, location_type):
+        self.highlight(self.find_element(By.NAME, ErpLocator.location_type))
+        self.find_element(By.NAME, ErpLocator.location_type).click()
+        self.highlight(self.find_element(By.XPATH, ErpLocator.location_type_option.format(location_type)))
         self.select_child_elements("name", ErpLocator.location_type, location_type)
 
     def validation_error_displaying(self):
