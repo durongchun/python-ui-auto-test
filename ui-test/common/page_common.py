@@ -90,19 +90,19 @@ class PageCommon(BrowserCommon):
             self.driver.find_element(By.XPATH, value).clear()
             self.driver.find_element(By.XPATH, value).send_keys(inputvalue)
         elif type == "class_name":
-            self.driver.find_element(By.XPATH, value).clear()
+            self.driver.find_element(By.CLASS_NAME, value).clear()
             self.driver.find_element(By.CLASS_NAME, value).send_keys(inputvalue)
         elif type == "id":
-            self.driver.find_element(By.XPATH, value).clear()
+            self.driver.find_element(By.ID, value).clear()
             self.driver.find_element(By.ID, value).send_keys(inputvalue)
         elif type == "name":
-            self.driver.find_element(By.XPATH, value).clear()
+            self.driver.find_element(By.NAME, value).clear()
             self.driver.find_element(By.NAME, value).send_keys(inputvalue)
         elif type == "link_text":
-            self.driver.find_element(By.XPATH, value).clear()
+            self.driver.find_element(By.LINK_TEXT, value).clear()
             self.driver.find_element(By.LINK_TEXT, value).send_keys(inputvalue)
         elif type == "partial_link_text":
-            self.driver.find_element(By.XPATH, value).clear()
+            self.driver.find_element(By.PARTIAL_LINK_TEXT, value).clear()
             self.driver.find_element(By.PARTIAL_LINK_TEXT, value).send_keys(inputvalue)
 
     # 鼠标事件方法一
@@ -155,15 +155,23 @@ class PageCommon(BrowserCommon):
     # 获取子元素
     def select_child_elements(self, type, value1, value2):
         if type == "xpath":
-            Select(self.driver.find_element_by_xpath(value1)).select_by_visible_text(value2)
+            self.highlight(self.find_element(By.XPATH, value1))
+            Select(self.driver.find_element(By.XPATH, value1)).select_by_visible_text(value2)
         elif type == "id":
-            Select(self.driver.find_element_by_id(value1)).select_by_visible_text(value2)
+            self.highlight(self.find_element(By.ID, value1))
+            Select(self.driver.find_element(By.ID, value1)).select_by_visible_text(value2)
         elif type == "name":
-            Select(self.driver.find_element_by_name(value1)).select_by_visible_text(value2)
+            self.highlight(self.find_element(By.NAME, value1))
+            Select(self.driver.find_element(By.NAME, value1)).select_by_visible_text(value2)
         elif type == "link_text":
-            Select(self.driver.find_element_by_link_text(value1)).select_by_visible_text(value2)
+            self.highlight(self.find_element(By.LINK_TEXT, value1))
+            Select(self.driver.find_element(By.LINK_TEXT, value1)).select_by_visible_text(value2)
         elif type == "partial_link_text":
-            Select(self.driver.find_element_by_partial_link_text(value1)).select_by_visible_text(value2)
+            self.highlight(self.find_element(By.PARTIAL_LINK_TEXT, value1))
+            Select(self.driver.find_element(By.PARTIAL_LINK_TEXT, value1)).select_by_visible_text(value2)
+        elif type == "css_selector":
+            self.highlight(self.find_element(By.CSS_SELECTOR, value1))
+            Select(self.driver.find_element(By.CSS_SELECTOR, value1)).select_by_visible_text(value2)
 
     # 获取输入框的值
     def get_attribute(self, type, value1, value2):

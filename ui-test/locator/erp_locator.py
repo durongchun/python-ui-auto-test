@@ -111,3 +111,18 @@ class ErpLocator:
     location_category = "//*[contains(text(), '{}')]"
     available_quantity = "//td[contains(text(), '{}')]//following-sibling::td[@name='available_quantity']"
 
+    # --------------------------------Configuration-------------------------------------------
+    configuration = "//span[contains(text(), 'Configuration')]"
+    warehouse_option = "//a[contains(text(),'Warehouses')]"
+    warehouse_create = "div.o_list_buttons.d-flex > button.btn.btn-primary.o_list_button_add:nth-child(3)"
+    warehouse_name = "name"
+    short_name = "code"
+    address = "//table[2]/tbody[1]/tr[2]/td[2]/div[1]/div[1]/div[1]/input[1]"
+    address_dropdown_options = "//ul[contains(@class, 'ui-menu ui-widget')][1]//li//a"
+    location_option = "//a[contains(text(),'Locations')]"
+    parent_location = "location_id"
+    location_type = "usage"
+    validation_error = "//h4[contains(text(),'Validation Error')]"
+    warning = ".o_dialog_warning"
+    ok_button = "div.modal-content footer.modal-footer > button.btn.btn-primary"
+    discard_button = "div.o_form_buttons_edit > button.btn.btn-secondary.o_form_button_cancel:nth-child(2)"
