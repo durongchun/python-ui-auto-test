@@ -114,6 +114,7 @@ class ErpLocator:
 
     # --------------------------------Configuration-------------------------------------------
     configuration = "//span[contains(text(), 'Configuration')]"
+    dropdown_toggle = ".o_menu_sections_more:nth-child(7) > button.dropdown-toggle"
     warehouse_option = "//a[contains(text(),'Warehouses')]"
     warehouse_create = "div.o_list_buttons.d-flex > button.btn.btn-primary.o_list_button_add:nth-child(3)"
     warehouse_name = "name"

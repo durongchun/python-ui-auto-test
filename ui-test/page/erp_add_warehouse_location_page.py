@@ -24,8 +24,12 @@ class ErpAddWarehouseLocationPage(PageCommon):
 
     def go_warehouses(self):
         log().info("Go 'Configuration' --> 'Warehouse'")
-        self.highlight(self.find_element(By.XPATH, ErpLocator.configuration))
-        self.find_element(By.XPATH, ErpLocator.configuration).click()
+        if self.is_dropdown_toggle_displayed():
+            self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.dropdown_toggle))
+            self.find_element(By.CSS_SELECTOR, ErpLocator.dropdown_toggle).click()
+        else:
+            self.highlight(self.find_element(By.XPATH, ErpLocator.configuration))
+            self.find_element(By.XPATH, ErpLocator.configuration).click()
         self.highlight(self.find_element(By.XPATH, ErpLocator.warehouse_option))
         self.move_action("xpath", ErpLocator.warehouse_option)
         time.sleep(1)
@@ -62,8 +66,12 @@ class ErpAddWarehouseLocationPage(PageCommon):
 
     def go_locations(self):
         log().info("Go 'Configuration' --> 'Location'")
-        self.highlight(self.find_element(By.XPATH, ErpLocator.configuration))
-        self.find_element(By.XPATH, ErpLocator.configuration).click()
+        if self.is_dropdown_toggle_displayed():
+            self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.dropdown_toggle))
+            self.find_element(By.CSS_SELECTOR, ErpLocator.dropdown_toggle).click()
+        else:
+            self.highlight(self.find_element(By.XPATH, ErpLocator.configuration))
+            self.find_element(By.XPATH, ErpLocator.configuration).click()
         self.highlight(self.find_element(By.XPATH, ErpLocator.location_option))
         self.move_action("xpath", ErpLocator.location_option)
         time.sleep(1)
@@ -104,6 +112,17 @@ class ErpAddWarehouseLocationPage(PageCommon):
             WebDriverWait(self.driver, 5).until(
                 expected_conditions.presence_of_element_located(
                     (By.XPATH, ErpLocator.validation_error)))
+        except TimeoutException as ex:
+            # print("Exception has been thrown. " + str(ex))
+            return False
+        else:
+            return True
+
+    def is_dropdown_toggle_displayed(self):
+        try:
+            WebDriverWait(self.driver, 5).until(
+                expected_conditions.presence_of_element_located(
+                    (By.CSS_SELECTOR, ErpLocator.dropdown_toggle)))
         except TimeoutException as ex:
             # print("Exception has been thrown. " + str(ex))
             return False
