@@ -1,11 +1,6 @@
 import os
 import unittest
-
-import test_erp_harvest
-import test_erp_sample_in
-import test_erp_sample_out
 import test_erp_transfer
-import test_erp_add_products
 from util.config_reader import ConfigReader
 from util.report_tool import ReportTool
 
