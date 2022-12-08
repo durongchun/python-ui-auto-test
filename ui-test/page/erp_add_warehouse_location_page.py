@@ -46,7 +46,7 @@ class ErpAddWarehouseLocationPage(PageCommon):
 
     def select_address(self, address):
         log().info("Select address")
-        self.active_dropdown(self.find_element(By.XPATH, ErpLocator.address))
+        self.active_click(self.find_element(By.XPATH, ErpLocator.address))
         self.highlight(self.find_element(By.XPATH, ErpLocator.address))
         lis = self.find_elements(By.XPATH, ErpLocator.address_dropdown_options)
         for li in lis:
@@ -83,7 +83,7 @@ class ErpAddWarehouseLocationPage(PageCommon):
 
     def select_parent_location(self, parent_location):
         log().info("Select parent location")
-        self.active_dropdown(self.find_element(By.NAME, ErpLocator.parent_location))
+        self.active_click(self.find_element(By.NAME, ErpLocator.parent_location))
         lis = self.find_elements(By.XPATH, ErpLocator.address_dropdown_options)
         for li in lis:
             if "Search More..." == li.text:

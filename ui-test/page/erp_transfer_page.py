@@ -19,7 +19,7 @@ class ErpTransferPage(PageCommon):
         log().info("Go Transfer page")
         self.wait_element(expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.operations_menu)))
         self.highlight(self.find_element(By.XPATH, ErpLocator.operations_menu))
-        self.active_dropdown(self.find_element(By.XPATH, ErpLocator.operations_menu))
+        self.active_click(self.find_element(By.XPATH, ErpLocator.operations_menu))
         self.click_and_hold(self.find_element(By.XPATH, ErpLocator.transfer_dropdown_option))
         self.highlight(self.find_element(By.XPATH, ErpLocator.transfer_dropdown_option))
         self.find_element(By.XPATH, ErpLocator.transfer_dropdown_option).click()
@@ -140,7 +140,7 @@ class ErpTransferPage(PageCommon):
         time.sleep(2)
 
     def select_delivery_address(self, deliver_address):
-        self.active_dropdown((self.driver.find_element(By.CSS_SELECTOR, ErpLocator.deliver_address)))
+        self.active_click((self.driver.find_element(By.CSS_SELECTOR, ErpLocator.deliver_address)))
         self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.deliver_address))
         lis = self.find_elements(By.XPATH, ErpLocator.deliver_address_dropdown_options)
         for li in lis:
@@ -178,7 +178,7 @@ class ErpTransferPage(PageCommon):
         time.sleep(1)
         self.highlight(self.find_element(By.XPATH, ErpLocator.operation_type_search_result.format(
             ware_house, operation_type)))
-        self.active_dropdown(self.find_element(By.XPATH, ErpLocator.operation_type_search_result.format(
+        self.active_click(self.find_element(By.XPATH, ErpLocator.operation_type_search_result.format(
             ware_house, operation_type)))
         time.sleep(2)
 

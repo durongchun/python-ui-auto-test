@@ -336,9 +336,13 @@ class PageCommon(BrowserCommon):
         number = Decimal(number).quantize(Decimal("0.00"))
         return number
 
-    def active_dropdown(self, ele):
+    def active_click(self, ele):
         action = ActionChains(self.driver)
         action.move_to_element(ele).click(ele).perform()
+
+    def double_click(self, ele):
+        action = ActionChains(self.driver)
+        action.double_click(ele).perform()
 
     def click_and_hold(self, ele):
         action = ActionChains(self.driver)

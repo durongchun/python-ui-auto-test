@@ -5,7 +5,7 @@ class ErpLocator:
     pass_word = "password"
 
     # login btn 定位
-    login_btn = "//button[@type='submit']"
+    login_btn = "//button[contains(text(),'Log in')]"
     inventory_app = "//div[text()='Inventory']"
 
     # ----------------------create product pages--------------------------------------------

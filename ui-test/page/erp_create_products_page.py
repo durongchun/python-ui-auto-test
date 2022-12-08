@@ -32,8 +32,7 @@ class ErpCreateProductPage(PageCommon):
         self.driver.find_element(By.ID, ErpLocator.pass_word).send_keys(password)
         time.sleep(1)
         self.highlight(self.driver.find_element(By.XPATH, ErpLocator.login_btn))
-        self.driver.find_element(By.XPATH, ErpLocator.login_btn).click()
-        time.sleep(2)
+        self.double_click(self.driver.find_element(By.XPATH, ErpLocator.login_btn))
         self.page_has_loaded()
 
     def go_product(self):
