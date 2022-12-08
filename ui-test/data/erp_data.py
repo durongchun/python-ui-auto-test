@@ -36,6 +36,9 @@ class ErpData:
     test_warehouse_location_data = PageCommon.test_convert_data(
         ExcelReader.get_test_warehouse_location_xls(PageCommon.get_data_path()))
 
+    test_search_product_data = PageCommon.test_convert_data(
+        ExcelReader.get_test_search_product_xls(PageCommon.get_data_path()))
+
     url = "https://dev.mtboucherie.com/web#cids=1"
     user_name = "lucy.du@holinova.com"
     pass_word = "durongchun123~"

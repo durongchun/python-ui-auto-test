@@ -213,23 +213,24 @@ class ErpCreateProductPage(PageCommon):
         # self.driver.find_element(By.CSS_SELECTOR, ErpLocator.action)
 
     def search_products_by_product_name(self, product_name):
-        log().info("Search product")
-        time.sleep(2)
-        self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.products_input))
-        self.driver.find_element(By.CSS_SELECTOR, ErpLocator.products_input).clear()
-        self.driver.find_element(By.CSS_SELECTOR, ErpLocator.products_input).send_keys(product_name)
-        self.driver.find_element(By.CSS_SELECTOR, ErpLocator.products_input).send_keys(Keys.ENTER)
-        self.page_has_loaded()
-        time.sleep(2)
+        if product_name != 'NULL':
+            log().info("Search product: " + str(product_name))
+            time.sleep(2)
+            self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.products_input))
+            self.driver.find_element(By.CSS_SELECTOR, ErpLocator.products_input).clear()
+            self.driver.find_element(By.CSS_SELECTOR, ErpLocator.products_input).send_keys(product_name)
+            self.driver.find_element(By.CSS_SELECTOR, ErpLocator.products_input).send_keys(Keys.ENTER)
+            self.page_has_loaded()
+            time.sleep(2)
 
     def is_product_showing(self):
         try:
             self.driver.find_element(By.CSS_SELECTOR, ErpLocator.products_details)
         except NoSuchElementException:
-            print("is not _product_showing")
+            print("Product is showing")
             return False
         else:
-            print("is product_showing")
+            print("Product is not showing")
             return True
 
     def select_location(self, location):

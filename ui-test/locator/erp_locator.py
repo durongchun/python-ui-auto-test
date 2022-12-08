@@ -50,7 +50,8 @@ class ErpLocator:
     action = "//button[@data-original-title='Additional actions']"
     delete = "li.o_menu_item:nth-child(3) > a.dropdown-item"
     ok_confirm = "//button[@class='btn btn-primary']"
-    products_details = ".o_image_64_contain"
+    products_details = ".o_kanban_record.oe_kanban_global_click.oe_kanban_card"
+    search_result = "//div[@class='o_content']//span[contains(text(),'{}')]/../../../.."
 
     products_input = ".o_searchview_input"
     no_products_show = ".o_view_nocontent_smiling_face"
