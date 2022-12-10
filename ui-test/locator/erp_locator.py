@@ -87,7 +87,7 @@ class ErpLocator:
                                             "/../../../../following-sibling::ul[4]//li/a"
     transfer_add_line = "//td[@colspan='8']//a[contains(text(), 'Add a line')]"
     transfer_product_box = "//div[@name='product_id']"
-    transfer_demand_box = "//input[contains(@name,  'product_uom_qty') and contains(@type, 'text') ]"
+    transfer_demand_box = "//input[contains(@name,  'product_uom_qty') and contains(@type, 'text')]"
     transfer_unit_box = "//div[2]/div[1]/table[1]/tbody[1]/tr[1]/td[6]/div[1]/div[1]/div[1]/input[1]"
     deliver_address_search_results = "tr.o_data_row:nth-child(1) > td.o_data_cell.o_field_cell.o_list_char" \
                                      ".o_readonly_modifier:nth-child(1)"
@@ -98,7 +98,7 @@ class ErpLocator:
                             "o_list_char.o_readonly_modifier:nth-child(2)"
     product_vintage_search_result = "//span[contains(text(), '{}')]/../../../.."
     transfer_create_highlight = "div.o_list_buttons.d-flex > button.btn.btn-primary.o_list_button_add:nth-child(3)"
-    create_button = "//span[contains(text(),'Create')]"
+    create_button = "//span[contains(text(),'Create')]/.."
     make_as_to_do = "div.o_form_sheet_bg div.o_form_statusbar div.o_statusbar_buttons > " \
                     "button.btn.btn-primary:nth-child(1)"
     check_available = "div.o_form_statusbar div.o_statusbar_buttons > button.btn.btn-primary:nth-child(2)"
@@ -131,3 +131,23 @@ class ErpLocator:
     location_type_option = "//option[contains(text(),'{}')]"
     location_result = "//td[(text()='{}')]"
     location_name = "//span[contains(text(), '{}') and (@name='name')]"
+
+    # --------------------------------Make orders-------------------------------------------
+    orders = ".o-dropdown--no-caret:nth-child(4) button.dropdown-toggle > span:nth-child(1)"
+    make_orders_option = "//a[contains(text(),'Make Orders')]"
+    product_box = "//label[(text()= 'Product') and contains(@class, 'required_modifier')]/../following-sibling::td/div"
+    product_options = "//ul[contains(@id, 'ui-id-')][1]"
+    quantity_input = "//label[(text()= 'Quantity')]/../following-sibling::td/div/input[@name='product_qty']"
+    quantity_uom = "//label[(text()= 'Quantity')]/../following-sibling::td//div[@name='product_uom_id']//input"
+    quantity_uom_options = "//ul[contains(@id, 'ui-id-')][2]//li/a"
+    product_vintage_category_search_results = "//span[contains(text(), '{}')]/../../following-sibling::div//" \
+                                              "span[contains(text(), '{}')]/../../.."
+    miscellaneous_tab = "ul.nav.nav-tabs li.nav-item:nth-child(4) > a.nav-link.active"
+    component_tab = "ul.nav.nav-tabs li.nav-item:nth-child(1) > a.nav-link"
+    operation_type_box = "//label[contains(text(),'Operation Type')]/../following-sibling::td/div"
+    component_location_box = "//label[contains(text(),'Components Location')]/../following-sibling::td/div"
+    finished_product_location_box = "//label[contains(text(),'Finished Products Location')]/../" \
+                                    "following-sibling::td/div"
+    operation_type_options = "//ul[contains(@id,'ui-id-')][6]//li//a"
+    component_location_options = "//ul[contains(@id,'ui-id-')][7]//li//a"
+    finished_product_location_options = "//ul[contains(@id,'ui-id-')][8]//li//a"
