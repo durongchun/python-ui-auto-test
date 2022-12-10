@@ -2,7 +2,6 @@ import os
 import unittest
 import paramunittest
 from numpy.testing._private.parameterized import parameterized
-from selenium import webdriver
 from browser_common import BrowserCommon
 from erp_data import ErpData
 from erp_create_products_page import ErpCreateProductPage

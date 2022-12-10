@@ -6,11 +6,10 @@ from browser_common import BrowserCommon
 from erp_data import ErpData
 from erp_create_products_page import ErpCreateProductPage
 from erp_transfer_page import ErpTransferPage
-from page_common import PageCommon
 from util.config_reader import ConfigReader
 from util.log_tool import start_info, end_info, log
 from util.screenshot_tool import ScreenshotTool
-from decimal import Decimal
+
 
 
 # 参数化构建参数

@@ -1,4 +1,3 @@
-import time
 import unittest
 import paramunittest
 from base.assembler import Assembler
