@@ -2,6 +2,8 @@ import time
 
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions
+
 from common.page_common import PageCommon
 from erp_locator import ErpLocator
 from erp_transfer_page import ErpTransferPage
@@ -108,10 +110,26 @@ class ErpMakeOrdersPage(PageCommon):
                 break
         ErpTransferPage.search_location(finished_products_location)
 
-    def add_component(self, component1, consume1):
-        product = component1.split("(")[0]
-        sub_pro = component1.split("(")[1]
-        category = sub_pro.replace("(,)", "")
-        ErpTransferPage.select_product(product)
-        self.input("xpath", ErpLocator.transfer_demand_box, consume1)
+    @staticmethod
+    def add_component(component1, component2, component3, consume1, consume2, consume3):
+        prods = (component1, component2, component3)
+        consumes = (consume1, consume2, consume3)
+        nums = (0, 1, 2)
+        for num in nums:
+            if prods[num] == "NULL":
+                break
+            ErpTransferPage.click_add_line()
+            ErpTransferPage.select_product(prods[num])
+            ErpTransferPage.add_demand_quantity(consumes[num])
+            time.sleep(1)
 
+    def save_process(self):
+        ErpTransferPage.click_save_button(self)
+        log().info("Click the 'Make as to do' button")
+        self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.make_as_done))
+        self.find_element(By.CSS_SELECTOR, ErpLocator.make_as_done).click()
+        time.sleep(1)
+        log().info("Click the 'Apply' button")
+        self.wait_element(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ErpLocator.apply)))
+        self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.apply))
+        self.find_element(By.CSS_SELECTOR, ErpLocator.apply).click()

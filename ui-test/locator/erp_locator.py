@@ -151,3 +151,5 @@ class ErpLocator:
     operation_type_options = "//ul[contains(@id,'ui-id-')][6]//li//a"
     component_location_options = "//ul[contains(@id,'ui-id-')][7]//li//a"
     finished_product_location_options = "//ul[contains(@id,'ui-id-')][8]//li//a"
+    confirm_button = "div.o_statusbar_buttons > button.btn.btn-primary:nth-child(5)"
+    make_as_done = "div.o_statusbar_buttons > button.btn.btn-primary:nth-child(3)"

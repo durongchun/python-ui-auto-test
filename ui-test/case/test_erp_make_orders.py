@@ -6,7 +6,6 @@ from browser_common import BrowserCommon
 from erp_data import ErpData
 from erp_create_products_page import ErpCreateProductPage
 from erp_manufacturing_orders_page import ErpMakeOrdersPage
-from erp_transfer_page import ErpTransferPage
 from util.config_reader import ConfigReader
 from util.log_tool import start_info, end_info, log
 from util.screenshot_tool import ScreenshotTool
@@ -46,7 +45,8 @@ class TestMakeOrders(unittest.TestCase):
 
     # 第一个测试点
     @parameterized.expand(ErpData.test_make_orders_data)
-    def test_make_orders(self, description, product, quantity, unit, components1, components2, components3,
+    def test_make_orders(self, description, product, quantity, unit, operation_type, component_location,
+                         finished_products_location, components1, components2, components3,
                          consume1, consume2, consume3, uom):
         # log 信息
         log().info(f"ERP Sample Out, Environment: " + self.env + " Language: " + self.lan)
@@ -61,8 +61,12 @@ class TestMakeOrders(unittest.TestCase):
         m_order.select_product(product)
         m_order.input_quantity(quantity)
         m_order.select_unit(unit)
-        tran_page = ErpTransferPage(self.driver)
-        tran_page.click_add_line()
+        m_order.click_component_tab()
+        m_order.select_operation_type(operation_type)
+        m_order.select_component_location(component_location)
+        m_order.select_finished_products_location(finished_products_location)
+        m_order.add_component(components1, components2, components3, consume1, consume2, consume3)
+        m_order.save_process()
 
 
 if __name__ == "__main__":
