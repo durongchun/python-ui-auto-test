@@ -1,6 +1,7 @@
 import time
 import unittest
 
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from page.baidu_main_page import BaiduMainPage
 from page.baidu_result_page import BaiduResultPage
@@ -45,4 +46,12 @@ class TestBaiduCase(unittest.TestCase):
 # 当前用例程序入口
 if __name__ == "__main__":
     # 使用 unittest 依次执行当前模块中 test 打头的方法
-    unittest.main()
+    # unittest.main()
+    suite = unittest.TestSuite()
+    suite.addTest(TestBaiduCase(test_1))
+    suite.addTest(TestBaiduCase(test_1))
+    fp = open('C:\\Users\\LucyDu\\Desktop\\Lucy\\testresult.html', 'wb')
+    runner = HTMLTestRunner.HTMLTestRunner(stream=fp, title='测试报告的标题:', description='测试报告的描述:')
+    runner.run(suite)
+    fp.close()
+
