@@ -69,7 +69,7 @@ class ErpLocator:
     vintage_values = "//tr[@class='o_data_row']//span[contains(text(), 'Vintage')]"
     vintage_update_quantity = ".btn.btn-secondary:nth-child(2) > span:nth-child(1)"
     vintage_qty_on_hand = "//span[contains(text(), '{}')]/../../../../" \
-                          "following-sibling::td[@name='qlablety_avai']"
+                          "following-sibling::td[@name='qty_available']"
     vintage_category_qty_on_hand = "//span[contains(text(), '2022')]/../../following-sibling::div//span[contains(" \
                                    "text(), 'Chardonnay')]/../../../../following-sibling::td[@name='qty_available']"
     product_item = "div.oe_kanban_card.oe_kanban_global_click.o_kanban_record:nth-child(1) > div.oe_kanban_details"
