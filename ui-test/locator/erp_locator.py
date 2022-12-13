@@ -69,7 +69,9 @@ class ErpLocator:
     vintage_values = "//tr[@class='o_data_row']//span[contains(text(), 'Vintage')]"
     vintage_update_quantity = ".btn.btn-secondary:nth-child(2) > span:nth-child(1)"
     vintage_qty_on_hand = "//span[contains(text(), '{}')]/../../../../" \
-                          "following-sibling::td[@name='qty_available']"
+                          "following-sibling::td[@name='qlablety_avai']"
+    vintage_category_qty_on_hand = "//span[contains(text(), '2022')]/../../following-sibling::div//span[contains(" \
+                                   "text(), 'Chardonnay')]/../../../../following-sibling::td[@name='qty_available']"
     product_item = "div.oe_kanban_card.oe_kanban_global_click.o_kanban_record:nth-child(1) > div.oe_kanban_details"
 
     # -------------------------transfer pages ------------------------------------
@@ -136,13 +138,14 @@ class ErpLocator:
     orders = ".o-dropdown--no-caret:nth-child(4) button.dropdown-toggle > span:nth-child(1)"
     make_orders_option = "//a[contains(text(),'Make Orders')]"
     product_box = "//label[(text()= 'Product') and contains(@class, 'required_modifier')]/../following-sibling::td/div"
-    product_options = "//ul[contains(@id, 'ui-id-')][1]"
+    product_options = "//ul[contains(@id, 'ui-id-')][1]//li/a"
     quantity_input = "//label[(text()= 'Quantity')]/../following-sibling::td/div/input[@name='product_qty']"
+    quantity_input2 = "product_qty"
     quantity_uom = "//label[(text()= 'Quantity')]/../following-sibling::td//div[@name='product_uom_id']//input"
     quantity_uom_options = "//ul[contains(@id, 'ui-id-')][2]//li/a"
     product_vintage_category_search_results = "//span[contains(text(), '{}')]/../../following-sibling::div//" \
                                               "span[contains(text(), '{}')]/../../.."
-    miscellaneous_tab = "ul.nav.nav-tabs li.nav-item:nth-child(4) > a.nav-link.active"
+    miscellaneous_tab = "div.o_notebook div.o_notebook_headers ul.nav.nav-tabs li.nav-item:nth-child(4) > a.nav-link"
     component_tab = "ul.nav.nav-tabs li.nav-item:nth-child(1) > a.nav-link"
     operation_type_box = "//label[contains(text(),'Operation Type')]/../following-sibling::td/div"
     component_location_box = "//label[contains(text(),'Components Location')]/../following-sibling::td/div"
@@ -153,3 +156,9 @@ class ErpLocator:
     finished_product_location_options = "//ul[contains(@id,'ui-id-')][8]//li//a"
     confirm_button = "div.o_statusbar_buttons > button.btn.btn-primary:nth-child(5)"
     make_as_done = "div.o_statusbar_buttons > button.btn.btn-primary:nth-child(3)"
+    orders_add_line = "//td[@colspan='7']//a[contains(text(), 'Add a line')]"
+    orders_product_box = ".o_list_many2one.o_required_modifier:nth-child(1) div.o_field_widget.o_field_many2one." \
+                         "o_quick_editable.o_required_modifier div.o_field_many2one_selection div.o_input_dropdown >" \
+                         " input.o_input.ui-autocomplete-input"
+    orders_product_box_options = "//ul[contains(@class, 'dropdown-menu ui-front') ][9]//li//a"
+

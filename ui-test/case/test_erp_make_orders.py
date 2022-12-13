@@ -6,6 +6,7 @@ from browser_common import BrowserCommon
 from erp_data import ErpData
 from erp_create_products_page import ErpCreateProductPage
 from erp_manufacturing_orders_page import ErpMakeOrdersPage
+from erp_transfer_page import ErpTransferPage
 from util.config_reader import ConfigReader
 from util.log_tool import start_info, end_info, log
 from util.screenshot_tool import ScreenshotTool
@@ -49,24 +50,52 @@ class TestMakeOrders(unittest.TestCase):
                          finished_products_location, components1, components2, components3,
                          consume1, consume2, consume3, uom):
         # log 信息
-        log().info(f"ERP Sample Out, Environment: " + self.env + " Language: " + self.lan)
+        log().info(f"ERP Make Orders, Environment: " + self.env + " Language: " + self.lan)
         erp = ErpCreateProductPage(self.driver)
         m_order = ErpMakeOrdersPage(self.driver)
+        tran_page = ErpTransferPage(self.driver)
         log().info("Go ERP")
         BrowserCommon.jump_to(self, ErpData.url)
         erp.login(ErpData.user_name, ErpData.pass_word)
         erp.go_inventory()
+        # get product original qty
+        origin_qty1 = tran_page.check_product_quantity(m_order.get_product_name(components1),
+                                                       m_order.get_category(components1))
+        origin_qty2 = tran_page.check_product_quantity(m_order.get_product_name(components2),
+                                                       m_order.get_category(components2))
+        origin_product_qty = m_order.check_product_quantity_vintage_category(
+            m_order.get_product_name(product), m_order.get_vintage(product), m_order.get_category_bulk_wine(product))
+        log().info("Original quantity of " + components1 + " is: " + origin_qty1)
+        log().info("Original quantity of " + components2 + " is: " + origin_qty2)
+        log().info("Original quantity of " + product + " is: " + origin_product_qty)
         m_order.go_manufacturing_orders()
         m_order.click_create_button()
         m_order.select_product(product)
-        m_order.input_quantity(quantity)
         m_order.select_unit(unit)
-        m_order.click_component_tab()
+        m_order.input_quantity(quantity)
+        m_order.click_miscellaneous_tab()
         m_order.select_operation_type(operation_type)
         m_order.select_component_location(component_location)
         m_order.select_finished_products_location(finished_products_location)
+        m_order.click_component_tab()
         m_order.add_component(components1, components2, components3, consume1, consume2, consume3)
         m_order.save_process()
+        # get product current qty
+        current_qty1 = tran_page.check_product_quantity(m_order.get_product_name(components1),
+                                                        m_order.get_category(components1))
+        current_qty2 = tran_page.check_product_quantity(m_order.get_product_name(components2),
+                                                        m_order.get_category(components2))
+        current_product_qty = m_order.check_product_quantity_vintage_category(
+            m_order.get_product_name(product), m_order.get_vintage(product), m_order.get_category_bulk_wine(product))
+        log().info("Current quantity of " + components1 + " is: " + current_qty1)
+        log().info("Current quantity of " + components2 + " is: " + current_qty2)
+        log().info("Current quantity of " + product + " is: " + current_product_qty)
+        self.assertEqual(tran_page.compare_to_qty_stock_out(origin_qty1, current_qty1, consume1), True,
+                         "Transfer with delivery orders: " + components1 + "successfully")
+        self.assertEqual(tran_page.compare_to_qty_stock_out(origin_qty2, current_qty2, consume2), True,
+                         "Transfer with delivery orders: " + components2 + "successfully")
+        self.assertEqual(tran_page.compare_to_qty_stock_in(origin_qty2, current_qty2, consume2), True,
+                         "Transfer with delivery orders: " + components2 + "successfully")
 
 
 if __name__ == "__main__":

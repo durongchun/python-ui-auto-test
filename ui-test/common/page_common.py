@@ -104,6 +104,7 @@ class PageCommon(BrowserCommon):
         elif type == "partial_link_text":
             self.driver.find_element(By.PARTIAL_LINK_TEXT, value).clear()
             self.driver.find_element(By.PARTIAL_LINK_TEXT, value).send_keys(inputvalue)
+        self.driver.implicitly_wait(1)
 
     # 鼠标事件方法一
     def click(self, type, value):
@@ -238,6 +239,9 @@ class PageCommon(BrowserCommon):
         elif type == "link_text":
             ele = self.driver.find_element(By.LINK_TEXT, value)
             ActionChains(self.driver).move_to_element(ele).click(ele).perform()
+        elif type == "css_selector":
+            ele = self.driver.find_element(By.CSS_SELECTOR, value)
+            ActionChains(self.driver).move_to_element(ele).click(ele).perform()
 
     # 校验按钮是否为选中状态
     def is_selected(self, type, value):
@@ -351,6 +355,7 @@ class PageCommon(BrowserCommon):
     def highlight(self, element):
         """Highlights a Selenium webdriver element"""
         self.driver = element._parent
+
         def apply_style(s):
             self.driver.execute_script("arguments[0].setAttribute('style', arguments[1])", element, s)
 
