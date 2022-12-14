@@ -1,10 +1,3 @@
-import os
-import sys
-current_directory = os.path.dirname(os.path.abspath(__file__))
-parent_path = os.path.abspath(os.path.dirname(current_directory) + os.path.sep + ".")
-root_path = os.path.dirname(parent_path)
-sys.path.append(root_path)
-print("path" + sys.path)
 import unittest
 import paramunittest
 from numpy.testing._private.parameterized import parameterized
