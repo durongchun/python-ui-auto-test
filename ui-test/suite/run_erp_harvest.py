@@ -1,4 +1,9 @@
 import os
+import sys
+current_directory = os.path.dirname(os.path.abspath(__file__))
+parent_path = os.path.abspath(os.path.dirname(current_directory) + os.path.sep + ".")
+root_path = os.path.dirname(parent_path)
+sys.path.append(root_path)
 import unittest
 
 import test_erp_harvest
