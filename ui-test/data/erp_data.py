@@ -42,7 +42,7 @@ class ErpData:
     test_make_orders_data = PageCommon.test_convert_data(
         ExcelReader.get_test_make_orders_xls(PageCommon.get_data_path()))
 
-    url = "https://demo.farmhere.ca/web#cids=1"
+    url = "https://dev.mtboucherie.com/web#cids=1"
     user_name = "lucy.du@holinova.com"
     pass_word = "durongchun123~"
     product_url = "https://dev.mtboucherie.com/web#menu_id=243&action=390&model=product.template&view_type=kanban"
