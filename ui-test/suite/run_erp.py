@@ -1,9 +1,12 @@
 import os
 import unittest
 
+import test_erp_add_warehouse_location
 import test_erp_harvest
+import test_erp_make_orders
 import test_erp_sample_in
 import test_erp_sample_out
+import test_erp_search_product
 import test_erp_transfer
 import test_erp_add_products
 from util.config_reader import ConfigReader
@@ -28,6 +31,9 @@ if __name__ == "__main__":
     suites.addTests(loader.loadTestsFromModule(test_erp_sample_out))
     suites.addTests(loader.loadTestsFromModule(test_erp_sample_in))
     suites.addTests(loader.loadTestsFromModule(test_erp_harvest))
+    suites.addTests(loader.loadTestsFromModule(test_erp_add_warehouse_location))
+    suites.addTests(loader.loadTestsFromModule(test_erp_make_orders))
+    suites.addTests(loader.loadTestsFromModule(test_erp_search_product))
 
     # 报告生成器，运行用例并生成报告，对 BeautifulReport 套了一层外壳
     ReportTool(suites).run(filename=report_name, description='demo', report_dir=report_path, theme="theme_cyan")
