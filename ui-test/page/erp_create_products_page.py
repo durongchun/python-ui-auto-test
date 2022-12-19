@@ -34,6 +34,7 @@ class ErpCreateProductPage(PageCommon):
         self.highlight(self.driver.find_element(By.XPATH, ErpLocator.login_btn))
         self.double_click(self.driver.find_element(By.XPATH, ErpLocator.login_btn))
         self.page_has_loaded()
+        time.sleep(1)
 
     def go_product(self):
         log().info("Go the product page")
@@ -93,10 +94,10 @@ class ErpCreateProductPage(PageCommon):
         self.highlight(self.driver.find_element(By.XPATH, ErpLocator.counted_qty))
         self.driver.find_element(By.XPATH, ErpLocator.counted_qty).send_keys(quantity1)
         self.driver.find_element(By.XPATH, ErpLocator.counted_qty).send_keys(Keys.ENTER)
-        time.sleep(1)
+        time.sleep(2)
         # self.driver.find_element(By.XPATH, ErpLocator.save_record_button).click()
-        self.highlight(self.driver.find_element(By.XPATH, ErpLocator.apply_button))
         self.wait_element(expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.apply_button)))
+        self.highlight(self.driver.find_element(By.XPATH, ErpLocator.apply_button))
         self.driver.find_element(By.XPATH, ErpLocator.apply_button).click()
         time.sleep(3)
         self.page_has_loaded()
@@ -161,6 +162,7 @@ class ErpCreateProductPage(PageCommon):
 
     def go_variants(self):
         log().info("Go Variants page")
+        self.wait_element(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ErpLocator.variants)))
         self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.variants))
         self.wait_element(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, ErpLocator.variants)))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.variants).click()
@@ -169,6 +171,7 @@ class ErpCreateProductPage(PageCommon):
 
     def add_attributes(self, vintage1, vintage2, vintage3, vintage4, vintage5, vintage6, vintage7):
         log().info("Click the 'Attributes & Variants'")
+        self.wait_element(expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.attributes_Variants)))
         self.highlight(self.driver.find_element(By.XPATH, ErpLocator.attributes_Variants))
         self.driver.find_element(By.XPATH, ErpLocator.attributes_Variants).click()
         time.sleep(2)
@@ -178,9 +181,9 @@ class ErpCreateProductPage(PageCommon):
         time.sleep(2)
         self.select_attribute("Vintage")
         self.select_vintage_value(vintage1, vintage2, vintage3, vintage4, vintage5, vintage6, vintage7)
-        self.highlight(self.driver.find_element(By.XPATH, ErpLocator.save_button))
-        self.wait_element(expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.save_button)))
-        self.driver.find_element(By.XPATH, ErpLocator.save_button).click()
+        self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.save_button))
+        self.wait_element(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ErpLocator.save_button)))
+        self.driver.find_element(By.CSS_SELECTOR, ErpLocator.save_button).click()
         time.sleep(4)
 
     def clear_products(self, product_name, products_by_xpath):
@@ -253,6 +256,8 @@ class ErpCreateProductPage(PageCommon):
         time.sleep(1)
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box).send_keys(Keys.ENTER)
         time.sleep(1)
+        self.wait_element(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ErpLocator.
+                                                                           location_search_result)))
         self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_result))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_result).click()
         time.sleep(2)
