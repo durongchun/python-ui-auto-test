@@ -2,6 +2,8 @@ import os
 import unittest
 import paramunittest
 from numpy.testing._private.parameterized import parameterized
+
+from assembler import Assembler
 from browser_common import BrowserCommon
 from erp_data import ErpData
 from erp_create_products_page import ErpCreateProductPage
@@ -30,15 +32,20 @@ class TestTransfer(unittest.TestCase):
 
     # @BeforeTest
     def setUp(self):
-        print("Test Starts")
-        # 开启一个Firefox驱动
-        self.driver = PageCommon.get_chrome_driver()
+        # 开始的 log 信息
+        start_info()
+        # 装配器初始化
+        self.assembler = Assembler()
+        # 提取驱动
+        self.driver = self.assembler.get_driver()
 
-    # @AfterTest
+        # @AfterTest
+
     def tearDown(self):
-        print("Test Ends")
-        # 驱动退出
-        self.driver.quit()
+        # 结束的 log 信息
+        end_info()
+        # 装配器卸载
+        self.assembler.disassemble_all()
 
     # 第一个测试点
     @parameterized.expand(ErpData.test_sample_in_data)

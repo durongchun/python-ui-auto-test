@@ -59,11 +59,11 @@ class TestTransfer(unittest.TestCase):
         erp.search_products_by_product_name(product_name)
         self.assertTrue(ErpSearchProductPage.is_product_existing(self, product_name),
                         "Product is searched out successfully by: " + product_name)
-        erp.go_product()
+        erp.select_products_dropdown()
         erp.search_products_by_product_name(product_id)
         self.assertTrue(ErpSearchProductPage.is_product_existing(self, product_name),
                         "Product is searched out successfully by: " + str(product_id))
-        erp.go_product()
+        erp.select_products_dropdown()
         erp.search_products_by_product_name(product_code)
         self.assertTrue(ErpSearchProductPage.is_product_existing(self, product_name),
                         "Product is searched out successfully by: " + str(product_code))
