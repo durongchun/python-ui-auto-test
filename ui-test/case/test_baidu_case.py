@@ -5,6 +5,7 @@ from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from page.baidu_main_page import BaiduMainPage
 from page.baidu_result_page import BaiduResultPage
+from page_common import PageCommon
 
 
 # 百度页流程用例测试
@@ -13,8 +14,7 @@ class TestBaiduCase(unittest.TestCase):
     def setUp(self):
         print("一个测试点开始")
         # 开启一个谷歌驱动
-        self.driver = webdriver.Chrome(
-            "D:\\pythonproject\\python-ui-auto-test\\ui-test\\resource\\driver\\chromedriver.exe")
+        self.driver = PageCommon.get_chrome_driver()
 
     # @AfterTest
     def tearDown(self):
@@ -54,4 +54,3 @@ if __name__ == "__main__":
     runner = HTMLTestRunner.HTMLTestRunner(stream=fp, title='测试报告的标题:', description='测试报告的描述:')
     runner.run(suite)
     fp.close()
-

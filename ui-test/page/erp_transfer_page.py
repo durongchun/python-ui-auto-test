@@ -217,6 +217,7 @@ class ErpTransferPage(PageCommon):
 
         self.click_save_button()
         log().info("Click the 'Make as to do' button")
+        self.wait_element(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, ErpLocator.make_as_to_do)))
         self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.make_as_to_do))
         self.find_element(By.CSS_SELECTOR, ErpLocator.make_as_to_do).click()
         time.sleep(1)
@@ -225,7 +226,7 @@ class ErpTransferPage(PageCommon):
         self.find_element(By.CSS_SELECTOR, ErpLocator.validate).click()
         time.sleep(1)
         log().info("Click the 'Apply' button")
-        self.wait_element(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ErpLocator.apply)))
+        self.wait_element(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, ErpLocator.apply)))
         self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.apply))
         self.find_element(By.CSS_SELECTOR, ErpLocator.apply).click()
 
