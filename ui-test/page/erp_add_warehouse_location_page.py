@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions
 
 from browser_common import BrowserCommon
 from common.page_common import PageCommon
+from config_reader import ConfigReader
 from erp_data import ErpData
 from erp_locator import ErpLocator
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
@@ -24,7 +25,7 @@ class ErpAddWarehouseLocationPage(PageCommon):
 
     def go_warehouses(self):
         log().info("Go 'Configuration' --> 'Warehouse'")
-        if self.is_dropdown_toggle_displayed():
+        if ConfigReader().read("project")["driver"].lower() == "h5":
             self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.dropdown_toggle))
             self.find_element(By.CSS_SELECTOR, ErpLocator.dropdown_toggle).click()
         else:
@@ -80,6 +81,7 @@ class ErpAddWarehouseLocationPage(PageCommon):
         log().info("Add location")
         self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.warehouse_create))
         self.find_element(By.CSS_SELECTOR, ErpLocator.warehouse_create).click()
+        self.wait_element(expected_conditions.element_to_be_clickable((By.NAME, ErpLocator.warehouse_name)))
         self.highlight(self.find_element(By.NAME, ErpLocator.warehouse_name))
         log().info("Input location name")
         self.input("name", ErpLocator.warehouse_name, location_name)

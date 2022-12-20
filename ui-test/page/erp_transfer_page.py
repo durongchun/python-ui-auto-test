@@ -157,6 +157,8 @@ class ErpTransferPage(PageCommon):
         self.search_location(deliver_address)
 
     def search_location(self, deliver_address):
+        self.wait_element(expected_conditions.presence_of_element_located((By.CSS_SELECTOR,
+                                                                           ErpLocator.location_search_box)))
         self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box).send_keys(deliver_address)
         time.sleep(1)
@@ -266,6 +268,7 @@ class ErpTransferPage(PageCommon):
     def check_product_quantity(self, product, vintage):
         ErpCreateProductPage.select_products_dropdown(self)
         ErpCreateProductPage.search_products_by_product_name(self, product)
+        time.sleep(2)
         self.wait_element(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, ErpLocator.product_item)))
         self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.product_item))
         self.click("css_selector", ErpLocator.product_item)
