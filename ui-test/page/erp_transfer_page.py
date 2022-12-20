@@ -224,6 +224,7 @@ class ErpTransferPage(PageCommon):
         self.find_element(By.CSS_SELECTOR, ErpLocator.make_as_to_do).click()
         time.sleep(1)
         log().info("Click the 'Validate' button")
+        self.wait_element(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, ErpLocator.validate)))
         self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.validate))
         self.find_element(By.CSS_SELECTOR, ErpLocator.validate).click()
         time.sleep(1)

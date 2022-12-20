@@ -37,6 +37,6 @@ if __name__ == "__main__":
     # 报告生成器，运行用例并生成报告，对 BeautifulReport 套了一层外壳
     ReportTool(suites).run(filename=report_name, description='demo', report_dir=report_path, theme="theme_cyan")
 
-    html_report = r'C:\Users\lucy\PycharmProjects\python-ui-auto-test\ui-test\report\html\UI测试报告.html'
+    html_report = r'C:\Users\lucy\PycharmProjects\python-ui-auto-test\ui-test\report\html\UI_Test_Report.html'
     # 这个要注意要带目录路径，如果直接附文件名，程序会找不到路径
     send_mail(html_report)

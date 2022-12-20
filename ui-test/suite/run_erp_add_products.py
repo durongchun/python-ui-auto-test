@@ -21,4 +21,5 @@ if __name__ == "__main__":
     suites.addTests(loader.loadTestsFromModule(test_erp_add_products))
 
     # 报告生成器，运行用例并生成报告，对 BeautifulReport 套了一层外壳
-    ReportTool(suites).run(filename=report_name, description='demo', report_dir=report_path, theme="theme_cyan")
+    ReportTool(suites).run(filename=report_name, description='Test_erp_add_products', report_dir=report_path,
+                           theme="theme_cyan")
