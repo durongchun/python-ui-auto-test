@@ -163,7 +163,7 @@ class ErpCreateProductPage(PageCommon):
 
     def go_variants(self):
         log().info("Go Variants page")
-        self.wait_element(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ErpLocator.variants)))
+        self.wait_element(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, ErpLocator.variants)))
         self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.variants))
         self.wait_element(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, ErpLocator.variants)))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.variants).click()
@@ -172,7 +172,7 @@ class ErpCreateProductPage(PageCommon):
 
     def add_attributes(self, vintage1, vintage2, vintage3, vintage4, vintage5, vintage6, vintage7):
         log().info("Click the 'Attributes & Variants'")
-        self.wait_element(expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.attributes_Variants)))
+        self.wait_element(expected_conditions.element_to_be_clickable((By.XPATH, ErpLocator.attributes_Variants)))
         self.highlight(self.driver.find_element(By.XPATH, ErpLocator.attributes_Variants))
         self.driver.find_element(By.XPATH, ErpLocator.attributes_Variants).click()
         time.sleep(2)
