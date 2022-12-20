@@ -67,7 +67,7 @@ class TestTransfer(unittest.TestCase):
         tran_page.select_delivery_address(contact)
         tran_page.select_operation_type_search(operation_type, ware_house)
         tran_page.select_source_location(source_location)
-        tran_page.select_products_and_transfer(product, "", str(demand), "")
+        tran_page.select_products_and_transfer(product_code, "", str(demand), "")
         # get product current qty
         current_destination_location_qty = tran_page.check_product_quantity_from_inventory_report(
             product_code, source_location)

@@ -164,8 +164,8 @@ class ErpTransferPage(PageCommon):
         time.sleep(1)
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box).send_keys(Keys.ENTER)
         time.sleep(2)
-        self.wait_element(expected_conditions.presence_of_element_located((By.CSS_SELECTOR,
-                                                                           ErpLocator.deliver_address_search_results)))
+        self.wait_element(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR,
+                                                                       ErpLocator.deliver_address_search_results)))
         self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.deliver_address_search_results))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.deliver_address_search_results).click()
         time.sleep(2)
@@ -285,7 +285,7 @@ class ErpTransferPage(PageCommon):
     def compare_to_qty_stock_in(origin_qty, current_qty, demand):
         ori_qty = origin_qty.strip().replace(',', '')
         cur_qty = current_qty.strip().replace(',', '')
-        if PageCommon.convert_to_decimal(cur_qty) == PageCommon.convert_to_decimal(ori_qty)\
+        if PageCommon.convert_to_decimal(cur_qty) == PageCommon.convert_to_decimal(ori_qty) \
                 + PageCommon.convert_to_decimal(demand):
             return True
         else:
@@ -295,7 +295,7 @@ class ErpTransferPage(PageCommon):
     def compare_to_qty_stock_out(origin_qty, current_qty, demand):
         ori_qty = origin_qty.strip().replace(',', '')
         cur_qty = current_qty.strip().replace(',', '')
-        if PageCommon.convert_to_decimal(ori_qty) == PageCommon.convert_to_decimal(cur_qty)\
+        if PageCommon.convert_to_decimal(ori_qty) == PageCommon.convert_to_decimal(cur_qty) \
                 + PageCommon.convert_to_decimal(demand):
             return True
         else:
