@@ -77,7 +77,8 @@ class TestWareHouse(unittest.TestCase):
         else:
             # directly update quantity if no vintage
             erp.update_quantity(warehouse_name, location_name, quantity1)
-            erp.back_product_page()
+            erp.go_product_page(prod_url)
+            # erp.back_product_page()
             # validate_quantity_on_hand
             self.assertEqual(erp.compare_to_quantity_on_hand(qty1), True,
                              "Updated quantity on hand is showing as expected: str(qty1)")

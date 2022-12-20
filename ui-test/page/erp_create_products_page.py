@@ -96,8 +96,8 @@ class ErpCreateProductPage(PageCommon):
         self.driver.find_element(By.XPATH, ErpLocator.counted_qty).send_keys(quantity1)
         self.driver.find_element(By.XPATH, ErpLocator.counted_qty).send_keys(Keys.ENTER)
         time.sleep(2)
-        # self.driver.find_element(By.XPATH, ErpLocator.save_record_button).click()
-        self.wait_element(expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.apply_button)))
+        self.driver.implicitly_wait(10)
+        self.wait_element(expected_conditions.element_to_be_clickable((By.XPATH, ErpLocator.apply_button)))
         self.highlight(self.driver.find_element(By.XPATH, ErpLocator.apply_button))
         self.driver.find_element(By.XPATH, ErpLocator.apply_button).click()
         time.sleep(3)
@@ -146,6 +146,7 @@ class ErpCreateProductPage(PageCommon):
     def validate_vintage_quantity(self, vintage, quantity):
         log().info("Validate the quantity of Vintage")
         self.driver.refresh()
+        self.driver.implicitly_wait(10)
         self.page_has_loaded()
         self.wait_element(expected_conditions.presence_of_element_located
                           ((By.XPATH, ErpLocator.vintage_qty_on_hand.format(vintage))))
@@ -157,26 +158,28 @@ class ErpCreateProductPage(PageCommon):
     def back_to_variants_page(self, url):
         log().info("Back to Variants page")
         BrowserCommon.jump_to(self, url)
+        print("Variants page: " + url)
         self.driver.refresh()
-        time.sleep(4)
+        self.driver.implicitly_wait(10)
         self.page_has_loaded()
 
     def go_variants(self):
         log().info("Go Variants page")
         self.wait_element(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, ErpLocator.variants)))
         self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.variants))
-        self.wait_element(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, ErpLocator.variants)))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.variants).click()
         time.sleep(2)
         self.page_has_loaded()
 
     def add_attributes(self, vintage1, vintage2, vintage3, vintage4, vintage5, vintage6, vintage7):
         log().info("Click the 'Attributes & Variants'")
+        self.driver.implicitly_wait(10)
         self.wait_element(expected_conditions.element_to_be_clickable((By.XPATH, ErpLocator.attributes_Variants)))
         self.highlight(self.driver.find_element(By.XPATH, ErpLocator.attributes_Variants))
         self.driver.find_element(By.XPATH, ErpLocator.attributes_Variants).click()
         time.sleep(2)
         log().info("Click the 'Add a line'")
+        self.wait_element(expected_conditions.element_to_be_clickable((By.XPATH, ErpLocator.add_line)))
         self.highlight(self.driver.find_element(By.XPATH, ErpLocator.add_line))
         self.driver.find_element(By.XPATH, ErpLocator.add_line).click()
         time.sleep(2)
@@ -253,7 +256,9 @@ class ErpCreateProductPage(PageCommon):
                 self.highlight(li)
                 li.click()
                 break
-        time.sleep(1)
+        self.driver.implicitly_wait(10)
+        self.wait_element(expected_conditions.presence_of_element_located((By.CSS_SELECTOR,
+                                                                           ErpLocator.location_search_box)))
         self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box).send_keys(location)
         time.sleep(1)
@@ -270,7 +275,9 @@ class ErpCreateProductPage(PageCommon):
         ele = self.driver.find_element(By.XPATH, ErpLocator.attribute_box)
         self.highlight(ele)
         ActionChains(self.driver).move_to_element(ele).click(ele).perform()
-        time.sleep(2)
+        self.driver.implicitly_wait(10)
+        self.wait_element(expected_conditions.presence_of_all_elements_located
+                          ((By.XPATH, ErpLocator.attribute_dropdown_options)))
         lis = self.driver.find_elements(By.XPATH, ErpLocator.attribute_dropdown_options)
         for li in lis:
             if vintage in li.text:
@@ -290,6 +297,7 @@ class ErpCreateProductPage(PageCommon):
         for li in lis:
             if "Search More..." in li.text:
                 print(li.text)
+                self.driver.implicitly_wait(10)
                 self.highlight(li)
                 li.click()
                 break
@@ -305,6 +313,8 @@ class ErpCreateProductPage(PageCommon):
                                      str(vintage5), str(vintage6), str(vintage7)):
                 check_boxes[index].click()
         time.sleep(1)
+        self.wait_element(expected_conditions.element_to_be_clickable(
+            self.driver.find_element(By.CSS_SELECTOR, ErpLocator.year_select_button)))
         self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.year_select_button))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.year_select_button).click()
 
@@ -325,14 +335,14 @@ class ErpCreateProductPage(PageCommon):
 
     def back_product_page(self):
         log().info("Back to the product page")
-        self.wait_element(expected_conditions.presence_of_element_located
+        self.wait_element(expected_conditions.element_to_be_clickable
                           ((By.CSS_SELECTOR, ErpLocator.product_breadcrumb)))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.product_breadcrumb).click()
-        time.sleep(2)
+        self.driver.implicitly_wait(10)
         self.page_has_loaded()
 
     def go_product_page(self, url):
         log().info("Go to the product page")
         self.jump_to(url)
-        time.sleep(1)
+        self.driver.implicitly_wait(10)
         self.page_has_loaded()
