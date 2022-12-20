@@ -56,6 +56,7 @@ class ErpCreateProductPage(PageCommon):
         actions = ActionChains(self.driver)
         self.highlight(self.driver.find_element(By.XPATH, ErpLocator.products))
         self.driver.find_element(By.XPATH, ErpLocator.products).click()
+        self.wait_element(expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.products_dropdown)))
         self.highlight(self.driver.find_element(By.XPATH, ErpLocator.products_dropdown))
         actions.move_to_element(self.driver.find_element(By.XPATH, ErpLocator.products_dropdown)). \
             click_and_hold().perform()

@@ -58,8 +58,8 @@ class TestTransfer(unittest.TestCase):
         # get product original qty
         origin_qty1 = tran_page.check_product_quantity(product1, vintage1)
         origin_qty2 = tran_page.check_product_quantity(product2, vintage2)
-        log().info("Original quantity of " + product1 + " is: " + origin_qty1)
-        log().info("Original quantity of " + product2 + " is: " + origin_qty2)
+        log().info("Original quantity of " + str(product1) + " is: " + origin_qty1)
+        log().info("Original quantity of " + str(product2) + " is: " + origin_qty2)
         # go transfer
         tran_page.go_transfer_page()
         tran_page.click_create_button()
@@ -71,12 +71,12 @@ class TestTransfer(unittest.TestCase):
         # get product current qty
         current_qty1 = tran_page.check_product_quantity(product1, vintage1)
         current_qty2 = tran_page.check_product_quantity(product2, vintage2)
-        log().info("Current quantity of " + product1 + " is: " + origin_qty1)
-        log().info("Current quantity of " + product2 + " is: " + origin_qty2)
+        log().info("Current quantity of " + str(product1) + " is: " + current_qty1)
+        log().info("Current quantity of " + str(product2) + " is: " + current_qty2)
         self.assertEqual(tran_page.compare_to_qty_stock_out(origin_qty1, current_qty1, demand1), True,
-                         "Transfer with delivery orders: " + product1 + "successfully")
+                         "Transfer with delivery orders: " + str(product1) + "successfully")
         self.assertEqual(tran_page.compare_to_qty_stock_out(origin_qty2, current_qty2, demand2), True,
-                         "Transfer with delivery orders: " + product2 + "successfully")
+                         "Transfer with delivery orders: " + str(product2) + "successfully")
 
     # 第二个测试点
     @parameterized.expand(ErpData.test_internal_transfer_data)
@@ -107,7 +107,7 @@ class TestTransfer(unittest.TestCase):
         tran_page.select_operation_type(operation_type)
         tran_page.select_source_location(source_location)
         tran_page.select_destination_location(destination_location)
-        tran_page.select_products_and_transfer(product, "", str(demand), "")
+        tran_page.select_products_and_transfer(product_code, "", str(demand), "")
         # get product current qty
         current_source_location_qty = tran_page.check_product_quantity_from_inventory_report(
             product_code, source_location)
@@ -148,7 +148,7 @@ class TestTransfer(unittest.TestCase):
         tran_page.select_delivery_address(contact)
         tran_page.select_operation_type(operation_type)
         tran_page.select_destination_location(destination_location)
-        tran_page.select_products_and_transfer(product, "", str(demand), "")
+        tran_page.select_products_and_transfer(product_code, "", str(demand), "")
         # get product current qty
         current_destination_location_qty = tran_page.check_product_quantity_from_inventory_report(
             product_code, destination_location)
@@ -182,7 +182,7 @@ class TestTransfer(unittest.TestCase):
         tran_page.select_delivery_address(contact)
         tran_page.select_operation_type_search(operation_type, ware_house)
         tran_page.select_destination_location(destination_location)
-        tran_page.select_products_and_transfer(product, "", str(demand), "")
+        tran_page.select_products_and_transfer(product_code, "", str(demand), "")
         # get product current qty
         current_destination_location_qty = tran_page.check_product_quantity_from_inventory_report(
             product_code, destination_location)

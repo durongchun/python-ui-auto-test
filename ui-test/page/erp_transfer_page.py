@@ -57,8 +57,12 @@ class ErpTransferPage(PageCommon):
 
     def select_source_location(self, source_location):
         log().info("Select the 'Source location'")
+        self.wait_element(expected_conditions.presence_of_element_located
+                          ((By.CSS_SELECTOR, ErpLocator.source_location)))
         self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.source_location))
-        self.click("css_selector", ErpLocator.source_location)
+        self.active_click(self.find_element(By.CSS_SELECTOR, ErpLocator.source_location))
+        # self.click("css_selector", ErpLocator.source_location)
+        time.sleep(2)
         lis = self.find_elements(By.XPATH, ErpLocator.source_location_dropdown_options)
         for li in lis:
             if "Search More..." == li.text:
@@ -83,6 +87,7 @@ class ErpTransferPage(PageCommon):
 
     def click_add_line(self):
         log().info("Click the 'Add a line'")
+        self.wait_element(expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.transfer_add_line)))
         self.highlight(self.find_element(By.XPATH, ErpLocator.transfer_add_line))
         self.find_element(By.XPATH, ErpLocator.transfer_add_line).click()
         time.sleep(2)
@@ -104,6 +109,7 @@ class ErpTransferPage(PageCommon):
 
     def select_product_vintage(self, product, vintage):
         log().info("Select products")
+        self.wait_element(expected_conditions.presence_of_element_located((By.XPATH, ErpLocator.transfer_product_box)))
         self.highlight(self.find_element(By.XPATH, ErpLocator.transfer_product_box))
         self.move_action("xpath", ErpLocator.transfer_product_box)
         time.sleep(2)
@@ -155,7 +161,9 @@ class ErpTransferPage(PageCommon):
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box).send_keys(deliver_address)
         time.sleep(1)
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.location_search_box).send_keys(Keys.ENTER)
-        time.sleep(1)
+        time.sleep(2)
+        self.wait_element(expected_conditions.presence_of_element_located((By.CSS_SELECTOR,
+                                                                           ErpLocator.deliver_address_search_results)))
         self.highlight(self.driver.find_element(By.CSS_SELECTOR, ErpLocator.deliver_address_search_results))
         self.driver.find_element(By.CSS_SELECTOR, ErpLocator.deliver_address_search_results).click()
         time.sleep(2)
@@ -257,6 +265,7 @@ class ErpTransferPage(PageCommon):
     def check_product_quantity(self, product, vintage):
         ErpCreateProductPage.select_products_dropdown(self)
         ErpCreateProductPage.search_products_by_product_name(self, product)
+        self.wait_element(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ErpLocator.product_item)))
         self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.product_item))
         self.click("css_selector", ErpLocator.product_item)
         ErpCreateProductPage.go_variants(self)
@@ -293,13 +302,17 @@ class ErpTransferPage(PageCommon):
         ErpCreateProductPage.search_products_by_product_name(self, product_code)
         self.highlight(self.find_element(By.CSS_SELECTOR, ErpLocator.top_category))
         self.find_element(By.CSS_SELECTOR, ErpLocator.top_category).click()
+        self.wait_element(expected_conditions.element_to_be_clickable
+                          ((By.XPATH, ErpLocator.location_category.format(location))))
         self.highlight(self.find_element(By.XPATH, ErpLocator.location_category.format(location)))
         self.find_element(By.XPATH, ErpLocator.location_category.format(location)).click()
+        self.highlight(self.find_element(By.XPATH, ErpLocator.available_quantity.format(location)))
         available_qty = self.find_element(By.XPATH, ErpLocator.available_quantity.format(location)).text
         return available_qty
 
     def go_inventory_report(self):
         log().info("Go Inventory Report page")
+        self.wait_element(expected_conditions.element_to_be_clickable((By.XPATH, ErpLocator.reporting)))
         self.highlight(self.find_element(By.XPATH, ErpLocator.reporting))
         self.find_element(By.XPATH, ErpLocator.reporting).click()
         self.highlight(self.find_element(By.XPATH, ErpLocator.inventory_report_option))
