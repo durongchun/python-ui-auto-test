@@ -27,7 +27,7 @@ class ErpMakeOrdersPage(PageCommon):
         self.highlight(self.find_element(By.XPATH, ErpLocator.create_button))
         self.find_element(By.XPATH, ErpLocator.create_button).click()
 
-    def select_product(self, product):
+    def select_product(self, product, category):
         self.highlight(self.find_element(By.XPATH, ErpLocator.product_box))
         self.find_element(By.XPATH, ErpLocator.product_box).click()
         lis = self.find_elements(By.XPATH, ErpLocator.product_options)
@@ -37,7 +37,7 @@ class ErpMakeOrdersPage(PageCommon):
                 li.click()
                 break
         time.sleep(1)
-        self.search_product_vintage_category(product)
+        ErpTransferPage.search_product_vintage(self, product, category)
 
     def search_product_vintage_category(self, product_name):
         log().info("Search product and add it to line")
@@ -199,5 +199,3 @@ class ErpMakeOrdersPage(PageCommon):
         category_sub = pro_sub.split(",")[1]
         category = category_sub.replace(")", "")
         return category
-
-

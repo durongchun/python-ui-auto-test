@@ -63,14 +63,14 @@ class TestMakeOrders(unittest.TestCase):
                                                        m_order.get_category(components1))
         origin_qty2 = tran_page.check_product_quantity(m_order.get_product_name(components2),
                                                        m_order.get_category(components2))
-        origin_product_qty = m_order.check_product_quantity_vintage_category(
-            m_order.get_product_name(product), m_order.get_vintage(product), m_order.get_category_bulk_wine(product))
+        origin_product_qty = tran_page.check_product_quantity(m_order.get_product_name(product),
+                                                              m_order.get_category(product))
         log().info("Original quantity of " + components1 + " is: " + origin_qty1)
         log().info("Original quantity of " + components2 + " is: " + origin_qty2)
         log().info("Original quantity of " + product + " is: " + origin_product_qty)
         m_order.go_manufacturing_orders()
         m_order.click_create_button()
-        m_order.select_product(product)
+        m_order.select_product(m_order.get_product_name(product), m_order.get_category(product))
         m_order.select_unit(unit)
         m_order.input_quantity(quantity)
         m_order.click_miscellaneous_tab()
@@ -85,8 +85,8 @@ class TestMakeOrders(unittest.TestCase):
                                                         m_order.get_category(components1))
         current_qty2 = tran_page.check_product_quantity(m_order.get_product_name(components2),
                                                         m_order.get_category(components2))
-        current_product_qty = m_order.check_product_quantity_vintage_category(
-            m_order.get_product_name(product), m_order.get_vintage(product), m_order.get_category_bulk_wine(product))
+        current_product_qty = tran_page.check_product_quantity(m_order.get_product_name(product),
+                                                               m_order.get_category(product))
         log().info("Current quantity of " + components1 + " is: " + current_qty1)
         log().info("Current quantity of " + components2 + " is: " + current_qty2)
         log().info("Current quantity of " + product + " is: " + current_product_qty)
