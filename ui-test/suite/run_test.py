@@ -28,15 +28,16 @@ def send_mail(report):
 
 if __name__ == "__main__":
     # 创建测试套
-    suites = unittest.TestSuite()
-    loader = unittest.TestLoader()
+    # suites = unittest.TestSuite()
+    # loader = unittest.TestLoader()
+    #
+    # # erp测试流程添加到测试套
+    # suites.addTests(loader.loadTestsFromModule(test_erp_sample_out))
+    #
+    # # 报告生成器，运行用例并生成报告，对 BeautifulReport 套了一层外壳
+    # ReportTool(suites).run(filename=report_name, description='demo', report_dir=report_path, theme="theme_cyan")
 
-    # erp测试流程添加到测试套
-    suites.addTests(loader.loadTestsFromModule(test_erp_sample_out))
-
-    # 报告生成器，运行用例并生成报告，对 BeautifulReport 套了一层外壳
-    ReportTool(suites).run(filename=report_name, description='demo', report_dir=report_path, theme="theme_cyan")
-
-    html_report = r'C:\Users\lucy\PycharmProjects\python-ui-auto-test\ui-test\report\html\UI_Test_Report.html'
+    html_report = "C:\\Users\\LucyDu\\PycharmProjects\\python-ui-auto-test\\ui-test" \
+                  "\\report\\html\\UI_Test_Report.html"
     # 这个要注意要带目录路径，如果直接附文件名，程序会找不到路径
     send_mail(html_report)
