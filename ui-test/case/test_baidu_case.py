@@ -7,7 +7,7 @@ from page.baidu_main_page import BaiduMainPage
 from page.baidu_result_page import BaiduResultPage
 from page_common import PageCommon
 
-
+# created by Lucy
 # 百度页流程用例测试
 class TestBaiduCase(unittest.TestCase):
     # @BeforeTest

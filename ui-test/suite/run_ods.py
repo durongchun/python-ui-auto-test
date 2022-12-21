@@ -20,7 +20,7 @@ if __name__ == "__main__":
     suites = unittest.TestSuite()
     loader = unittest.TestLoader()
 
-    # ods测试流程添加到测试套
+    # ods
     suites.addTests(loader.loadTestsFromModule(test_container_world))
     suites.addTests(loader.loadTestsFromModule(test_wine_direct))
     suites.addTests(loader.loadTestsFromModule(test_sync_data))

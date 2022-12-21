@@ -13,7 +13,7 @@ report_path = os.path.abspath(os.path.dirname(__file__))[
                   "python-ui-auto-test")] + "/ui-test" + ConfigReader().read("html")["htmlfile_path"]
 
 
-# 报告名字
+# Report name
 # report_name = ConfigReader().read("html")["htmlfile_name"]
 
 

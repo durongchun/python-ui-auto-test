@@ -4,6 +4,7 @@ import unittest
 from page.csdn_page import CsdnPage
 
 
+# created by Lucy
 # csdn 流程用例测试
 class TestCsdnCase(unittest.TestCase):
     # 放在各个测试方法中首行执行

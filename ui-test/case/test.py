@@ -7,7 +7,7 @@ import uuid
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 
-
+# created by Lucy
 class TestClass:
 
     @staticmethod

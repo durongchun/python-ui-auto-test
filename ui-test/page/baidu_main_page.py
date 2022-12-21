@@ -2,7 +2,7 @@ from common.page_common import PageCommon
 from data.baidu_main_data import BaiduMainData
 from locator.baidu_main_locator import BaiduMainLocator
 
-
+# created by Lucy
 # 百度首页页面类
 class BaiduMainPage(PageCommon):
     # 百度首页进入页面操作

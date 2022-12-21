@@ -1,4 +1,6 @@
-# 百度首页数据驱动
+
+
+# created by Lucy
 class WineDirectData:
     # Container World 首页网址
     url = "https://www.winedirect.com/"

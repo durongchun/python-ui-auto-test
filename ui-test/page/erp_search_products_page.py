@@ -3,7 +3,7 @@ from common.page_common import PageCommon
 from erp_locator import ErpLocator
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
-
+# created by Lucy
 # ERP页面类
 class ErpSearchProductPage(PageCommon):
     def __init__(self, driver=None):

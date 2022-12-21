@@ -55,7 +55,7 @@ class MysqlTool:
     def get_mysql_conn(self):
         return self.mysql_conn
 
-    # mysql 连接释放
+    # mysql release connection
     def release_mysql_conn(self):
         if self.mysql_conn is not None:
             self.mysql_conn.close()

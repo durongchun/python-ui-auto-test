@@ -23,7 +23,7 @@ def send_mail(report):
     subject = "自动化测试报告"
     contents = "自动化用例已执行完毕，详细报告请查看附件"
     yag.send('durongchun@hotmail.com', subject, contents, report)
-    print("邮件已经发送成功！")
+    print("Email send successfully！")
 
 
 if __name__ == "__main__":

@@ -10,6 +10,7 @@ from winedirect_locator import WineDirectLocator
 import pandas as pd
 
 
+# created by Lucy
 class WineDirectPage(PageCommon):
     # container world首页进入页面操作
     def __init__(self, driver=None):

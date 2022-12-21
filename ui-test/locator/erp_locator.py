@@ -1,3 +1,5 @@
+# created by Lucy
+
 # 百度结果页的元素定位
 class ErpLocator:
     # 首页的搜索 input 定位

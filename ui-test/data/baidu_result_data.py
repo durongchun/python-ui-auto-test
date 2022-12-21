@@ -1,2 +1,2 @@
-# 百度结果页数据驱动
+# created by Lucy
 # class BaiduResultData:

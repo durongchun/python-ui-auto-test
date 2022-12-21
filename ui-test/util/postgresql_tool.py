@@ -55,6 +55,7 @@ class PostgreSQLTool:
                 cursor.close()
                 print("PostgreSQL cursor is closed")
 
+
     # write_to_db_stock_quantity for Rust
     @staticmethod
     def write_to_db_stock_quantity_rust(conn, data_tuple):

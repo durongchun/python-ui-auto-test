@@ -17,7 +17,7 @@ from selenium import webdriver
 import driver
 from common.browser_common import BrowserCommon
 
-
+# created by Lucy
 # Page 项目无关页面类封装基本页面操作
 class PageCommon(BrowserCommon):
 

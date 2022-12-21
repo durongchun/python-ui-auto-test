@@ -15,7 +15,7 @@ import paramunittest
 
 from log_tool import log
 
-
+# created by Lucy
 # ERP页面类
 class ErpCreateProductPage(PageCommon):
     def __init__(self, driver=None):

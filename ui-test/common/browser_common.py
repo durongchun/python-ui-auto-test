@@ -4,6 +4,7 @@
 import time
 
 
+# created by Lucy
 # 浏览器类封装浏览器操作
 class BrowserCommon(object):
     # 初始化驱动相关
@@ -97,5 +98,3 @@ class BrowserCommon(object):
     def jump_to(self, url):
         self.driver.get(url)
         self.driver.implicitly_wait(10)
-
-

@@ -118,6 +118,7 @@ def end_info():
 def login_info():
     log().info(f"{dic['username']} Login Successfully")
 
+
 # 尝试（单独测试这里可以取消注释，之后这里请务必要注释掉！）
 # login_info()
 # start_info()

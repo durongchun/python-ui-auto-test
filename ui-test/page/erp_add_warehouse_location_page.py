@@ -17,7 +17,7 @@ import paramunittest
 from erp_transfer_page import ErpTransferPage
 from log_tool import log
 
-
+# created by Lucy
 # ERP页面类
 class ErpAddWarehouseLocationPage(PageCommon):
     def __init__(self, driver=None):

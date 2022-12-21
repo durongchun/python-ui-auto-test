@@ -14,7 +14,7 @@ from data.containerworld_data import ContainerWorldMainData
 from locator.containerworld_locator import ContainerWorldMainLocator
 from util.postgresql_tool import PostgreSQLTool
 
-
+# created by Lucy
 # container world首页页面类
 class ContainerWorldMainPage(PageCommon):
     # container world首页进入页面操作

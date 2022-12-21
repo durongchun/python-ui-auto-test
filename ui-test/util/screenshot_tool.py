@@ -65,5 +65,6 @@ class ScreenshotTool:
             # 递归：不断改变 img_name 后图片是否还能找到
             return self.get_img_name(img_name)
         # 若配置中既不是 Y/y 也不是 N/n 就抛出异常
+
         else:
             raise RuntimeError("config.ini中[img]的cover_allowed 字段配置错误，请检查！")

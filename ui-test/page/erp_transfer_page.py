@@ -9,7 +9,7 @@ import time
 from log_tool import log
 from page_common import PageCommon
 
-
+# created by Lucy
 # ERP页面类
 class ErpTransferPage(PageCommon):
     def __init__(self, driver=None):

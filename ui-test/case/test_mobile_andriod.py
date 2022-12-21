@@ -4,7 +4,7 @@ from time import sleep
 from appium import webdriver
 from selenium import webdriver
 
-
+# created by Lucy
 class MyTestCase(unittest.TestCase):
 
     def setUp(self):

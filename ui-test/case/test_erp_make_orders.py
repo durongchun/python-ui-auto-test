@@ -12,6 +12,7 @@ from util.log_tool import start_info, end_info, log
 from util.screenshot_tool import ScreenshotTool
 
 
+# created by Lucy
 # 参数化构建参数
 @paramunittest.parametrized(
     # 参数{语言，环境}

@@ -34,6 +34,7 @@ class MobileTool:
         driver.implicitly_wait(10)
         driver.get(url)
 
+
     @staticmethod
     def mobile_emulator():
         mobileEmulation = {'deviceName': 'iPhone 6'}

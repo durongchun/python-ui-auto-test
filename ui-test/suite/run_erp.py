@@ -16,12 +16,12 @@ from util.report_tool import ReportTool
 report_path = os.path.abspath(os.path.dirname(__file__))[
               :os.path.abspath(os.path.dirname(__file__)).find("python-ui-auto-test") + len(
                   "python-ui-auto-test")] + "/ui-test" + ConfigReader().read("html")["htmlfile_path"]
-# 报告名字
+# Report name
 report_name = ConfigReader().read("html")["htmlfile_name"]
 
 # 运行所有用例（单线程
 if __name__ == "__main__":
-    # 创建测试套
+    # create test suite
     suites = unittest.TestSuite()
     loader = unittest.TestLoader()
 

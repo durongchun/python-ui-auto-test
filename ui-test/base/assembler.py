@@ -13,7 +13,7 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.ie.options import Options as IeOptions
 from selenium.webdriver.firefox.options import Options
 
-
+# created by Lucy
 # 初始装配工具（一个线程分配一个驱动，一个 redis 连接，一个 mysql 连接）
 class Assembler:
     # 初始化所有工具

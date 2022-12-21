@@ -1,4 +1,4 @@
-# 百度首页数据驱动
+# created by Lucy
 class ContainerWorldMainData:
     # Container World 首页网址
     url = "https://www.containerworld.com/CWFS/WEB_PUBLIC/PUB_HOME"

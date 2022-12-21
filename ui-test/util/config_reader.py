@@ -8,7 +8,7 @@ import os
 
 # config 配置文件读取器
 class ConfigReader:
-    # 依据 [module] 来读取 config 文件
+    # according to [module] to read/get config
     def read(self, module):
         """
         读取 ini 配置文件

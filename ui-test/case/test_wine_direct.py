@@ -1,4 +1,3 @@
-
 import unittest
 import paramunittest
 from base.assembler import Assembler
@@ -9,6 +8,8 @@ from util.screenshot_tool import ScreenshotTool
 from data.winedirect_data import WineDirectData
 from winedirect_page import WineDirectPage
 
+
+# created by Lucy
 
 # 参数化构建参数
 @paramunittest.parametrized(
